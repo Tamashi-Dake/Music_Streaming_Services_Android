@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">AndroidMVVMBasics</string>
+    <string name="emptyemail">Email must input.</string>
+    <string name="emptypassword">Password must input.</string>
+    <string name="emailformat">Email must be name@domainname.</string>
+</resources>
