@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
         <variable
@@ -9,47 +10,42 @@
             type="huce.fit.mvvmpattern.viewmodels.LoginViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:isScrollContainer="true">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".View.MainActivity">
+            tools:context=".View.MainActivity"
+            android:background="@color/theme_color"
+            >
 
-            <TextView
-                android:id="@+id/lblTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:lineSpacingExtra="8sp"
-                android:text="Login Example Using MVVM, DataBinding with LiveData"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                android:textStyle="bold"
+            <ImageView
+                android:id="@+id/imgLogin"
+                android:layout_width="350dp"
+                android:layout_height="380dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/img_login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:gravity="center_horizontal" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/txtEmailAddress"
+                android:id="@+id/txtUsername"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
                 android:ems="10"
-                android:hint="E-Mail Address"
-                android:inputType="textEmailAddress"
+                android:hint="Username"
+                android:inputType="text"
                 android:text="@={loginViewModel.loginUser.username}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lblTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/imgLogin"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
 
             <EditText
                 android:id="@+id/txtPassword"
@@ -64,7 +60,9 @@
                 android:text="@={loginViewModel.loginUser.password}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtEmailAddress" />
+                app:layout_constraintTop_toBottomOf="@+id/txtUsername"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"/>
 
             <Button
                 android:id="@+id/btnLogin"
@@ -82,6 +80,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
 
 </layout>

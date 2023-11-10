@@ -41,20 +41,17 @@ public class MainActivity extends AppCompatActivity {
                     //xu ly dang nhap thanh cong
                     Toast.makeText(MainActivity.this, "Login success.", Toast.LENGTH_LONG).show();
                     break;
-                case Status.emptyEmail:
-                    //thong bao Toast message hoac hien thi loi Email trong
-                    binding.txtEmailAddress.setError(getString(R.string.emptyemail));
-                    binding.txtEmailAddress.requestFocus();
+                case Status.emptyUsername:
+                    //thong bao Toast message hoac hien thi loi Username trong
+                    binding.txtUsername.setError(getString(R.string.emptyUsername));
+                    binding.txtUsername.requestFocus();
                     break;
                 case Status.emptyPassWord:
                     //tuong tu cho password
                     binding.txtPassword.setError(getString(R.string.emptypassword));
                     binding.txtPassword.requestFocus();
                     break;
-                case Status.isEmail:
-                    binding.txtEmailAddress.setError(getString(R.string.emailformat));
-                    binding.txtEmailAddress.requestFocus();
-                    break;
+
 
             }
 

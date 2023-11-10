@@ -30,15 +30,12 @@ public class LoginViewModel extends ViewModel {
     private boolean validateData() {
         try {
             if (ValidatorUtil.emptyValue(loginUser.getUsername())) {
-                LoginStatus.setValue(Status.emptyEmail);
+                LoginStatus.setValue(Status.emptyUsername);
                 return false;
             } else if (ValidatorUtil.emptyValue(loginUser.getPassword())) {
                 LoginStatus.setValue(Status.emptyPassWord);
                 return false;
-            } else if (!ValidatorUtil.isEmail(loginUser.getUsername())) {
-                    LoginStatus.setValue(Status.isEmail);
-                    return false;
-                }
+            }
         } catch (Exception ex) {
             Log.e("Validate viewmodel",ex.getMessage());
         }
