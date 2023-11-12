@@ -29,8 +29,6 @@ public class LoginViewModel extends ViewModel {
 //               //call api login here
                 LoginStatus.setValue(Status.loginSuccess);
 
-//                messageIdToStartMain = "main";
-
             }
         } catch (Exception ex) {
             Log.e("Login viewmodel",ex.getMessage());

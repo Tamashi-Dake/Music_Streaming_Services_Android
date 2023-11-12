@@ -17,8 +17,6 @@
         android:background="@color/theme_color"
         tools:context=".View.MainActivity">
 
-
-
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
@@ -30,7 +28,19 @@
             android:textSize="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/menu_bottom_nav"
+            app:itemBackground="@color/menu_bg"
+            app:itemTextColor="@color/white"
+            app:itemIconTint="@drawable/bottom_nav_selector"
             />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
