@@ -3,14 +3,12 @@ package huce.fit.mvvmpattern.views;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import huce.fit.mvvmpattern.views.fragments.HomeFragment;
-import huce.fit.mvvmpattern.views.fragments.LibraryFragment;
-import huce.fit.mvvmpattern.views.fragments.ProfileFragment;
-import huce.fit.mvvmpattern.views.fragments.SearchFragment;
+import huce.fit.mvvmpattern.views.fragments.home.HomeFragment;
+import huce.fit.mvvmpattern.views.fragments.library.LibraryFragment;
+import huce.fit.mvvmpattern.views.fragments.profile.ProfileFragment;
+import huce.fit.mvvmpattern.views.fragments.search.SearchFragment;
 
 public class ViewPageAdapter extends FragmentStateAdapter {
 

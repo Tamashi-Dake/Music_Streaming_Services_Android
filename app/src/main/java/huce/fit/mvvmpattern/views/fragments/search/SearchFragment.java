@@ -1,4 +1,4 @@
-package huce.fit.mvvmpattern.views.fragments;
+package huce.fit.mvvmpattern.views.fragments.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,11 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import huce.fit.mvvmpattern.R;
 
-public class LibraryFragment extends Fragment {
+public class SearchFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.fragment_library,container,false);
+        View view  = inflater.inflate(R.layout.fragment_search,container,false);
         return view;
 //        return super.onCreateView(inflater, container, savedInstanceState);
     }

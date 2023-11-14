@@ -6,6 +6,7 @@
 - [ ] Music Player
 - [ ] Manage playlist, favorite, history
 - [ ] Search
+- [ ] Play music in background / notification / lock screen (maybe?)
 
 ## To do list:
 
@@ -17,4 +18,3 @@
 - [ ] Search
 - [ ] Library
 - [ ] Profile
-- [ ] Play music in background / notification / lock screen
