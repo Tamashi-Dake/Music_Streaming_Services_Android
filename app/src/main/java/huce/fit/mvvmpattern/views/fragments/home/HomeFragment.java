@@ -52,11 +52,19 @@ public class HomeFragment extends Fragment {
         listItem.add(new Item(R.drawable.img_1, "Item 5"));
         listItem.add(new Item(R.drawable.img_2, "Item 6"));
 
+        List listURL = new ArrayList<>();
+        listURL.add("https://i.pinimg.com/170x/47/df/7f/47df7f619a9b9ceba2f3d948e41fb450.jpg");
+        listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg");
+        listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg");
+        listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg");
 
-        sections.add(new Section("Section 1", listItem));
-        sections.add(new Section("Section 2", listItem));
-        sections.add(new Section("Section 3", listItem));
-        sections.add(new Section("Section 4", listItem));
+        sections.add(new Section("History", listItem));
+        sections.add(new Section("Big Hits", listURL ));
+//        sections.add(new Section("Popular", listItem));
+//        sections.add(new Section("Artist", listItem));
+//        sections.add(new Section("Continue your journey", listItem));
+//        sections.add(new Section("Have you try this?", listItem));
+
 
         return sections;
     }
