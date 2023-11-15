@@ -49,6 +49,9 @@ public class HomeFragment extends Fragment {
         listItem.add(new Item(R.drawable.img_2, "Item 2"));
         listItem.add(new Item(R.drawable.img_3, "Item 3"));
         listItem.add(new Item(R.drawable.img_4, "Item 4"));
+        listItem.add(new Item(R.drawable.img_1, "Item 5"));
+        listItem.add(new Item(R.drawable.img_2, "Item 6"));
+
 
         sections.add(new Section("Section 1", listItem));
         sections.add(new Section("Section 2", listItem));
