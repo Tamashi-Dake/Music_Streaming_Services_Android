@@ -1,4 +1,4 @@
-# Project Name: Androi Music Streaming Service
+# Project Name: Android Music Streaming Service
 
 ## Main Objective :
 

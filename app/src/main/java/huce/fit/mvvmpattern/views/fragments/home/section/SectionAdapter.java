@@ -13,24 +13,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.views.fragments.home.itemArtist.ArtistAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHitAdapter;
+import huce.fit.mvvmpattern.views.fragments.home.itemCategories.CategoriesAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
+import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
+import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomAdapter;
 
 public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_HISTORY = 0;
     private static final int TYPE_BIG_HIT = 1;
-    private static final int TYPE_POPULAR = 1;
-    private static final int TYPE_ARTIST = 1;
-    private static final int TYPE_CATEGORIES = 1;
-    private static final int TYPE_RANDOM = 1;
+    private static final int TYPE_POPULAR = 2;
+    private static final int TYPE_ARTIST = 3;
+    private static final int TYPE_CATEGORIES = 4;
+    private static final int TYPE_RANDOM = 5;
 
 
     private Context context;
     private List<Section> sections;
-
+    private Timer timer;
+    private TimerTask timerTask;
     public SectionAdapter(Context context) {
         this.context = context;
     }
@@ -54,6 +61,18 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case TYPE_BIG_HIT:
                 View viewBigHit = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_section, parent, false);
                 return new BigHitViewHolder(viewBigHit);
+            case TYPE_POPULAR:
+                View viewPopular = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_section, parent, false);
+                return new PopularViewHolder(viewPopular);
+            case TYPE_ARTIST:
+                View viewArtist = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_section, parent, false);
+                return new ArtistViewHolder(viewArtist);
+            case TYPE_CATEGORIES:
+                View viewCategories = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_section, parent, false);
+                return new CategoriesViewHolder(viewCategories);
+            case TYPE_RANDOM:
+                View viewRandom = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_section, parent, false);
+                return new RandomViewHolder(viewRandom);
             default:
                 return null;
         }
@@ -82,6 +101,39 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 bigHitAdapter.setItems(section.getItems());
                 bigHitViewHolder.rcvItem.setAdapter(bigHitAdapter);
                 break;
+            case TYPE_POPULAR:
+                PopularViewHolder popularViewHolder = (PopularViewHolder) holder;
+                popularViewHolder.sectionName.setText(section.getSectionName());
+                popularViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+                PopularAdapter popularAdapter = new PopularAdapter();
+                popularAdapter.setItems(section.getItems());
+                popularViewHolder.rcvItem.setAdapter(popularAdapter);
+                break;
+            case TYPE_ARTIST:
+                ArtistViewHolder artistViewHolder = (ArtistViewHolder) holder;
+                artistViewHolder.sectionName.setText(section.getSectionName());
+                artistViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+                ArtistAdapter artistAdapter = new ArtistAdapter();
+                artistAdapter.setItems(section.getItems());
+                artistViewHolder.rcvItem.setAdapter(artistAdapter);
+                break;
+            case TYPE_CATEGORIES:
+                CategoriesViewHolder categoriesViewHolder = (CategoriesViewHolder) holder;
+                categoriesViewHolder.sectionName.setText(section.getSectionName());
+                categoriesViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+                CategoriesAdapter categoriesAdapter = new CategoriesAdapter();
+                categoriesAdapter.setItems(section.getItems());
+                categoriesViewHolder.rcvItem.setAdapter(categoriesAdapter);
+                break;
+            case TYPE_RANDOM:
+                RandomViewHolder randomViewHolder = (RandomViewHolder) holder;
+                randomViewHolder.sectionName.setText(section.getSectionName());
+                randomViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+                RandomAdapter randomAdapter = new RandomAdapter();
+                randomAdapter.setItems(section.getItems());
+                randomViewHolder.rcvItem.setAdapter(randomAdapter);
+                break;
+
         }
     }
 
@@ -131,6 +183,62 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             sectionName = itemView.findViewById(R.id.tvSectionName);
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
 
+//            public void startAutoScroll() {
+//                if (timer != null && timerTask != null) {
+//                    timer.cancel();
+//                    timerTask.cancel();
+//                }
+//                // Tạo một TimerTask mới để chạy chuyển đổi tự động
+//                timerTask = new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        // Tăng vị trí hiện tại của RecyclerView
+//                        int currentPosition = rcvItem.getLayoutManager().getPosition(rcvItem.getChildAt(0));
+//                        int nextPosition = (currentPosition + 1) % getItemCount();
+//                        rcvItem.scrollToPosition(nextPosition);
+//                    }
+//                };
+//                // Khởi tạo Timer và lên lịch thực thi TimerTask
+//                timer = new Timer();
+//                timer.schedule(timerTask, 5000, 5000);
+//            }
+        }
+
+    }
+    public class PopularViewHolder extends RecyclerView.ViewHolder {
+        private TextView sectionName;
+        private RecyclerView rcvItem;
+        public PopularViewHolder(@NonNull View itemView) {
+            super(itemView);
+            sectionName = itemView.findViewById(R.id.tvSectionName);
+            rcvItem = itemView.findViewById(R.id.rcvSectionItem);
+        }
+    }
+    public class ArtistViewHolder extends RecyclerView.ViewHolder {
+        private TextView sectionName;
+        private RecyclerView rcvItem;
+        public ArtistViewHolder(@NonNull View itemView) {
+            super(itemView);
+            sectionName = itemView.findViewById(R.id.tvSectionName);
+            rcvItem = itemView.findViewById(R.id.rcvSectionItem);
+        }
+    }
+    public class CategoriesViewHolder extends RecyclerView.ViewHolder {
+        private TextView sectionName;
+        private RecyclerView rcvItem;
+        public CategoriesViewHolder(@NonNull View itemView) {
+            super(itemView);
+            sectionName = itemView.findViewById(R.id.tvSectionName);
+            rcvItem = itemView.findViewById(R.id.rcvSectionItem);
+        }
+    }
+    public class RandomViewHolder extends RecyclerView.ViewHolder {
+        private TextView sectionName;
+        private RecyclerView rcvItem;
+        public RandomViewHolder(@NonNull View itemView) {
+            super(itemView);
+            sectionName = itemView.findViewById(R.id.tvSectionName);
+            rcvItem = itemView.findViewById(R.id.rcvSectionItem);
         }
     }
 }

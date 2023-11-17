@@ -53,21 +53,20 @@
             android:layout_marginTop="84dp"
             android:layout_marginEnd="32dp"
             android:hint="Username"
+            android:textColorHint="@color/purple_200"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgLogin"
-            android:textColorHint="@color/purple_200"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/imgLogin">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtUsername"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:text="@={loginViewModel.loginUser.username}" />
+                android:text="@={loginViewModel.loginUser.username}"
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,8 +101,8 @@
             android:id="@+id/btnLogin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
             android:layout_marginStart="80dp"
+            android:layout_marginTop="22dp"
             android:layout_marginEnd="80dp"
             android:onClick="@{()-> loginViewModel.onclickLogin()}"
             android:padding="15dp"
@@ -133,8 +132,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_signup_white"
-            android:text="Join us"
             android:onClick="onclickSignup"
+            android:text="Join us"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

@@ -44,13 +44,13 @@ public class HomeFragment extends Fragment {
     private List<Section> getListSection() {
         List<Section> sections = new ArrayList<>();
 
-        List<Item> listItem = new ArrayList<>();
-        listItem.add(new Item(R.drawable.img_1, "Item 1"));
-        listItem.add(new Item(R.drawable.img_2, "Item 2"));
-        listItem.add(new Item(R.drawable.img_3, "Item 3"));
-        listItem.add(new Item(R.drawable.img_4, "Item 4"));
-        listItem.add(new Item(R.drawable.img_1, "Item 5"));
-        listItem.add(new Item(R.drawable.img_2, "Item 6"));
+        List<Item> history = new ArrayList<>();
+        history.add(new Item(R.drawable.img_1, "Item 1"));
+        history.add(new Item(R.drawable.img_2, "Item 2"));
+        history.add(new Item(R.drawable.img_3, "Item 3"));
+        history.add(new Item(R.drawable.img_4, "Item 4"));
+        history.add(new Item(R.drawable.img_1, "Item 5"));
+        history.add(new Item(R.drawable.img_2, "Item 6"));
 
         List listURL = new ArrayList<>();
         listURL.add("https://i.pinimg.com/170x/47/df/7f/47df7f619a9b9ceba2f3d948e41fb450.jpg");
@@ -58,12 +58,32 @@ public class HomeFragment extends Fragment {
         listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg");
         listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg");
 
-        sections.add(new Section("History", listItem));
+        List<Item> popular = new ArrayList<>();
+        popular.add(new Item(R.drawable.img_1, "Item 1"));
+        popular.add(new Item(R.drawable.img_2, "Item 2"));
+
+        List<Item> artists = new ArrayList<>();
+        artists.add(new Item(R.drawable.img_1, "Artist 1"));
+        artists.add(new Item(R.drawable.img_2, "Artist 2"));
+        artists.add(new Item(R.drawable.img_3, "Artist 3"));
+
+
+        List<Item> categories = new ArrayList<>();
+        categories.add(new Item(R.drawable.img_4, "Category 1"));
+        categories.add(new Item(R.drawable.img_2, "Category 2"));
+        categories.add(new Item(R.drawable.img_1, "Category 3"));
+
+        List<Item> random = new ArrayList<>();
+        random.add(new Item(R.drawable.img_1, "Random 1"));
+        random.add(new Item(R.drawable.img_3, "Random 1 2"));
+        random.add(new Item(R.drawable.img_2, "Random 1 3"));
+
+        sections.add(new Section("History", history));
         sections.add(new Section("Big Hits", listURL ));
-//        sections.add(new Section("Popular", listItem));
-//        sections.add(new Section("Artist", listItem));
-//        sections.add(new Section("Continue your journey", listItem));
-//        sections.add(new Section("Have you try this?", listItem));
+        sections.add(new Section("Popular", popular));
+        sections.add(new Section("Artist", artists));
+        sections.add(new Section("Continue your journey", categories));
+        sections.add(new Section("Have you try this?", random));
 
 
         return sections;
