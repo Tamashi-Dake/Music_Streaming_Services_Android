@@ -15,28 +15,28 @@ import java.util.List;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
 
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.ItemViewHolder>{
+public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>{
 
-private List<Item> items;
-public void setItems(List<Item> list){
+private List<Category> items;
+public void setItems(List<Category> list){
     this.items = list;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();
 }
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,parent,false);
-        return new ItemViewHolder(view);
+        return new CategoryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Item item = items.get(position);
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+        Category item = items.get(position);
         if (item == null) {
             return;
         }
-        holder.imageView.setImageResource(item.getResouceId());
+        holder.imageView.setImageResource(item.getResourceId());
         holder.tvTitle.setText(item.getTitle());
     }
     @Override
@@ -47,10 +47,10 @@ public void setItems(List<Item> list){
         return 0;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;
     private TextView tvTitle;
-    public ItemViewHolder(@NonNull View itemView) {
+    public CategoryViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imgCategory);
         tvTitle = itemView.findViewById(R.id.tvCategoryTitle);

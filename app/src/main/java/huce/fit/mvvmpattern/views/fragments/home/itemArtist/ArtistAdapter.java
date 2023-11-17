@@ -13,32 +13,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
-import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
-import huce.fit.mvvmpattern.views.fragments.home.section.SectionAdapter;
 
-public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ItemViewHolder>{
+public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder>{
 
-private List<Item> items;
-public void setItems(List<Item> list){
+private List<Artist> items;
+public void setItems(List<Artist> list){
     this.items = list;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();
 }
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ArtistViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_artist,parent,false);
-        return new ItemViewHolder(view);
+        return new ArtistViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Item item = items.get(position);
+    public void onBindViewHolder(@NonNull ArtistViewHolder holder, int position) {
+        Artist item = items.get(position);
         if (item == null) {
             return;
         }
-        holder.imageView.setImageResource(item.getResouceId());
-        holder.tvTitle.setText(item.getTitle());
+        holder.imageView.setImageResource(item.getResourceId());
+        holder.tvArtist.setText(item.getTitle());
     }
     @Override
     public int getItemCount() {
@@ -48,13 +46,13 @@ public void setItems(List<Item> list){
         return 0;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
+    public class ArtistViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;
-    private TextView tvTitle;
-    public ItemViewHolder(@NonNull View itemView) {
+    private TextView tvArtist;
+    public ArtistViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imgArtist);
-        tvTitle = itemView.findViewById(R.id.tvArtistTitle);
+        tvArtist = itemView.findViewById(R.id.tvArtistTitle);
     }
 }
 }

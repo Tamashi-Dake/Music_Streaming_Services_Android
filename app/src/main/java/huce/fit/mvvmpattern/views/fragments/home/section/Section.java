@@ -6,9 +6,9 @@ import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
 
 public class Section {
     private String sectionName;
-    private List<Item> items;
+    private List items;
 
-    public Section(String sectionName, List<Item> items) {
+    public Section(String sectionName, List items) {
         this.sectionName = sectionName;
         this.items = items;
     }
@@ -21,11 +21,11 @@ public class Section {
         this.sectionName = sectionName;
     }
 
-    public List<Item> getItems() {
+    public List getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List items) {
         this.items = items;
     }
 }

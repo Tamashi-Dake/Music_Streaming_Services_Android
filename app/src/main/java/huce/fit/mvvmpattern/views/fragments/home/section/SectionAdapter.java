@@ -17,12 +17,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.views.fragments.home.itemArtist.Artist;
 import huce.fit.mvvmpattern.views.fragments.home.itemArtist.ArtistAdapter;
+import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHit;
 import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHitAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemCategories.CategoriesAdapter;
+import huce.fit.mvvmpattern.views.fragments.home.itemCategories.Category;
+import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
+import huce.fit.mvvmpattern.views.fragments.home.itemPopular.Popular;
 import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomAdapter;
+import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
 
 public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -90,7 +96,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 historyViewHolder.sectionName.setText(section.getSectionName());
                 historyViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 ItemAdapter itemAdapter = new ItemAdapter();
-                itemAdapter.setItems(section.getItems());
+                itemAdapter.setItems((List<Item>) section.getItems());
                 historyViewHolder.rcvItem.setAdapter(itemAdapter);
                 break;
             case TYPE_BIG_HIT:
@@ -98,7 +104,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 bigHitViewHolder.sectionName.setText(section.getSectionName());
                 bigHitViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 BigHitAdapter bigHitAdapter = new BigHitAdapter(context,section.getItems());
-                bigHitAdapter.setItems(section.getItems());
+                bigHitAdapter.setItems((List<BigHit>) section.getItems());
                 bigHitViewHolder.rcvItem.setAdapter(bigHitAdapter);
                 break;
             case TYPE_POPULAR:
@@ -106,7 +112,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 popularViewHolder.sectionName.setText(section.getSectionName());
                 popularViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
                 PopularAdapter popularAdapter = new PopularAdapter();
-                popularAdapter.setItems(section.getItems());
+                popularAdapter.setItems((List<Popular>) section.getItems());
                 popularViewHolder.rcvItem.setAdapter(popularAdapter);
                 break;
             case TYPE_ARTIST:
@@ -114,7 +120,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 artistViewHolder.sectionName.setText(section.getSectionName());
                 artistViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 ArtistAdapter artistAdapter = new ArtistAdapter();
-                artistAdapter.setItems(section.getItems());
+                artistAdapter.setItems((List<Artist>) section.getItems());
                 artistViewHolder.rcvItem.setAdapter(artistAdapter);
                 break;
             case TYPE_CATEGORIES:
@@ -122,7 +128,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 categoriesViewHolder.sectionName.setText(section.getSectionName());
                 categoriesViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 CategoriesAdapter categoriesAdapter = new CategoriesAdapter();
-                categoriesAdapter.setItems(section.getItems());
+                categoriesAdapter.setItems((List<Category>) section.getItems());
                 categoriesViewHolder.rcvItem.setAdapter(categoriesAdapter);
                 break;
             case TYPE_RANDOM:
@@ -130,7 +136,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 randomViewHolder.sectionName.setText(section.getSectionName());
                 randomViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 RandomAdapter randomAdapter = new RandomAdapter();
-                randomAdapter.setItems(section.getItems());
+                randomAdapter.setItems((List<RandomTrack>) section.getItems());
                 randomViewHolder.rcvItem.setAdapter(randomAdapter);
                 break;
 

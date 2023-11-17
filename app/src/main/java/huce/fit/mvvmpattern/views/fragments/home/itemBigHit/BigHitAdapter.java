@@ -17,48 +17,55 @@ import java.util.List;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
 
-public class BigHitAdapter extends RecyclerView.Adapter<BigHitAdapter.ItemViewHolder>{
+public class BigHitAdapter extends RecyclerView.Adapter<BigHitAdapter.BigHitViewHolder> {
     private Context context;
 
-private List<Item> items;
+    private List<BigHit> items;
 
-public BigHitAdapter(Context context){
-    this.context = context;
-}
-public void setItems(List<Item> list){
-    this.items = list;
+    public BigHitAdapter(Context context) {
+        this.context = context;
+    }
+
+    public void setItems(List<BigHit> list) {
+        this.items = list;
 //    load và bind dữ liệu vào adapter
-    notifyDataSetChanged();
-}
-    public BigHitAdapter(Context context,List<Item> list){
+        notifyDataSetChanged();
+    }
+
+    public BigHitAdapter(Context context, List<BigHit> list) {
         this.context = context;
         this.items = list;
     }
+
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_big_hit,parent,false);
-        return new ItemViewHolder(view);
+    public BigHitViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_big_hit, parent, false);
+        return new BigHitViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull BigHitViewHolder holder, int position) {
+//    khai báo url để load ảnh dựa vào vị trí của item
         String url = String.valueOf(items.get(position % items.size()));
+//        load ảnh vào imageView qua Glide
         Glide.with(context).load(url).centerCrop().placeholder(R.drawable.ic_launcher_background).into(holder.imageView);
     }
+
     @Override
     public int getItemCount() {
-    if (items != null){
-        return Integer.MAX_VALUE;
-    }
+        if (items != null) {
+            return Integer.MAX_VALUE;
+        }
         return 0;
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
-    private ImageView imageView;
-    public ItemViewHolder(@NonNull View itemView) {
-        super(itemView);
-        imageView = itemView.findViewById(R.id.imgBigHit);
+    public class BigHitViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imageView;
+
+        public BigHitViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imgBigHit);
+        }
     }
-}
 }
