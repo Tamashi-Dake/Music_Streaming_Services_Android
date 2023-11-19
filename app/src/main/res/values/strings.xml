@@ -51,4 +51,7 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="song_name">Song 1</string>
+    <string name="title_activity_music_player">MusicPlayerActivity</string>
 </resources>

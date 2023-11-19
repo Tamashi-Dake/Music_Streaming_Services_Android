@@ -7,11 +7,13 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mini_player"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/theme_color"
+        android:background="@color/gray"
         android:orientation="horizontal"
-        android:paddingStart="10dp">
+        android:paddingStart="10dp"
+        >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgPopular"
@@ -22,7 +24,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/rounded_corner" />
+            app:shapeAppearanceOverlay="@style/circleImageView" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Popular Track"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 tools:layout_editor_absoluteX="71dp"
                 tools:layout_editor_absoluteY="10dp" />
@@ -48,18 +50,55 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Artist"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 app:layout_constraintTop_toBottomOf="@+id/tvPopularTitle"
                 tools:layout_editor_absoluteX="176dp" />
         </LinearLayout>
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iconMore"
-            android:layout_width="40dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_more_vert_24"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteY="13dp" />
+            >
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iconMore"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_heart_red"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="10dp"
+                />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iconPlayTrack"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_play"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="10dp"
+                android:visibility="visible"
+                />
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iconPauseTrack"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_pause"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="10dp"
+                android:visibility="gone"
+                />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iconNextTrack"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_skip_next"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="13dp"
+                android:layout_marginEnd="10dp"
+                />
+        </LinearLayout>
+
 
 
 

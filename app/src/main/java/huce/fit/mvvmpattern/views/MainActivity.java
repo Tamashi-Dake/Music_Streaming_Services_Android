@@ -1,7 +1,9 @@
 package huce.fit.mvvmpattern.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.databinding.ActivityMainBinding;
 import huce.fit.mvvmpattern.viewmodels.HomeViewModel;
+import huce.fit.mvvmpattern.views.fragments.nowPlaying.MediaPlayerFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +39,17 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNavigation);
 
         setViewPager();
+
+        View view = findViewById(R.id.mini_player);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MusicPlayerActivity.class);
+                startActivity(intent);
+//                vì lý do nào đó mà animation ko nhận đc
+//                overridePendingTransition(R.anim.slide_up, R.anim.slide_up_out);
+            }
+        });
 
 //        handle event when user select item on bottom navigation
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -65,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         //        set adapter for viewpager
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(this);
         viewPager.setAdapter(viewPageAdapter);
-
+        viewPager.setUserInputEnabled(false);
 //        set active bottom navigation when user swipe viewpager
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="theme_color">#38324A</color>
     <color name="menu_bg">#3e3f42</color>
+    <color name="gray">#E3E2E7</color>
 <!--    <color name="menu_bg">#dadee6</color>-->
 
 </resources>

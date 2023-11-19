@@ -65,6 +65,7 @@ public class HomeFragment extends Fragment {
         List<Popular> popular = new ArrayList<>();
         popular.add(new Popular(R.drawable.img_1, "Song 1", "Artist 1"));
         popular.add(new Popular(R.drawable.img_2, "Song 2", "Artist 2"));
+        popular.add(new Popular(R.drawable.img_4, "Song 3", "Artist 3"));
 
         List<Artist> artists = new ArrayList<>();
         artists.add(new Artist(R.drawable.img_1, "Artist 1"));
