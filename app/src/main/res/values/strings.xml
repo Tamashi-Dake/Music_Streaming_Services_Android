@@ -53,5 +53,6 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="song_name">Song 1</string>
+    <string name="artist_name">Artist 1</string>
     <string name="title_activity_music_player">MusicPlayerActivity</string>
 </resources>
