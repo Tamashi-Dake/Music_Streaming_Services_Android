@@ -1,9 +1,13 @@
 package huce.fit.mvvmpattern.views;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private HomeViewModel homeViewModel;
     private ActivityMainBinding binding;
     private ViewPager2 viewPager;
+    public ImageView playPause;
+    public MediaPlayer mediaPlayer;
+    private ImageView ivSongImage;
     private BottomNavigationView bottomNav;
 
     //    @Override
@@ -39,7 +46,39 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNavigation);
 
         setViewPager();
+        ivSongImage = findViewById(R.id.imgMiniImage);
+        playPause = findViewById(R.id.iconPlayPause);
+        playPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                    playPause.setImageResource(R.drawable.ic_play);
+                    stopAnimation();
+                }else {
+                    mediaPlayer.start();
+                    playPause.setImageResource(R.drawable.ic_pause);
+                    startAnimation();
+                }
+            }
+        });
+        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(music_url);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
 
+//                    mediaPlayer.start();
+//                    playPause.setImageResource(R.drawable.ic_pause_white);
+                }
+            });
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
         View view = findViewById(R.id.mini_player);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +113,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    private void startAnimation() {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                ivSongImage.animate().rotationBy(360f).setDuration(10000).withEndAction(this).setInterpolator(new LinearInterpolator()).start();
+            }
+        };
+        ivSongImage.animate().rotationBy(360f).setDuration(10000).withEndAction(runnable).setInterpolator(new LinearInterpolator()).start();
+    }
+    private void stopAnimation() {
+        ivSongImage.animate().cancel();
+    }
     private void setViewPager() {
         //        set adapter for viewpager
         ViewPageAdapter viewPageAdapter = new ViewPageAdapter(this);
