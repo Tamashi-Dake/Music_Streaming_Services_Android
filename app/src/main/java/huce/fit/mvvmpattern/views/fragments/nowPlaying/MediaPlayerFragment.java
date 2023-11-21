@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public static final String TAG = "MediaPlayerFragment";
 //    private TextView tvAlbumName;
 //    private TextView tvDuration;
 //    private TextView tvCurrentTime;
-    private Button btnGoBack;
+    private ImageButton btnGoBack;
     private View view;
     public ImageView playPause;
     public MediaPlayer mediaPlayer;
