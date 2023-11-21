@@ -98,21 +98,31 @@ android:orientation="vertical"
                     />
             </LinearLayout>
         </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/TrackBasicInfo"
+                app:dividerColor="@color/black"
+                android:layout_margin="1dp"
+                android:layout_below="@+id/TrackBasicInfo"
+                app:dividerInsetEnd="10dp"
+                app:dividerInsetStart="10dp"
+                app:dividerThickness="10dp" />
             <LinearLayout
                 android:id="@+id/TrackMoreInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:orientation="vertical"
-                android:layout_below="@+id/TrackBasicInfo"
+                android:layout_below="@+id/divider"
                 >
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="10dp"
                     >
-
-
                     <TextView
                         android:id="@+id/tvCategory"
                         android:layout_width="wrap_content"
@@ -146,7 +156,7 @@ android:orientation="vertical"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/tvArtistInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Nghe si"

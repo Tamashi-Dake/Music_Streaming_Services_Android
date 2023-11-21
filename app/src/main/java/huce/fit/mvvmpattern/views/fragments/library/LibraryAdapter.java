@@ -101,15 +101,13 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             case TYPE_PLAYLIST:
                 PlaylistViewHolder playlistViewHolder = (PlaylistViewHolder) holder;
                 playlistViewHolder.sectionName.setText(section.getSectionName());
-                playlistViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+                playlistViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
                 PlaylistAdapter playlistAdapter = new PlaylistAdapter();
                 playlistAdapter.setItems((List<Playlist>) section.getItems());
                 playlistViewHolder.rcvItem.setAdapter(playlistAdapter);
                 break;
         }
     }
-
-
     @Override
     public int getItemViewType(int position) {
         switch (position) {

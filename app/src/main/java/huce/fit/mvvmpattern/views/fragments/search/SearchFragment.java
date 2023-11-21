@@ -8,15 +8,39 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.views.MainActivity;
+import huce.fit.mvvmpattern.views.fragments.home.itemPopular.Popular;
+import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
 
 public class SearchFragment extends Fragment {
+    private RecyclerView recyclerView;
+    private SearchAdapter songAdapter;
+    private MainActivity mainActivity;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view  = inflater.inflate(R.layout.fragment_search,container,false);
+        mainActivity = (MainActivity) getActivity();
+        recyclerView = view.findViewById(R.id.rcvSearchItems);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        songAdapter = new SearchAdapter();
+        songAdapter.setItems(getListSong());
+        recyclerView.setAdapter(songAdapter);
+
         return view;
 //        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+    private List<Popular> getListSong(){
+        List<Popular> list = new ArrayList<>();
+        list.add(new Popular(R.drawable.img_1,"Song 1","Artist 1"));
+        return list;
     }
 }
