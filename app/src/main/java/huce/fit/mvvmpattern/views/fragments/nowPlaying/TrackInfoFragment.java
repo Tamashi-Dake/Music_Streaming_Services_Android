@@ -12,11 +12,7 @@ import android.widget.ImageButton;
 
 import huce.fit.mvvmpattern.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TrackInfoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class TrackInfoFragment extends Fragment {
     private ImageButton btnGoBack;
     public TrackInfoFragment() {

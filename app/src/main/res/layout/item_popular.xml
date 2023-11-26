@@ -53,11 +53,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvPopularTitle"
                 tools:layout_editor_absoluteX="176dp" />
         </LinearLayout>
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iconMore"
+        <ImageButton
+            android:id="@+id/btnMore"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_more_vert_24"
+            android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layout_editor_absoluteY="13dp" />
 

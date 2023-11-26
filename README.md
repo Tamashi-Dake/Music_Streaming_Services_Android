@@ -13,8 +13,8 @@
 # UI
 
 - [x] Login / Register
-- [ ] Home
-- [ ] Music Player
-- [ ] Search
-- [ ] Library
-- [ ] Profile
+- [x] Home
+- [x] Music Player
+- [x] Search
+- [x] Library
+- [x] Profile

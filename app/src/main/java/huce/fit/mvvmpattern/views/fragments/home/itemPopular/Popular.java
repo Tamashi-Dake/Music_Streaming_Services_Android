@@ -5,11 +5,13 @@ public class Popular {
     private int resourceId;
     private String trackName;
     private String artistName;
+    
 
     public Popular(int resourceId, String trackName, String artistName) {
         this.resourceId = resourceId;
         this.trackName = trackName;
         this.artistName = artistName;
+
     }
 
     public int getResourceId() {

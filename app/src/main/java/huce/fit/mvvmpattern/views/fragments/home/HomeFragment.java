@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +31,14 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewHome;
     private SectionAdapter section_adapter;
     private MainActivity mainActivity;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mainActivity = (MainActivity) getActivity();
+
+
 
         recyclerViewHome = view.findViewById(R.id.rcvHome);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false);
@@ -44,7 +50,12 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
+//    private void openSongBottomSheet() {
+//        View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song, null);
+//        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+//        bottomSheetDialog.setContentView(viewBottom);
+//        bottomSheetDialog.show();
+//    }
     private List<Section> getListSection() {
         List<Section> sections = new ArrayList<>();
 

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationBarView;
 
 import huce.fit.mvvmpattern.R;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivSongImage;
     private BottomNavigationView bottomNav;
 
+
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         setViewPager();
         ivSongImage = findViewById(R.id.imgMiniImage);
         playPause = findViewById(R.id.iconPlayPause);
+
+
+
         playPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void startAnimation() {
         Runnable runnable = new Runnable() {
             @Override

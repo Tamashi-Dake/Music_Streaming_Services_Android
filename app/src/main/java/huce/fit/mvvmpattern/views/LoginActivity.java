@@ -36,12 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.setLoginViewModel(loginViewModel);
 
         loginstatus();
-        // Kiểm tra trạng thái đăng nhập
-        if (loginflag == 1) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
         Button btnSignup = findViewById(R.id.btnSignUp);
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                 case Status.loginSuccess:
                     //xu ly dang nhap thanh cong
                     Toast.makeText(LoginActivity.this, "Login success.", Toast.LENGTH_LONG).show();
-                    loginflag =1;
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
                     break;
                 case Status.emptyUsername:
                     //thong bao Toast message hoac hien thi loi Username trong
