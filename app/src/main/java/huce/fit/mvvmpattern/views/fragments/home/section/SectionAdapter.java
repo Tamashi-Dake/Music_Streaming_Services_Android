@@ -17,6 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.fragments.home.itemArtist.Artist;
 import huce.fit.mvvmpattern.views.fragments.home.itemArtist.ArtistAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHit;
@@ -25,7 +26,6 @@ import huce.fit.mvvmpattern.views.fragments.home.itemCategories.CategoriesAdapte
 import huce.fit.mvvmpattern.views.fragments.home.itemCategories.Category;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemPopular.Popular;
 import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
@@ -112,7 +112,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 popularViewHolder.sectionName.setText(section.getSectionName());
                 popularViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
                 PopularAdapter popularAdapter = new PopularAdapter();
-                popularAdapter.setItems((List<Popular>) section.getItems());
+                popularAdapter.setItems((List<Song>) section.getItems());
                 popularViewHolder.rcvItem.setAdapter(popularAdapter);
                 break;
             case TYPE_ARTIST:

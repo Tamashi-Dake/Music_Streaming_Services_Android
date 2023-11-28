@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.fragments.home.itemArtist.Artist;
 import huce.fit.mvvmpattern.views.fragments.home.itemCategories.Category;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
-import huce.fit.mvvmpattern.views.fragments.home.itemPopular.Popular;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
 import huce.fit.mvvmpattern.views.fragments.home.section.SectionAdapter;
@@ -73,10 +73,10 @@ public class HomeFragment extends Fragment {
         listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg");
         listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg");
 
-        List<Popular> popular = new ArrayList<>();
-        popular.add(new Popular(R.drawable.img_1, "Song 1", "Artist 1"));
-        popular.add(new Popular(R.drawable.img_2, "Song 2", "Artist 2"));
-        popular.add(new Popular(R.drawable.img_4, "Song 3", "Artist 3"));
+        List<Song> popular = new ArrayList<>();
+        popular.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
+        popular.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
+        popular.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
 
         List<Artist> artists = new ArrayList<>();
         artists.add(new Artist(R.drawable.img_1, "Artist 1"));

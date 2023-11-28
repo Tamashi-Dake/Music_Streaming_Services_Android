@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
-import huce.fit.mvvmpattern.views.fragments.home.itemPopular.Popular;
+import huce.fit.mvvmpattern.model.Song;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.PopularViewHolder>{
 
-private List<Popular> items;
-public void setItems(List<Popular> list){
+private List<Song> items;
+public void setItems(List<Song> list){
     this.items = list;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();
@@ -26,13 +26,13 @@ public void setItems(List<Popular> list){
     @NonNull
     @Override
     public PopularViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_popular,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song,parent,false);
         return new PopularViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PopularViewHolder holder, int position) {
-        Popular item = items.get(position);
+        Song item = items.get(position);
         if (item == null) {
             return;
         }
@@ -54,9 +54,9 @@ public void setItems(List<Popular> list){
     private TextView tvArtist;
     public PopularViewHolder(@NonNull View itemView) {
         super(itemView);
-        imageView = itemView.findViewById(R.id.imgPopular);
-        tvTitle = itemView.findViewById(R.id.tvPopularTitle);
-        tvArtist = itemView.findViewById(R.id.tvArtistPopular);
+        imageView = itemView.findViewById(R.id.imgSong);
+        tvTitle = itemView.findViewById(R.id.tvSongTitle);
+        tvArtist = itemView.findViewById(R.id.tvSongArtist);
     }
 }
 }

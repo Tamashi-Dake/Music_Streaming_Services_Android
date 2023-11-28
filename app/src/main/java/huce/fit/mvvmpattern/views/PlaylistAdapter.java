@@ -1,5 +1,5 @@
 
-package huce.fit.mvvmpattern.views.fragments.home.itemPopular;
+package huce.fit.mvvmpattern.views;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,7 @@ import java.util.List;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
 
-public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularViewHolder> {
+public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PopularViewHolder> {
 
     private List<Song> items;
 

@@ -7,17 +7,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
+import huce.fit.mvvmpattern.views.mussInterface.IClickItemPlaylist;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>{
-
+private IClickItemPlaylist iClickItemPlaylist;
 private List<Playlist> items;
-public void setItems(List<Playlist> list){
+public PlaylistAdapter(List<Playlist> list,IClickItemPlaylist iClickItemPlaylist){
+    this.iClickItemPlaylist = iClickItemPlaylist;
+    this.items = list;
+}
+public void setItems(List<Playlist> list ){
+//    this.iClickItemPlaylist = iClickItemPlaylist;
     this.items = list;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();
@@ -37,6 +44,12 @@ public void setItems(List<Playlist> list){
         }
         holder.imageView.setImageResource(item.getResourceId());
         holder.tvTitle.setText(item.getTitle());
+        holder.layoutItemPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickItemPlaylist.onclickItemPlaylist(item);
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -47,12 +60,15 @@ public void setItems(List<Playlist> list){
     }
 
     public class PlaylistViewHolder extends RecyclerView.ViewHolder {
+    private ConstraintLayout layoutItemPlaylist;
     private ImageView imageView;
     private TextView tvTitle;
     public PlaylistViewHolder(@NonNull View itemView) {
         super(itemView);
+        layoutItemPlaylist = itemView.findViewById(R.id.layoutPlaylist);
         imageView = itemView.findViewById(R.id.imgPlaylist);
         tvTitle = itemView.findViewById(R.id.tvPlaylistTitle);
+
     }
 }
 }

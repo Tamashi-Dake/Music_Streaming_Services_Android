@@ -15,9 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.MainActivity;
-import huce.fit.mvvmpattern.views.fragments.home.itemPopular.Popular;
-import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
 
 public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -38,9 +37,9 @@ public class SearchFragment extends Fragment {
         return view;
 //        return super.onCreateView(inflater, container, savedInstanceState);
     }
-    private List<Popular> getListSong(){
-        List<Popular> list = new ArrayList<>();
-        list.add(new Popular(R.drawable.img_1,"Song 1","Artist 1"));
+    private List<Song> getListSong(){
+        List<Song> list = new ArrayList<>();
+        list.add(new Song(R.drawable.img_1,"Song 1","Artist 1"));
         return list;
     }
 }

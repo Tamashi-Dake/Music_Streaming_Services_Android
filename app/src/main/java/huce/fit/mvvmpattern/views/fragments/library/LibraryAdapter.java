@@ -1,11 +1,14 @@
 package huce.fit.mvvmpattern.views.fragments.library;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,27 +16,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 import huce.fit.mvvmpattern.R;
-import huce.fit.mvvmpattern.views.fragments.home.itemArtist.Artist;
-import huce.fit.mvvmpattern.views.fragments.home.itemArtist.ArtistAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHit;
-import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHitAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemCategories.CategoriesAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemCategories.Category;
+import huce.fit.mvvmpattern.views.FavoritesActivity;
+import huce.fit.mvvmpattern.views.HistoryActivity;
+import huce.fit.mvvmpattern.views.PlaylistActivity;
+
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemPopular.Popular;
-import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
+
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
 import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.Favorite;
 import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.FavoriteAdapter;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.Playlist;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.PlaylistAdapter;
+import huce.fit.mvvmpattern.views.mussInterface.IClickItemPlaylist;
 
 public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -102,8 +100,12 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 PlaylistViewHolder playlistViewHolder = (PlaylistViewHolder) holder;
                 playlistViewHolder.sectionName.setText(section.getSectionName());
                 playlistViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-                PlaylistAdapter playlistAdapter = new PlaylistAdapter();
-                playlistAdapter.setItems((List<Playlist>) section.getItems());
+                PlaylistAdapter playlistAdapter = new PlaylistAdapter((List<Playlist>) section.getItems(), new IClickItemPlaylist() {
+                    @Override
+                    public void onclickItemPlaylist(Playlist playlist) {
+                        playlistViewHolder.onclickItemPlaylist(playlist);
+                    }
+                });
                 playlistViewHolder.rcvItem.setAdapter(playlistAdapter);
                 break;
         }
@@ -137,7 +139,16 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             sectionName = itemView.findViewById(R.id.tvSectionName);
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
+
+            sectionName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, HistoryActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
+
     }
     public class FavoriteViewHolder extends RecyclerView.ViewHolder {
 
@@ -148,6 +159,13 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             sectionName = itemView.findViewById(R.id.tvSectionName);
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
+            sectionName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, FavoritesActivity.class);
+                    context.startActivity(intent);
+                }
+            });
         }
     }
     public class PlaylistViewHolder extends RecyclerView.ViewHolder {
@@ -159,6 +177,21 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             sectionName = itemView.findViewById(R.id.tvSectionName);
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
+
+            sectionName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, PlaylistActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        }
+        public void onclickItemPlaylist(Playlist playlist){
+            Intent intent = new Intent(context, PlaylistActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("playlist", playlist);
+            intent.putExtras(bundle);
+            context.startActivity(intent);
         }
     }
 }

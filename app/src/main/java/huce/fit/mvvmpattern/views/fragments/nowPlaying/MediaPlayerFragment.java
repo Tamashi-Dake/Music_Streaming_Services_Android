@@ -2,6 +2,7 @@ package huce.fit.mvvmpattern.views.fragments.nowPlaying;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -59,18 +60,17 @@ public static final String TAG = "MediaPlayerFragment";
                 }
             }
         });
-        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
+//        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
+        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/anytimeanywhere_milet");
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
-            mediaPlayer.setDataSource(music_url);
+//            mediaPlayer.setDataSource(music_url);
+            mediaPlayer.setDataSource(getActivity().getApplicationContext(), uri);
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-
-//                    mediaPlayer.start();
-//                    playPause.setImageResource(R.drawable.ic_pause_white);
                 }
             });
         }catch (Exception e) {

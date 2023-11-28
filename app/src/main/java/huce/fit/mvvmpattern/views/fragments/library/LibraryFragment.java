@@ -1,5 +1,6 @@
 package huce.fit.mvvmpattern.views.fragments.library;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +23,8 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.views.MainActivity;
-import huce.fit.mvvmpattern.views.fragments.home.itemArtist.Artist;
-import huce.fit.mvvmpattern.views.fragments.home.itemCategories.Category;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
-import huce.fit.mvvmpattern.views.fragments.home.itemPopular.Popular;
-import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
-import huce.fit.mvvmpattern.views.fragments.home.section.SectionAdapter;
 import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.Favorite;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.Playlist;
 

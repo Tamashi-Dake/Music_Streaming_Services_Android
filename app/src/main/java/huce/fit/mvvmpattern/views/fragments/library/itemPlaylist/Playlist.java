@@ -1,6 +1,8 @@
 package huce.fit.mvvmpattern.views.fragments.library.itemPlaylist;
 
-public class Playlist {
+import java.io.Serializable;
+
+public class Playlist implements Serializable {
 
 //    set ảnh từ drawable nên cần resourceId
     private int resourceId;

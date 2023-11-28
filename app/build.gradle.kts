@@ -53,5 +53,5 @@ dependencies {
     implementation("me.relex:circleindicator:2.1.6")
 //    Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
-
+    implementation("androidx.palette:palette:1.0.0")
 }

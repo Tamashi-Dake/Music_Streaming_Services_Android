@@ -1,13 +1,13 @@
-package huce.fit.mvvmpattern.views.fragments.home.itemPopular;
+package huce.fit.mvvmpattern.model;
 
-public class Popular {
-    //    set ảnh từ drawable nên cần resouceId
+public class Song {
+    //    set ảnh từ drawable nên cần resourceId
     private int resourceId;
     private String trackName;
     private String artistName;
     
 
-    public Popular(int resourceId, String trackName, String artistName) {
+    public Song(int resourceId, String trackName, String artistName) {
         this.resourceId = resourceId;
         this.trackName = trackName;
         this.artistName = artistName;

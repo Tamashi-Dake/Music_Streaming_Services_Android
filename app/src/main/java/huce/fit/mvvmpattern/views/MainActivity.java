@@ -3,6 +3,7 @@ package huce.fit.mvvmpattern.views;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -69,23 +70,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
+//        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/anytimeanywhere_milet");
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
-            mediaPlayer.setDataSource(music_url);
+//            mediaPlayer.setDataSource(music_url);
+            mediaPlayer.setDataSource(getApplicationContext(), uri);
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-
-//                    mediaPlayer.start();
-//                    playPause.setImageResource(R.drawable.ic_pause_white);
                 }
             });
         }catch (Exception e) {
             e.printStackTrace();
         }
+
         View view = findViewById(R.id.mini_player);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
