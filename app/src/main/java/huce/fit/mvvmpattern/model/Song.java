@@ -1,6 +1,8 @@
 package huce.fit.mvvmpattern.model;
 
-public class Song {
+import java.io.Serializable;
+
+public class Song implements Serializable {
     //    set ảnh từ drawable nên cần resourceId
     private int resourceId;
     private String trackName;

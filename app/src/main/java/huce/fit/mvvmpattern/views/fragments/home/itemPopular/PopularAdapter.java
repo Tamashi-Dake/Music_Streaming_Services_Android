@@ -1,6 +1,7 @@
 
 package huce.fit.mvvmpattern.views.fragments.home.itemPopular;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,19 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.views.mussInterface.IClickSongOption;
 
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularViewHolder> {
 
+    private IClickSongOption iClickSongOption;
     private List<Song> items;
-
+    private Context context;
+    public PopularAdapter(List<Song> list,IClickSongOption iClickSongOption) {
+        this.iClickSongOption = iClickSongOption;
+        this.items = list;
+    }
     public void setItems(List<Song> list) {
+        this.iClickSongOption = iClickSongOption;
         this.items = list;
 //    load và bind dữ liệu vào adapter
         notifyDataSetChanged();
@@ -46,6 +54,16 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         holder.imageView.setImageResource(item.getResourceId());
         holder.tvTitle.setText(item.getTrackName());
         holder.tvArtist.setText(item.getArtistName());
+        holder.btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (iClickSongOption != null)
+                {
+                    iClickSongOption.onClickSongOption(item);
+                }
+                }
+        });
     }
 
     @Override
@@ -60,22 +78,32 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         private ImageView imageView;
         private TextView tvTitle;
         private TextView tvArtist;
+
         private ImageButton btnMore;
 
-        public PopularViewHolder(@NonNull View itemView) {
+        private IClickSongOption iClickSongOption;
+        public PopularViewHolder(@NonNull View itemView
+//                ,IClickSongOption listener
+        ) {
             super(itemView);
+//            this.iClickSongOption = listener;
+
             imageView = itemView.findViewById(R.id.imgSong);
             tvTitle = itemView.findViewById(R.id.tvSongTitle);
             tvArtist = itemView.findViewById(R.id.tvSongArtist);
+
             btnMore = itemView.findViewById(R.id.btnMore);
             btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "More", Toast.LENGTH_SHORT).show();
+                    if (iClickSongOption != null)
+                    {
+                        iClickSongOption.onClickSongOption(items.get(getAdapterPosition()));
+                    }
                 }
             });
-
         }
     }
+
 
 }

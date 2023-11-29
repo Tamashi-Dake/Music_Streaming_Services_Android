@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +31,7 @@ import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
+import huce.fit.mvvmpattern.views.mussInterface.IClickSongOption;
 
 public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -44,6 +47,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private List<Section> sections;
     private Timer timer;
     private TimerTask timerTask;
+    private IClickSongOption iClickSongOption;
     public SectionAdapter(Context context) {
         this.context = context;
     }
@@ -111,8 +115,13 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 PopularViewHolder popularViewHolder = (PopularViewHolder) holder;
                 popularViewHolder.sectionName.setText(section.getSectionName());
                 popularViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-                PopularAdapter popularAdapter = new PopularAdapter();
-                popularAdapter.setItems((List<Song>) section.getItems());
+                PopularAdapter popularAdapter = new PopularAdapter((List<Song>) section.getItems(),new IClickSongOption() {
+                    @Override
+                    public void onClickSongOption(Song song) {
+                        popularViewHolder.onClickSongOption(song);
+                    }
+                });
+//                popularAdapter.setItems((List<Song>) section.getItems());
                 popularViewHolder.rcvItem.setAdapter(popularAdapter);
                 break;
             case TYPE_ARTIST:
@@ -214,10 +223,15 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class PopularViewHolder extends RecyclerView.ViewHolder {
         private TextView sectionName;
         private RecyclerView rcvItem;
+
         public PopularViewHolder(@NonNull View itemView) {
             super(itemView);
             sectionName = itemView.findViewById(R.id.tvSectionName);
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
+
+        }
+        private void onClickSongOption(Song song) {
+            Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
         }
     }
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
@@ -247,4 +261,5 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
         }
     }
+
 }

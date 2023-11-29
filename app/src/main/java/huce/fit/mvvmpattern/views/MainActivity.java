@@ -11,6 +11,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView ivSongImage;
     private BottomNavigationView bottomNav;
 
-
+    private LinearLayout linearLayout;
+    private BottomSheetDialog bottomSheetSongOption;
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -177,14 +177,6 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             sectionName = itemView.findViewById(R.id.tvSectionName);
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
-
-            sectionName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, PlaylistActivity.class);
-                    context.startActivity(intent);
-                }
-            });
         }
         public void onclickItemPlaylist(Playlist playlist){
             Intent intent = new Intent(context, PlaylistActivity.class);
