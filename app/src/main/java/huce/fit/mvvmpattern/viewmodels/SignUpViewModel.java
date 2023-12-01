@@ -1,13 +1,7 @@
 package huce.fit.mvvmpattern.viewmodels;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import huce.fit.mvvmpattern.model.LoginUser;
-import huce.fit.mvvmpattern.utils.Status;
-import huce.fit.mvvmpattern.utils.ValidatorUtil;
 
 public class SignUpViewModel extends ViewModel {
 
