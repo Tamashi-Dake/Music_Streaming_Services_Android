@@ -4,10 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +28,7 @@ import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
-import huce.fit.mvvmpattern.views.mussInterface.IClickSongOption;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
 public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -45,19 +42,18 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Context context;
     private List<Section> sections;
-    private Timer timer;
-    private TimerTask timerTask;
     private IClickSongOption iClickSongOption;
     public SectionAdapter(Context context) {
         this.context = context;
     }
 
-    public void setSections(List<Section> sections) {
+    public void setSections(List<Section> sections, IClickSongOption iClickSongOption) {
         if (sections == null) {
             this.sections = new ArrayList<>();
         } else {
             this.sections = sections;
         }
+        this.iClickSongOption = iClickSongOption;
         notifyDataSetChanged();
     }
 
@@ -115,12 +111,14 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 PopularViewHolder popularViewHolder = (PopularViewHolder) holder;
                 popularViewHolder.sectionName.setText(section.getSectionName());
                 popularViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-                PopularAdapter popularAdapter = new PopularAdapter((List<Song>) section.getItems(),new IClickSongOption() {
+                PopularAdapter popularAdapter = new PopularAdapter((List<Song>) section.getItems(), new IClickSongOption() {
                     @Override
                     public void onClickSongOption(Song song) {
-                        popularViewHolder.onClickSongOption(song);
+                        if (iClickSongOption != null) {
+                            iClickSongOption.onClickSongOption(song);
+                        }
                     }
-                });
+                } );
 //                popularAdapter.setItems((List<Song>) section.getItems());
                 popularViewHolder.rcvItem.setAdapter(popularAdapter);
                 break;
@@ -152,7 +150,9 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-
+    public void setOnMoreButtonClickListener(IClickSongOption listener) {
+        this.iClickSongOption = listener;
+    }
     @Override
     public int getItemViewType(int position) {
         switch (position) {
@@ -197,26 +197,6 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
             sectionName = itemView.findViewById(R.id.tvSectionName);
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
-
-//            public void startAutoScroll() {
-//                if (timer != null && timerTask != null) {
-//                    timer.cancel();
-//                    timerTask.cancel();
-//                }
-//                // Tạo một TimerTask mới để chạy chuyển đổi tự động
-//                timerTask = new TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        // Tăng vị trí hiện tại của RecyclerView
-//                        int currentPosition = rcvItem.getLayoutManager().getPosition(rcvItem.getChildAt(0));
-//                        int nextPosition = (currentPosition + 1) % getItemCount();
-//                        rcvItem.scrollToPosition(nextPosition);
-//                    }
-//                };
-//                // Khởi tạo Timer và lên lịch thực thi TimerTask
-//                timer = new Timer();
-//                timer.schedule(timerTask, 5000, 5000);
-//            }
         }
 
     }
@@ -229,9 +209,6 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             sectionName = itemView.findViewById(R.id.tvSectionName);
             rcvItem = itemView.findViewById(R.id.rcvSectionItem);
 
-        }
-        private void onClickSongOption(Song song) {
-            Toast.makeText(context, "Click", Toast.LENGTH_SHORT).show();
         }
     }
     public class ArtistViewHolder extends RecyclerView.ViewHolder {

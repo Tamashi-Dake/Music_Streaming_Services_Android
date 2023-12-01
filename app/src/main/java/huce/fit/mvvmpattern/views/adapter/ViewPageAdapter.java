@@ -1,4 +1,4 @@
-package huce.fit.mvvmpattern.views;
+package huce.fit.mvvmpattern.views.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

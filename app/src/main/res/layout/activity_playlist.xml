@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.PlaylistActivity"
-    android:background="@color/theme_color">
-
+    android:background="@color/theme_color"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clPlaylistInfo"
         android:layout_width="match_parent"
@@ -83,12 +86,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/clPlaylistInfo" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvPlaylistSongs"
+        android:id="@+id/rcvPlaylistSongs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintTop_toBottomOf="@+id/materialDivider"
         />
 
@@ -103,5 +106,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/circleImageView" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/layout_bottom_sheet_song_playlist" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

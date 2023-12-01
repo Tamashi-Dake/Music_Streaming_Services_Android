@@ -4,6 +4,7 @@ package huce.fit.mvvmpattern.views.fragments.search;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,12 +15,15 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.PopularViewHolder>{
 
 private List<Song> items;
-public void setItems(List<Song> list){
+private IClickSongOption iClickSongOption;
+public void setItems(List<Song> list, IClickSongOption listener){
     this.items = list;
+    this.iClickSongOption = listener;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();
 }
@@ -39,6 +43,15 @@ public void setItems(List<Song> list){
         holder.imageView.setImageResource(item.getResourceId());
         holder.tvTitle.setText(item.getTrackName());
         holder.tvArtist.setText(item.getArtistName());
+        holder.btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSongOption(item);
+                }
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -52,11 +65,22 @@ public void setItems(List<Song> list){
     private ImageView imageView;
     private TextView tvTitle;
     private TextView tvArtist;
+        private ImageButton btnMore;
+
     public PopularViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imgSong);
         tvTitle = itemView.findViewById(R.id.tvSongTitle);
         tvArtist = itemView.findViewById(R.id.tvSongArtist);
+        btnMore = itemView.findViewById(R.id.btnMore);
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSongOption(items.get(getAdapterPosition()));
+                }
+            }
+        });
     }
 }
 }

@@ -1,13 +1,13 @@
 
-package huce.fit.mvvmpattern.views.fragments.home.itemPopular;
+package huce.fit.mvvmpattern.views.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,24 +18,20 @@ import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
-public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularViewHolder> {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.PopularViewHolder> {
 
-    private IClickSongOption iClickSongOption;
     private List<Song> items;
-    private Context context;
+    private IClickSongOption iClickSongOption;
 
-    public PopularAdapter(List<Song> list, IClickSongOption iClickSongOption) {
-        this.iClickSongOption = iClickSongOption;
+    public void setItems(List<Song> list, IClickSongOption listener) {
         this.items = list;
-    }
+        this.iClickSongOption = listener;
 
-    public void setItems(List<Song> list) {
-        this.iClickSongOption = iClickSongOption;
-        this.items = list;
 //    load và bind dữ liệu vào adapter
         notifyDataSetChanged();
     }
 
+    private ImageButton btnMore;
 
     @NonNull
     @Override
@@ -73,29 +69,17 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         return 0;
     }
 
-    public void setClickSongOption(IClickSongOption listener) {
-        this.iClickSongOption = listener;
-    }
-
     public class PopularViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView tvTitle;
         private TextView tvArtist;
-
         private ImageButton btnMore;
 
-        private IClickSongOption iClickSongOption;
-
-        public PopularViewHolder(@NonNull View itemView
-//                ,IClickSongOption listener
-        ) {
+        public PopularViewHolder(@NonNull View itemView) {
             super(itemView);
-//            this.iClickSongOption = listener;
-
             imageView = itemView.findViewById(R.id.imgSong);
             tvTitle = itemView.findViewById(R.id.tvSongTitle);
             tvArtist = itemView.findViewById(R.id.tvSongArtist);
-
             btnMore = itemView.findViewById(R.id.btnMore);
             btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -105,8 +89,8 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
                     }
                 }
             });
+
         }
     }
-
 
 }

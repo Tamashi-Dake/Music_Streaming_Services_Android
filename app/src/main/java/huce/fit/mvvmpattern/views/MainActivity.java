@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -25,7 +23,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.databinding.ActivityMainBinding;
 import huce.fit.mvvmpattern.viewmodels.HomeViewModel;
-import huce.fit.mvvmpattern.views.fragments.nowPlaying.MediaPlayerFragment;
+import huce.fit.mvvmpattern.views.adapter.ViewPageAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -107,21 +105,23 @@ public class MainActivity extends AppCompatActivity {
 //               vì lý do gì đó mà switch không nhận được R.id... nên đành phải dùng if else
                 int id = item.getItemId();
                 if (id == R.id.action_home) {
-//                        Toast.makeText(MainActivity.this,"Home",Toast.LENGTH_SHORT).show();
                     viewPager.setCurrentItem(0);
                 } else if (id == R.id.action_search) {
-//                    Toast.makeText(MainActivity.this,"Search",Toast.LENGTH_SHORT).show();
                     viewPager.setCurrentItem(1);
                 } else if (id == R.id.action_library) {
-//                    Toast.makeText(MainActivity.this,"Library",Toast.LENGTH_SHORT).show();
                     viewPager.setCurrentItem(2);
                 } else if (id == R.id.action_profile) {
-//                    Toast.makeText(MainActivity.this,"Profile",Toast.LENGTH_SHORT).show();
                     viewPager.setCurrentItem(3);
                 }
                 return true;
             }
         });
+    }
+    public void openSongBottomSheet() {
+        View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(viewBottom);
+        bottomSheetDialog.show();
     }
 
     private void startAnimation() {

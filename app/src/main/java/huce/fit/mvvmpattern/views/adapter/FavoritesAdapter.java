@@ -1,5 +1,5 @@
 
-package huce.fit.mvvmpattern.views;
+package huce.fit.mvvmpattern.views.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +16,21 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
-public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PopularViewHolder> {
+public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.PopularViewHolder> {
 
     private List<Song> items;
+    private IClickSongOption iClickSongOption;
 
-    public void setItems(List<Song> list) {
+
+    public void setItems(List<Song> list, IClickSongOption listener) {
         this.items = list;
+        this.iClickSongOption = listener;
 //    load và bind dữ liệu vào adapter
         notifyDataSetChanged();
     }
 
-    private ImageButton btnMore;
 
     @NonNull
     @Override
@@ -46,6 +49,15 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Popula
         holder.imageView.setImageResource(item.getResourceId());
         holder.tvTitle.setText(item.getTrackName());
         holder.tvArtist.setText(item.getArtistName());
+        holder.btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSongOption(item);
+                }
+            }
+        });
     }
 
     @Override
@@ -71,7 +83,9 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Popula
             btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "More", Toast.LENGTH_SHORT).show();
+                    if (iClickSongOption != null) {
+                        iClickSongOption.onClickSongOption(items.get(getAdapterPosition()));
+                    }
                 }
             });
 

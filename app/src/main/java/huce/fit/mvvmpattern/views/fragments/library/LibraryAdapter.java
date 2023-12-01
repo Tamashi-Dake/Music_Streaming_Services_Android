@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +29,7 @@ import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.Favorite;
 import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.FavoriteAdapter;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.Playlist;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.PlaylistAdapter;
-import huce.fit.mvvmpattern.views.mussInterface.IClickItemPlaylist;
+import huce.fit.mvvmpattern.views.appInterface.IClickItemPlaylist;
 
 public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

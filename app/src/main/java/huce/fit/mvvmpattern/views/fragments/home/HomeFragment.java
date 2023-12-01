@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +23,7 @@ import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
 import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
 import huce.fit.mvvmpattern.views.fragments.home.section.SectionAdapter;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewHome;
@@ -38,24 +36,22 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mainActivity = (MainActivity) getActivity();
 
-
-
         recyclerViewHome = view.findViewById(R.id.rcvHome);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false);
         recyclerViewHome.setLayoutManager(linearLayoutManager);
         section_adapter = new SectionAdapter(mainActivity);
-        section_adapter.setSections(getListSection());
+        section_adapter.setSections(getListSection(),new IClickSongOption() {
+            @Override
+            public void onClickSongOption(Song song) {
+                mainActivity.openSongBottomSheet();
+            }
+        });
         recyclerViewHome.setAdapter(section_adapter);
 
 
         return view;
     }
-//    private void openSongBottomSheet() {
-//        View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song, null);
-//        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-//        bottomSheetDialog.setContentView(viewBottom);
-//        bottomSheetDialog.show();
-//    }
+
     private List<Section> getListSection() {
         List<Section> sections = new ArrayList<>();
 

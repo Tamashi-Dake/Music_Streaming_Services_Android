@@ -17,6 +17,7 @@ import java.util.List;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.MainActivity;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
 public class SearchFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -31,7 +32,12 @@ public class SearchFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
         songAdapter = new SearchAdapter();
-        songAdapter.setItems(getListSong());
+        songAdapter.setItems(getListSong(), new IClickSongOption() {
+            @Override
+            public void onClickSongOption(Song song) {
+                mainActivity.openSongBottomSheet();
+            }
+        });
         recyclerView.setAdapter(songAdapter);
 
         return view;

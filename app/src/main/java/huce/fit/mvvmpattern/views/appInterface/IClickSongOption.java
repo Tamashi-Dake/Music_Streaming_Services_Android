@@ -1,4 +1,4 @@
-package huce.fit.mvvmpattern.views.mussInterface;
+package huce.fit.mvvmpattern.views.appInterface;
 
 import huce.fit.mvvmpattern.model.Song;
 

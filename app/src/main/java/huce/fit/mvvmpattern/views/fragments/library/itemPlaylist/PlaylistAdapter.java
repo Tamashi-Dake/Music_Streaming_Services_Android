@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
-import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
-import huce.fit.mvvmpattern.views.mussInterface.IClickItemPlaylist;
+import huce.fit.mvvmpattern.views.appInterface.IClickItemPlaylist;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>{
 private IClickItemPlaylist iClickItemPlaylist;

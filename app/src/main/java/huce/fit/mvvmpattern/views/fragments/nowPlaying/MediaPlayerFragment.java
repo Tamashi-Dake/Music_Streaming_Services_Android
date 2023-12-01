@@ -46,6 +46,8 @@ public static final String TAG = "MediaPlayerFragment";
         btnGoBack = view.findViewById(R.id.btnBack);
         ivSongImage = view.findViewById(R.id.ivSongImage);
         playPause = view.findViewById(R.id.btnPlay);
+
+//        play music
         playPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
