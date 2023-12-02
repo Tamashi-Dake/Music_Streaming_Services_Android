@@ -34,18 +34,14 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.setLoginViewModel(loginViewModel);
 
-        loginstatus();
-//        Button btnSignup = findViewById(R.id.btnSignUp);
-//        btnSignup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intSignup = new Intent(LoginActivity.this, SignupActivity.class);
-//                startActivity(intSignup);
-//            }
-//        });
+        processEvent();
     }
 
-    private void loginstatus() {
+    private void processEvent() {
+        login();
+        signUp();
+    }
+    private void login() {
         loginViewModel.getLoginStatus().observe(this, status -> {
             switch (status) {
                 case Status.loginSuccess:
@@ -67,6 +63,15 @@ public class LoginActivity extends AppCompatActivity {
                 case Status.loginFail:
                     Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_LONG).show();
                     break;
+            }
+        });
+    }
+
+    private void signUp() {
+        loginViewModel.getSignUp().observe(this, signUp -> {
+            if (signUp != null) {
+                Intent intSignup = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intSignup);
             }
         });
     }
