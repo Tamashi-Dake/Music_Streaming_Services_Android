@@ -69,7 +69,7 @@ public class MediaPlayerFragment extends Fragment {
                             seekbar.setProgress(mCurrentPosition);
                             tvCurrentTime.setText(getFormattedTime(mediaPlayer.getCurrentPosition()));
                         }
-                        handler.postDelayed(this, 1000);
+                        handler.postDelayed(this, 100);
                     }
                 }
         );
