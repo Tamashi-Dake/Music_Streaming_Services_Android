@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             switch (status) {
                 case Status.loginSuccess:
                     //xu ly dang nhap thanh cong
-                    Toast.makeText(LoginActivity.this, "Login success.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, R.string.toast_login_success, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     break;
@@ -61,7 +61,13 @@ public class LoginActivity extends AppCompatActivity {
                     binding.txtPassword.requestFocus();
                     break;
                 case Status.loginFail:
-                    Toast.makeText(LoginActivity.this, "Login failed.", Toast.LENGTH_LONG).show();
+                    String message = loginViewModel.getMessage().getValue();
+                    if (message.contains(getString(R.string.sub_str_error_php_api)) == true) {
+                        Toast.makeText(LoginActivity.this, getString(R.string.toast_login_failed)+". "+getString(R.string.error_php_api), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
         });
@@ -69,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void signUp() {
         loginViewModel.getSignUp().observe(this, signUp -> {
-            if (signUp != null) {
+            if (signUp == true) {
                 Intent intSignup = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intSignup);
             }

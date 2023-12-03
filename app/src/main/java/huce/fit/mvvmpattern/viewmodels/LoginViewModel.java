@@ -22,32 +22,35 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginViewModel extends AndroidViewModel {
+    private Account account = new Account();
+    private AccountRepository accountRepository;
+    private MutableLiveData<Boolean> signUp = new MutableLiveData<>();
+
     public LoginViewModel(@NonNull Application application) {
         super(application);
         accountRepository = new AccountRepository(application);
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     public LiveData<Integer> getLoginStatus () {
         return accountRepository.getLoginStatus(account);
     }
 
-    private Account account = new Account();
-
-    public Account getAccount() {
-        return account;
+    public LiveData<String> getMessage () {
+        return accountRepository.getMessage();
     }
 
-    private MutableLiveData<Boolean> signUp = new MutableLiveData<>();
     public MutableLiveData<Boolean> getSignUp () {
         return signUp;
     }
 
-    private AccountRepository accountRepository;
-
     public void onClickLogin () {
         if (validateData()) {
-            account = new Account(account.getUsername(), account.getPassword());
             getLoginStatus();
+            getMessage();
         }
     }
 

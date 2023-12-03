@@ -15,10 +15,13 @@ import retrofit2.Response;
 
 public class AccountRepository {
     private Application application;
+    private MutableLiveData<Integer> loginStatus = new MutableLiveData<>();
+    private MutableLiveData<Integer> signUpStatus = new MutableLiveData<>();
+    private MutableLiveData<String> message = new MutableLiveData<>();
+
     public AccountRepository(Application application) {
         this.application = application;
     }
-    private MutableLiveData<Integer> loginStatus = new MutableLiveData<>();
 
     public MutableLiveData<Integer> getLoginStatus(Account account) {
         if (account.getUsername()!=null && account.getPassword()!=null) {
@@ -28,6 +31,7 @@ public class AccountRepository {
                         public void onResponse(Call<DataJson<Account>> call, Response<DataJson<Account>> response) {
                             DataJson<Account> dataJson = response.body();
                             if (dataJson != null) {
+                                message.setValue(dataJson.getMessage());
                                 if (dataJson.isStatus() == true) {
                                     loginStatus.setValue(Status.loginSuccess);
                                 }
@@ -42,7 +46,7 @@ public class AccountRepository {
 
                         @Override
                         public void onFailure(Call<DataJson<Account>> call, Throwable t) {
-                            Log.e("ERROR", this.getClass().getName()+"onClickLogin()->onFailure");
+                            Log.e("ERROR", this.getClass().getName()+"onClickLogin()->onFailure: "+t.getMessage());
                             loginStatus.setValue(Status.loginFail);
                         }
                     });
@@ -52,5 +56,48 @@ public class AccountRepository {
 
     public void setLoginStatus(Integer loginStatus) {
         this.loginStatus.setValue(loginStatus);
+    }
+
+    public MutableLiveData<Integer> getSignUpStatus (Account account) {
+        if (account.getUsername() != null && account.getPassword() != null) {
+            AccountService.accountService.addAccount(account)
+                    .enqueue(new Callback<DataJson<Account>>() {
+                        @Override
+                        public void onResponse(Call<DataJson<Account>> call, Response<DataJson<Account>> response) {
+                            DataJson<Account> dataJson = response.body();
+                            if (dataJson != null) {
+                                message.setValue(dataJson.getMessage());
+                                if (dataJson.isStatus() == true) {
+                                    signUpStatus.setValue(Status.signUpSuccess);
+                                }
+                                else {
+                                    signUpStatus.setValue(Status.signUpFail);
+                                }
+                            }
+                            else {
+                                signUpStatus.setValue(Status.signUpFail);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataJson<Account>> call, Throwable t) {
+                            Log.e("ERROR", this.getClass().getName()+"onClickLogin()->onFailure: "+t.getMessage());
+                            signUpStatus.setValue(Status.signUpFail);
+                        }
+                    });
+        }
+        return signUpStatus;
+    }
+
+    public void setSignUpStatus (Integer signUpStatus) {
+        this.signUpStatus.setValue(signUpStatus);
+    }
+
+    public MutableLiveData<String> getMessage () {
+        return message;
+    }
+
+    public void setMessage (String message) {
+        this.message.setValue(message);
     }
 }

@@ -20,4 +20,10 @@ public interface AccountService {
 
     @POST("account/account.php")
     Call<DataJson<Account>> checkAccount (@Body Account account);
+
+    @POST("account/accountAdd.php")
+    Call<DataJson<Account>> addAccount (@Body Account account);
+
+    @POST("account/accountUpdate.php")
+    Call<DataJson<Account>> updateAccount (@Body Account account);
 }
