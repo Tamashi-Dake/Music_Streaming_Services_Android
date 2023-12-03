@@ -37,6 +37,10 @@ public class SearchFragment extends Fragment {
             public void onClickSongOption(Song song) {
                 mainActivity.openSongBottomSheet();
             }
+            @Override
+            public void onClickSong(Song song) {
+                mainActivity.openMusicPlayer();
+            }
         });
         recyclerView.setAdapter(songAdapter);
 

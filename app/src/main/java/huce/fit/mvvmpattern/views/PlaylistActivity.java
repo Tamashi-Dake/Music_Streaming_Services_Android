@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -53,6 +54,10 @@ public class PlaylistActivity extends AppCompatActivity {
             public void onClickSongOption(Song song) {
                 openSongBottomSheet();
             }
+            @Override
+            public void onClickSong(Song song) {
+                openMusicPlayer();
+            }
         });
         recyclerView.setAdapter(adapter);
 
@@ -63,6 +68,9 @@ public class PlaylistActivity extends AppCompatActivity {
 
             }
         });
+    }public void openMusicPlayer() {
+        Intent intent = new Intent(this, MusicPlayerActivity.class);
+        startActivity(intent);
     }
     public void openSongBottomSheet() {
         View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song_playlist, null);

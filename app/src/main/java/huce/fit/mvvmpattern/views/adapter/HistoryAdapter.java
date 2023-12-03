@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -59,6 +60,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.PopularV
                 }
             }
         });
+        holder.layoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSong(item);
+                }
+            }
+        });
     }
 
     @Override
@@ -74,6 +83,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.PopularV
         private TextView tvTitle;
         private TextView tvArtist;
         private ImageButton btnMore;
+        private ConstraintLayout layoutItem;
+
 
         public PopularViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -86,6 +97,16 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.PopularV
                 public void onClick(View v) {
                     if (iClickSongOption != null) {
                         iClickSongOption.onClickSongOption(items.get(getAdapterPosition()));
+                    }
+                }
+            });
+
+            layoutItem = itemView.findViewById(R.id.layoutItem);
+            layoutItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (iClickSongOption != null) {
+                        iClickSongOption.onClickSong(items.get(getAdapterPosition()));
                     }
                 }
             });

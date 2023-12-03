@@ -91,13 +91,12 @@ public class MainActivity extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MusicPlayerActivity.class);
-                startActivity(intent);
+
+               openMusicPlayer();
 //                vì lý do nào đó mà animation ko nhận đc
 //                overridePendingTransition(R.anim.slide_up, R.anim.slide_up_out);
             }
         });
-
 //        handle event when user select item on bottom navigation
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -116,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+    public void openMusicPlayer() {
+        Intent intent = new Intent(this, MusicPlayerActivity.class);
+        startActivity(intent);
     }
     public void openSongBottomSheet() {
         View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song, null);

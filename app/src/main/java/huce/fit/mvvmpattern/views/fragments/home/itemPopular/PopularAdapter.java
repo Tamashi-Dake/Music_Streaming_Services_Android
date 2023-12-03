@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -24,18 +25,14 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
     private List<Song> items;
     private Context context;
 
-    public PopularAdapter(List<Song> list, IClickSongOption iClickSongOption) {
-        this.iClickSongOption = iClickSongOption;
-        this.items = list;
-    }
 
-    public void setItems(List<Song> list) {
+
+    public void setItems(List<Song> list,IClickSongOption iClickSongOption) {
         this.iClickSongOption = iClickSongOption;
         this.items = list;
-//    load và bind dữ liệu vào adapter
+//      load và bind dữ liệu vào adapter
         notifyDataSetChanged();
     }
-
 
     @NonNull
     @Override
@@ -63,6 +60,14 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
                 }
             }
         });
+        holder.layoutItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSong(item);
+                }
+            }
+        });
     }
 
     @Override
@@ -83,7 +88,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         private TextView tvArtist;
 
         private ImageButton btnMore;
-
+        private ConstraintLayout layoutItem;
         private IClickSongOption iClickSongOption;
 
         public PopularViewHolder(@NonNull View itemView
@@ -91,17 +96,24 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
         ) {
             super(itemView);
 //            this.iClickSongOption = listener;
-
             imageView = itemView.findViewById(R.id.imgSong);
             tvTitle = itemView.findViewById(R.id.tvSongTitle);
             tvArtist = itemView.findViewById(R.id.tvSongArtist);
-
+            layoutItem = itemView.findViewById(R.id.layoutItem);
             btnMore = itemView.findViewById(R.id.btnMore);
             btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (iClickSongOption != null) {
                         iClickSongOption.onClickSongOption(items.get(getAdapterPosition()));
+                    }
+                }
+            });
+            layoutItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (iClickSongOption != null) {
+                        iClickSongOption.onClickSong(items.get(getAdapterPosition()));
                     }
                 }
             });

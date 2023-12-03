@@ -111,15 +111,21 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 PopularViewHolder popularViewHolder = (PopularViewHolder) holder;
                 popularViewHolder.sectionName.setText(section.getSectionName());
                 popularViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-                PopularAdapter popularAdapter = new PopularAdapter((List<Song>) section.getItems(), new IClickSongOption() {
+                PopularAdapter popularAdapter = new PopularAdapter();
+                popularAdapter.setItems((List<Song>) section.getItems(), new IClickSongOption() {
                     @Override
                     public void onClickSongOption(Song song) {
                         if (iClickSongOption != null) {
                             iClickSongOption.onClickSongOption(song);
                         }
                     }
-                } );
-//                popularAdapter.setItems((List<Song>) section.getItems());
+                    @Override
+                    public void onClickSong(Song song) {
+                        if (iClickSongOption != null) {
+                            iClickSongOption.onClickSong(song);
+                        }
+                    }
+                });
                 popularViewHolder.rcvItem.setAdapter(popularAdapter);
                 break;
             case TYPE_ARTIST:
@@ -150,9 +156,9 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-    public void setOnMoreButtonClickListener(IClickSongOption listener) {
-        this.iClickSongOption = listener;
-    }
+//    public void setOnMoreButtonClickListener(IClickSongOption listener) {
+//        this.iClickSongOption = listener;
+//    }
     @Override
     public int getItemViewType(int position) {
         switch (position) {

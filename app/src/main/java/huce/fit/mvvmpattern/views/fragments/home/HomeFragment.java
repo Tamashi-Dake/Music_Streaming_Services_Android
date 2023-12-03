@@ -45,6 +45,10 @@ public class HomeFragment extends Fragment {
             public void onClickSongOption(Song song) {
                 mainActivity.openSongBottomSheet();
             }
+            @Override
+            public void onClickSong(Song song) {
+                mainActivity.openMusicPlayer();
+            }
         });
         recyclerViewHome.setAdapter(section_adapter);
 

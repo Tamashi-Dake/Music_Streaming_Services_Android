@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="10dp" android:background="@color/theme_color" android:outlineProvider="none">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutPlaylist"
