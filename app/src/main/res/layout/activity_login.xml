@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
-                android:text="@={loginViewModel.loginUser.username}"
+                android:text="@={loginViewModel.account.username}"
                 android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:text="@={loginViewModel.loginUser.password}"
+                android:text="@={loginViewModel.account.password}"
                 android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -104,7 +104,7 @@
             android:layout_marginStart="80dp"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="80dp"
-            android:onClick="@{()-> loginViewModel.onclickLogin()}"
+            android:onClick="@{()-> loginViewModel.onClickLogin()}"
             android:padding="15dp"
             android:text="Login"
             android:textSize="20sp"
@@ -132,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_signup_white"
-            android:onClick="onclickSignup"
+            android:onClick="@{()->loginViewModel.onClickSignUp()}"
             android:text="Join us"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

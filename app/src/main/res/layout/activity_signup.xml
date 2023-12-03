@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="signupViewModel"
+            name="signUpViewModel"
             type="huce.fit.mvvmpattern.viewmodels.SignUpViewModel" />
     </data>
 
@@ -80,7 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@={signUpViewModel.account.username}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
+                android:text="@={signUpViewModel.account.password}"
                  />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -126,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPassword"
+                android:text="@={signUpViewModel.confirmPassword}"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -144,7 +146,8 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtConfirmPasswordLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/txtConfirmPasswordLayout"
+            android:onClick="@{() -> signUpViewModel.onclickSignUp()}"/>
 
 
         <TextView
@@ -171,7 +174,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            android:onClick="@{() -> signUpViewModel.onClickLogin()}"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

@@ -55,4 +55,16 @@
     <string name="song_name">Song 1</string>
     <string name="artist_name">Artist 1</string>
     <string name="title_activity_music_player">MusicPlayerActivity</string>
+
+    <!-- Notification -->
+    <string name="toast_login_success">Login success</string>
+    <string name="toast_login_failed">Login failed</string>
+    <string name="toast_signup_success">Sign up success</string>
+    <string name="toast_signup_failed">Sign up failed</string>
+    <string name="error_input_confirm_password">Confirm password must input</string>
+    <string name="error_confirm_password_incorrect">Password and confirm password does not match</string>
+
+    <!--  ERROR PHP API  -->
+    <string name="sub_str_error_php_api">PHP:</string>
+    <string name="error_php_api">Error Server</string>
 </resources>

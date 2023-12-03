@@ -1,63 +1,72 @@
 package huce.fit.mvvmpattern.viewmodels;
 
+import android.app.Application;
 import android.content.Intent;
 import android.util.Log;
 
-import androidx.databinding.Bindable;
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import huce.fit.mvvmpattern.BR;
-import huce.fit.mvvmpattern.model.LoginUser;
+import huce.fit.mvvmpattern.api.AccountService;
+import huce.fit.mvvmpattern.model.Account;
+import huce.fit.mvvmpattern.model.DataJson;
+import huce.fit.mvvmpattern.repository.AccountRepository;
 import huce.fit.mvvmpattern.utils.Status;
 import huce.fit.mvvmpattern.utils.ValidatorUtil;
 import huce.fit.mvvmpattern.views.LoginActivity;
-import huce.fit.mvvmpattern.views.SignupActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class LoginViewModel extends ViewModel {
-//    @Bindable
-//    private String messageIdToStartMain;
-    public MutableLiveData<Integer> getLoginStatus() {
-        return LoginStatus;
+public class LoginViewModel extends AndroidViewModel {
+    private Account account = new Account();
+    private AccountRepository accountRepository;
+    private MutableLiveData<Boolean> signUp = new MutableLiveData<>();
+
+    public LoginViewModel(@NonNull Application application) {
+        super(application);
+        accountRepository = new AccountRepository(application);
     }
 
-    private MutableLiveData<Integer> LoginStatus = new MutableLiveData<>();
-    private LoginUser loginUser = new LoginUser();
-    public void onclickLogin() {
-        try {
-            if (validateData()) {
-//               //call api login here
-                LoginStatus.setValue(Status.loginSuccess);
+    public Account getAccount() {
+        return account;
+    }
 
-            }
-        } catch (Exception ex) {
-            Log.e("Login viewmodel",ex.getMessage());
+    public LiveData<Integer> getLoginStatus () {
+        return accountRepository.getLoginStatus(account);
+    }
+
+    public LiveData<String> getMessage () {
+        return accountRepository.getMessage();
+    }
+
+    public MutableLiveData<Boolean> getSignUp () {
+        return signUp;
+    }
+
+    public void onClickLogin () {
+        if (validateData()) {
+            getLoginStatus();
+            getMessage();
         }
     }
 
-    private boolean validateData() {
-        try {
-            if (ValidatorUtil.emptyValue(loginUser.getUsername())) {
-                LoginStatus.setValue(Status.emptyUsername);
-                return false;
-            } else if (ValidatorUtil.emptyValue(loginUser.getPassword())) {
-                LoginStatus.setValue(Status.emptyPassWord);
-                return false;
-            }
-        } catch (Exception ex) {
-            Log.e("Validate viewmodel",ex.getMessage());
+    public void onClickSignUp () {
+        signUp.setValue(true);
+    }
+
+    public boolean validateData () {
+        if (ValidatorUtil.emptyValue(account.getUsername())) {
+            accountRepository.setLoginStatus(Status.emptyUsername);
+            return false;
+        } 
+        else if (ValidatorUtil.emptyValue(account.getPassword())) {
+            accountRepository.setLoginStatus(Status.emptyPassword);
+            return false;
         }
         return true;
-    }
-
-//
-//    public String getMessageIdToStartMain() {
-//        return messageIdToStartMain;
-//    }
-//    public void setMessageIdToStartMain(String message) {
-//        this.messageIdToStartMain = messageIdToStartMain;
-//    }
-    public LoginUser getLoginUser() {
-        return loginUser;
     }
 }
