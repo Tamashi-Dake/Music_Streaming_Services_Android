@@ -1,6 +1,5 @@
 package huce.fit.mvvmpattern.views.fragments.library;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.MainActivity;
-import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
 import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.Favorite;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.Playlist;
@@ -45,7 +45,18 @@ public class LibraryFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainActivity, RecyclerView.VERTICAL, false);
         recyclerViewLibrary.setLayoutManager(linearLayoutManager);
         section_adapter = new LibraryAdapter(mainActivity);
-        section_adapter.setSections(getListSection());
+        section_adapter.setSections(getListSection(), new IClickSongOption() {
+            @Override
+            public void onClickSongOption(Song song) {
+
+            }
+
+            @Override
+            public void onClickSong(Song song) {
+
+                mainActivity.openMusicPlayer();
+            }
+        });
         recyclerViewLibrary.setAdapter(section_adapter);
 
         btnAddPlaylist = view.findViewById(R.id.btnAddPlaylist);
@@ -74,17 +85,18 @@ public class LibraryFragment extends Fragment {
     private List<Section> getListSection() {
         List<Section> sections = new ArrayList<>();
 
-        List<Item> history = new ArrayList<>();
-        history.add(new Item(R.drawable.img_1, "Item 1"));
-        history.add(new Item(R.drawable.img_2, "Item 2"));
-        history.add(new Item(R.drawable.img_3, "Item 3"));
-        history.add(new Item(R.drawable.img_4, "Item 4"));
-        history.add(new Item(R.drawable.img_1, "Item 5"));
+        List<Song> history = new ArrayList<>();
+        history.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
+        history.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
+        history.add(new Song(R.drawable.img_3, "Song 3", "Artist 3"));
+        history.add(new Song(R.drawable.img_4, "Song 4", "Artist 4"));
+        history.add(new Song(R.drawable.img_5, "Song 5", "Artist 5"));
 
-        List<Favorite> favorite = new ArrayList<>();
-        favorite.add(new Favorite(R.drawable.img_1, "Random 1"));
-        favorite.add(new Favorite(R.drawable.img_1, "Random 2"));
-        favorite.add(new Favorite(R.drawable.img_3, "Random 3"));
+        List<Song> favorite = new ArrayList<>();
+        favorite.add(new Song(R.drawable.img_5, "Song 5", "Artist 5"));
+        favorite.add(new Song(R.drawable.img_4, "Song 4", "Artist 4"));
+        favorite.add(new Song(R.drawable.img_3, "Song 3", "Artist 3"));
+        favorite.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
 
         List<Playlist> playList = new ArrayList<>();
         playList.add(new Playlist(R.drawable.img_4, "Random 1"));

@@ -19,8 +19,6 @@ import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.fragments.home.itemArtist.Artist;
 import huce.fit.mvvmpattern.views.fragments.home.itemCategories.Category;
-import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
-import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
 import huce.fit.mvvmpattern.views.fragments.home.section.SectionAdapter;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
@@ -59,13 +57,12 @@ public class HomeFragment extends Fragment {
     private List<Section> getListSection() {
         List<Section> sections = new ArrayList<>();
 
-        List<Item> history = new ArrayList<>();
-        history.add(new Item(R.drawable.img_1, "Item 1"));
-        history.add(new Item(R.drawable.img_2, "Item 2"));
-        history.add(new Item(R.drawable.img_3, "Item 3"));
-        history.add(new Item(R.drawable.img_4, "Item 4"));
-        history.add(new Item(R.drawable.img_1, "Item 5"));
-        history.add(new Item(R.drawable.img_2, "Item 6"));
+        List<Song> history = new ArrayList<>();
+        history.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
+        history.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
+        history.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
+        history.add(new Song(R.drawable.img_3, "Song 4", "Artist 4"));
+        history.add(new Song(R.drawable.img_1, "Song 5", "Artist 5"));
 
         List listURL = new ArrayList<>();
         listURL.add("https://i.pinimg.com/170x/47/df/7f/47df7f619a9b9ceba2f3d948e41fb450.jpg");
@@ -89,10 +86,10 @@ public class HomeFragment extends Fragment {
         categories.add(new Category(R.drawable.img_2, "Category 2"));
         categories.add(new Category(R.drawable.img_1, "Category 3"));
 
-        List<RandomTrack> randomTracks = new ArrayList<>();
-        randomTracks.add(new RandomTrack(R.drawable.img_1, "Random 1"));
-        randomTracks.add(new RandomTrack(R.drawable.img_3, "Random 2"));
-        randomTracks.add(new RandomTrack(R.drawable.img_2, "Random 3"));
+        List<Song> randomTracks = new ArrayList<>();
+        randomTracks.add(new Song(R.drawable.img_5, "Song 1", "Artist 1"));
+        randomTracks.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
+        randomTracks.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
 
         sections.add(new Section("History", history));
         sections.add(new Section("Big Hits", listURL ));

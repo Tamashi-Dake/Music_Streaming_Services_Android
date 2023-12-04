@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
@@ -23,12 +21,10 @@ import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHit;
 import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHitAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemCategories.CategoriesAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemCategories.Category;
-import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomTrack;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
+import huce.fit.mvvmpattern.views.fragments.home.itemRandom.RandomAdapter;
 
 public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -96,7 +92,17 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 historyViewHolder.sectionName.setText(section.getSectionName());
                 historyViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 ItemAdapter itemAdapter = new ItemAdapter();
-                itemAdapter.setItems((List<Item>) section.getItems());
+                itemAdapter.setItems((List<Song>) section.getItems(), new IClickSongOption() {
+                    @Override
+                    public void onClickSongOption(Song song) {
+                    }
+                    @Override
+                    public void onClickSong(Song song) {
+                        if (iClickSongOption != null) {
+                            iClickSongOption.onClickSong(song);
+                        }
+                    }
+                });
                 historyViewHolder.rcvItem.setAdapter(itemAdapter);
                 break;
             case TYPE_BIG_HIT:
@@ -149,7 +155,17 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 randomViewHolder.sectionName.setText(section.getSectionName());
                 randomViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 RandomAdapter randomAdapter = new RandomAdapter();
-                randomAdapter.setItems((List<RandomTrack>) section.getItems());
+                randomAdapter.setItems((List<Song>) section.getItems(), new IClickSongOption() {
+                    @Override
+                    public void onClickSongOption(Song song) {
+                    }
+                    @Override
+                    public void onClickSong(Song song) {
+                        if (iClickSongOption != null) {
+                            iClickSongOption.onClickSong(song);
+                        }
+                    }
+                });
                 randomViewHolder.rcvItem.setAdapter(randomAdapter);
                 break;
 

@@ -17,11 +17,12 @@ import java.util.List;
 
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.FavoritesActivity;
 import huce.fit.mvvmpattern.views.HistoryActivity;
 import huce.fit.mvvmpattern.views.PlaylistActivity;
 
-import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
 
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
@@ -39,17 +40,19 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Context context;
     private List<Section> sections;
+    private IClickSongOption iClickSongOption;
 
     public LibraryAdapter(Context context) {
         this.context = context;
     }
 
-    public void setSections(List<Section> sections) {
+    public void setSections(List<Section> sections, IClickSongOption listener) {
         if (sections == null) {
             this.sections = new ArrayList<>();
         } else {
             this.sections = sections;
         }
+        this.iClickSongOption = listener;
         notifyDataSetChanged();
     }
 
@@ -83,7 +86,17 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 historyViewHolder.sectionName.setText(section.getSectionName());
                 historyViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 ItemAdapter itemAdapter = new ItemAdapter();
-                itemAdapter.setItems((List<Item>) section.getItems());
+                itemAdapter.setItems((List<Song>) section.getItems(), new IClickSongOption() {
+                    @Override
+                    public void onClickSongOption(Song song) {
+                    }
+                    @Override
+                    public void onClickSong(Song song) {
+                        if (iClickSongOption != null) {
+                            iClickSongOption.onClickSong(song);
+                        }
+                    }
+                });
                 historyViewHolder.rcvItem.setAdapter(itemAdapter);
                 break;
             case TYPE_FAVORITE:
@@ -91,7 +104,17 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 favoriteViewHolder.sectionName.setText(section.getSectionName());
                 favoriteViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 FavoriteAdapter favoriteAdapter = new FavoriteAdapter( );
-                favoriteAdapter.setItems((List<Favorite>) section.getItems());
+                favoriteAdapter.setItems((List<Song>) section.getItems(), new IClickSongOption() {
+                    @Override
+                    public void onClickSongOption(Song song) {
+                    }
+                    @Override
+                    public void onClickSong(Song song) {
+                        if (iClickSongOption != null) {
+                            iClickSongOption.onClickSong(song);
+                        }
+                    }
+                });
                 favoriteViewHolder.rcvItem.setAdapter(favoriteAdapter);
                 break;
             case TYPE_PLAYLIST:

@@ -89,13 +89,9 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularV
 
         private ImageButton btnMore;
         private ConstraintLayout layoutItem;
-        private IClickSongOption iClickSongOption;
 
-        public PopularViewHolder(@NonNull View itemView
-//                ,IClickSongOption listener
-        ) {
+        public PopularViewHolder(@NonNull View itemView) {
             super(itemView);
-//            this.iClickSongOption = listener;
             imageView = itemView.findViewById(R.id.imgSong);
             tvTitle = itemView.findViewById(R.id.tvSongTitle);
             tvArtist = itemView.findViewById(R.id.tvSongArtist);

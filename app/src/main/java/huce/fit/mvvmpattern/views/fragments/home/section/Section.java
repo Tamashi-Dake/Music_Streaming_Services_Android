@@ -2,8 +2,6 @@ package huce.fit.mvvmpattern.views.fragments.home.section;
 
 import java.util.List;
 
-import huce.fit.mvvmpattern.views.fragments.home.itemHistory.Item;
-
 public class Section {
     private String sectionName;
     private List items;

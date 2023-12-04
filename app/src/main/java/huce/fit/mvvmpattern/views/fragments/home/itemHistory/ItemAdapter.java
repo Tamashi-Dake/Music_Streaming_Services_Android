@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,11 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder>{
+    private IClickSongOption iClickSongOption;
 
-private List<Item> items;
-public void setItems(List<Item> list){
+private List<Song> items;
+public void setItems(List<Song> list,   IClickSongOption iClickSongOption){
+    this.iClickSongOption = iClickSongOption;
     this.items = list;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();
@@ -30,12 +35,20 @@ public void setItems(List<Item> list){
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Item item = items.get(position);
+        Song item = items.get(position);
         if (item == null) {
             return;
         }
-        holder.imageView.setImageResource(item.getResouceId());
-        holder.tvTitle.setText(item.getTitle());
+        holder.imageView.setImageResource(item.getResourceId());
+        holder.tvTitle.setText(item.getTrackName());
+        holder.itemHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSong(item);
+                }
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -48,10 +61,20 @@ public void setItems(List<Item> list){
     public class ItemViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;
     private TextView tvTitle;
+    private LinearLayout itemHistory;
     public ItemViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imgHistory);
         tvTitle = itemView.findViewById(R.id.tvHistoryTitle);
+        itemHistory = itemView.findViewById(R.id.itemHistory);
+        itemHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSong(items.get(getAdapterPosition()));
+                }
+            }
+        });
     }
 }
 }

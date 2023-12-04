@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,11 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
 public class RandomAdapter extends RecyclerView.Adapter<RandomAdapter.RandomViewHolder>{
 
-private List<RandomTrack> items;
-public void setItems(List<RandomTrack> list){
+private List<Song> items;
+private IClickSongOption iClickSongOption;
+public void setItems(List<Song> list,IClickSongOption listener) {
+    this.iClickSongOption = listener;
     this.items = list;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();
@@ -31,12 +36,20 @@ public void setItems(List<RandomTrack> list){
 
     @Override
     public void onBindViewHolder(@NonNull RandomViewHolder holder, int position) {
-        RandomTrack item = items.get(position);
+        Song item = items.get(position);
         if (item == null) {
             return;
         }
         holder.imageView.setImageResource(item.getResourceId());
-        holder.tvTitle.setText(item.getTitle());
+        holder.tvTitle.setText(item.getTrackName());
+        holder.itemRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSong(item);
+                }
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -49,10 +62,22 @@ public void setItems(List<RandomTrack> list){
     public class RandomViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;
     private TextView tvTitle;
+        private LinearLayout itemRandom;
+
     public RandomViewHolder(@NonNull View itemView) {
         super(itemView);
         imageView = itemView.findViewById(R.id.imgRandom);
         tvTitle = itemView.findViewById(R.id.tvRandomTitle);
+        itemRandom = itemView.findViewById(R.id.itemRandom);
+        itemRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickSongOption != null) {
+                    iClickSongOption.onClickSong(items.get(getAdapterPosition()));
+                }
+            }
+        });
+
     }
 }
 }

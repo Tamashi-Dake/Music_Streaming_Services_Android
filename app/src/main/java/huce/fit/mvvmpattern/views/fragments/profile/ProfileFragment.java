@@ -30,10 +30,10 @@ public class ProfileFragment extends Fragment {
         btnChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                View viewDialog = LayoutInflater.from(mainActivity).inflate(R.layout.dialog_change_username,null);
-                TextInputEditText edtChangeUsername = viewDialog.findViewById(R.id.edtChangeUsername);
+                View viewDialog = LayoutInflater.from(mainActivity).inflate(R.layout.dialog_change_password,null);
+                TextInputEditText edtChangeUsername = viewDialog.findViewById(R.id.edtChangePassword);
                 AlertDialog alertDialog = new MaterialAlertDialogBuilder(mainActivity)
-                        .setTitle("Change Username")
+                        .setTitle("Change Password")
                         .setView(viewDialog)
                         .setPositiveButton("Change", (dialog, which) -> {
                             String username = edtChangeUsername.getText().toString();
