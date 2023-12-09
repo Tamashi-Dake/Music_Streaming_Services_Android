@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_1" app:shapeAppearanceOverlay="@style/rounded_corner"/>
+            android:src="@drawable/img_10" app:shapeAppearanceOverlay="@style/rounded_corner"/>
 
         <TextView
             android:id="@+id/tvRandomTitle"

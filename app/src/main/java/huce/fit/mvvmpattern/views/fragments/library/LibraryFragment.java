@@ -25,7 +25,6 @@ import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
-import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.Favorite;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.Playlist;
 
 
@@ -86,22 +85,22 @@ public class LibraryFragment extends Fragment {
         List<Section> sections = new ArrayList<>();
 
         List<Song> history = new ArrayList<>();
-        history.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
-        history.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
-        history.add(new Song(R.drawable.img_3, "Song 3", "Artist 3"));
-        history.add(new Song(R.drawable.img_4, "Song 4", "Artist 4"));
-        history.add(new Song(R.drawable.img_5, "Song 5", "Artist 5"));
+        history.add(new Song(R.drawable.img_1, "Chờ", "Artist 1"));
+        history.add(new Song(R.drawable.img_2, "Con đường của lời hứa", "Artist 2"));
+        history.add(new Song(R.drawable.img_4, "Gió đêm qua đường", "Artist 3"));
+        history.add(new Song(R.drawable.img_3, "Qua cầu rước em", "Artist 4"));
+        history.add(new Song(R.drawable.img_8, "Kẹo bông gòn", "Artist 5"));
 
         List<Song> favorite = new ArrayList<>();
-        favorite.add(new Song(R.drawable.img_5, "Song 5", "Artist 5"));
-        favorite.add(new Song(R.drawable.img_4, "Song 4", "Artist 4"));
-        favorite.add(new Song(R.drawable.img_3, "Song 3", "Artist 3"));
-        favorite.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
+        favorite.add(new Song(R.drawable.img_5, "Con đường của lời hứa", "Artist 5"));
+        favorite.add(new Song(R.drawable.img_4, "Gió đêm qua đường", "Artist 4"));
+        favorite.add(new Song(R.drawable.img_3, "Qua cầu rước em", "Artist 3"));
+        favorite.add(new Song(R.drawable.img_2, "Lear To Meow", "Artist 2"));
 
         List<Playlist> playList = new ArrayList<>();
-        playList.add(new Playlist(R.drawable.img_4, "Random 1"));
-        playList.add(new Playlist(R.drawable.img_3, "Random 2"));
-        playList.add(new Playlist(R.drawable.img_2, "Random 3"));
+        playList.add(new Playlist(R.drawable.img_6, "Tuyển tập ca khúc Thiều Bảo Trâm"));
+        playList.add(new Playlist(R.drawable.img_7, "Amee"));
+        playList.add(new Playlist(R.drawable.img_9, "Nhạc pop"));
 
         sections.add(new Section("History", history));
         sections.add(new Section("Favorites",favorite));

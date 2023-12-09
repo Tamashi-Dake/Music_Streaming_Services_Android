@@ -49,7 +49,7 @@ public class SearchFragment extends Fragment {
     }
     private List<Song> getListSong(){
         List<Song> list = new ArrayList<>();
-        list.add(new Song(R.drawable.img_1,"Song 1","Artist 1"));
+        list.add(new Song(R.drawable.img_8,"Kẹo bông gòn","Nguyễn Chiến"));
         return list;
     }
 }

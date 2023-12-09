@@ -35,7 +35,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_1"
+            android:src="@drawable/img_10"
             app:shapeAppearanceOverlay="@style/circleImageView" />
 
         <TextView
@@ -46,7 +46,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="50dp"
             android:layout_toEndOf="@+id/profile_image"
-            android:text="Username"
+            android:text="nhom01"
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />

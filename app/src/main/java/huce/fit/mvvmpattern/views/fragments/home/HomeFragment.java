@@ -58,38 +58,38 @@ public class HomeFragment extends Fragment {
         List<Section> sections = new ArrayList<>();
 
         List<Song> history = new ArrayList<>();
-        history.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
-        history.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
-        history.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
-        history.add(new Song(R.drawable.img_3, "Song 4", "Artist 4"));
-        history.add(new Song(R.drawable.img_1, "Song 5", "Artist 5"));
+        history.add(new Song(R.drawable.img_1, "Chờ", "Artist 1"));
+        history.add(new Song(R.drawable.img_2, "Any time any where", "Artist 2"));
+        history.add(new Song(R.drawable.img_4, "Gió đêm qua đường", "Artist 3"));
+        history.add(new Song(R.drawable.img_3, "Qua cầu rước em", "Artist 4"));
+        history.add(new Song(R.drawable.img_8, "Kẹo bông gòn", "Artist 5"));
 
         List listURL = new ArrayList<>();
-        listURL.add("https://i.pinimg.com/170x/47/df/7f/47df7f619a9b9ceba2f3d948e41fb450.jpg");
+        listURL.add("https://avatar-ex-swe.nixcdn.com/singer/avatar/2023/08/10/f/5/f/e/88743.jpg");
         listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg");
         listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg");
         listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg");
 
         List<Song> popular = new ArrayList<>();
-        popular.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
-        popular.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
-        popular.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
+        popular.add(new Song(R.drawable.img_1, "Chờ", "KIMM KUNNI"));
+        popular.add(new Song(R.drawable.img_2, "River in the Rain", "Roger Miller"));
+        popular.add(new Song(R.drawable.img_4, "Gió đêm qua đường", "Hải Lai A Mộc"));
 
         List<Artist> artists = new ArrayList<>();
-        artists.add(new Artist(R.drawable.img_1, "Artist 1"));
-        artists.add(new Artist(R.drawable.img_2, "Artist 2"));
-        artists.add(new Artist(R.drawable.img_3, "Artist 3"));
+        artists.add(new Artist(R.drawable.img_1, "KIMM KUNNI"));
+        artists.add(new Artist(R.drawable.img_2, "Roger Miller"));
+        artists.add(new Artist(R.drawable.img_3, "Her Majesty"));
 
 
         List<Category> categories = new ArrayList<>();
-        categories.add(new Category(R.drawable.img_4, "Category 1"));
-        categories.add(new Category(R.drawable.img_2, "Category 2"));
-        categories.add(new Category(R.drawable.img_1, "Category 3"));
+        categories.add(new Category(R.drawable.img_9, "Pop"));
+        categories.add(new Category(R.drawable.img_10, "Jazz"));
+        categories.add(new Category(R.drawable.img_11, "Blue"));
 
         List<Song> randomTracks = new ArrayList<>();
-        randomTracks.add(new Song(R.drawable.img_5, "Song 1", "Artist 1"));
-        randomTracks.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
-        randomTracks.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
+        randomTracks.add(new Song(R.drawable.img_5, "Con đường của lời hứa", "Artist 1"));
+        randomTracks.add(new Song(R.drawable.img_2, "Learn To Meow", "Artist 2"));
+        randomTracks.add(new Song(R.drawable.img_4, "Gió đêm qua đường", "Artist 3"));
 
         sections.add(new Section("History", history));
         sections.add(new Section("Big Hits", listURL ));
