@@ -2,7 +2,7 @@ package huce.fit.mvvmpattern.views.fragments.home.itemBigHit;
 
 public class BigHit {
 
-//    set ảnh từ drawable nên cần resouceId
+//    set ảnh từ drawable nên cần resourceId
     private int resourceId;
 private String title;
 

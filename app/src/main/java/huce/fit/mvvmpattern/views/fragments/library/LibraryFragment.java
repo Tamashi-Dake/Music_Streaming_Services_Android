@@ -1,5 +1,6 @@
 package huce.fit.mvvmpattern.views.fragments.library;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.services.MyService;
 import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
@@ -79,29 +81,43 @@ public class LibraryFragment extends Fragment {
                 alertDialog.show();
             }
         });
+        btnAddPlaylist.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                holdStartService();
+                return true;
+            }
+        });
         return view;
+    }
+    public void holdStartService() {
+        Intent serviceIntent = new Intent(mainActivity, MyService.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("song", new Song(R.drawable.img_1, "Song 1", "Artist 1"));
+//        serviceIntent.putExtras(bundle);
+        mainActivity.startService(serviceIntent);
     }
 
     private List<Section> getListSection() {
         List<Section> sections = new ArrayList<>();
 
         List<Song> history = new ArrayList<>();
-        history.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
-        history.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
-        history.add(new Song(R.drawable.img_3, "Song 3", "Artist 3"));
-        history.add(new Song(R.drawable.img_4, "Song 4", "Artist 4"));
-        history.add(new Song(R.drawable.img_5, "Song 5", "Artist 5"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Song 1", "Artist 1"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 2", "Artist 2"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "Song 3", "Artist 3"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Song 4", "Artist 4"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Song 5", "Artist 5"));
 
         List<Song> favorite = new ArrayList<>();
-        favorite.add(new Song(R.drawable.img_5, "Song 5", "Artist 5"));
-        favorite.add(new Song(R.drawable.img_4, "Song 4", "Artist 4"));
-        favorite.add(new Song(R.drawable.img_3, "Song 3", "Artist 3"));
-        favorite.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
+        favorite.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Song 5", "Artist 5"));
+        favorite.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Song 4", "Artist 4"));
+        favorite.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "Song 3", "Artist 3"));
+        favorite.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 2", "Artist 2"));
 
         List<Playlist> playList = new ArrayList<>();
-        playList.add(new Playlist(R.drawable.img_4, "Random 1"));
-        playList.add(new Playlist(R.drawable.img_3, "Random 2"));
-        playList.add(new Playlist(R.drawable.img_2, "Random 3"));
+        playList.add(new Playlist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Random 1"));
+        playList.add(new Playlist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Random 2"));
+        playList.add(new Playlist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Random 3"));
 
         sections.add(new Section("History", history));
         sections.add(new Section("Favorites",favorite));

@@ -58,11 +58,11 @@ public class HomeFragment extends Fragment {
         List<Section> sections = new ArrayList<>();
 
         List<Song> history = new ArrayList<>();
-        history.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
-        history.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
-        history.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
-        history.add(new Song(R.drawable.img_3, "Song 4", "Artist 4"));
-        history.add(new Song(R.drawable.img_1, "Song 5", "Artist 5"));
+        history.add(new Song("https://tongdangtu.000webhostapp.com/img/img_1.png", "Song 1", "Artist 1"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Song 2", "Artist 2"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 3", "Artist 3"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Song 4", "Artist 4"));
+        history.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "Song 5", "Artist 5"));
 
         List listURL = new ArrayList<>();
         listURL.add("https://i.pinimg.com/170x/47/df/7f/47df7f619a9b9ceba2f3d948e41fb450.jpg");
@@ -71,14 +71,14 @@ public class HomeFragment extends Fragment {
         listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg");
 
         List<Song> popular = new ArrayList<>();
-        popular.add(new Song(R.drawable.img_1, "Song 1", "Artist 1"));
-        popular.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
-        popular.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
+        popular.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Song 1", "Artist 1"));
+        popular.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Song 2", "Artist 2"));
+        popular.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 3", "Artist 3"));
 
         List<Artist> artists = new ArrayList<>();
-        artists.add(new Artist(R.drawable.img_1, "Artist 1"));
-        artists.add(new Artist(R.drawable.img_2, "Artist 2"));
-        artists.add(new Artist(R.drawable.img_3, "Artist 3"));
+        artists.add(new Artist("https://tongdangtu.000webhostapp.com/img/img_1.png", "Artist 1"));
+        artists.add(new Artist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Artist 2"));
+        artists.add(new Artist("https://tongdangtu.000webhostapp.com/img/img_1.png", "Artist 3"));
 
 
         List<Category> categories = new ArrayList<>();
@@ -87,9 +87,9 @@ public class HomeFragment extends Fragment {
         categories.add(new Category(R.drawable.img_1, "Category 3"));
 
         List<Song> randomTracks = new ArrayList<>();
-        randomTracks.add(new Song(R.drawable.img_5, "Song 1", "Artist 1"));
-        randomTracks.add(new Song(R.drawable.img_2, "Song 2", "Artist 2"));
-        randomTracks.add(new Song(R.drawable.img_4, "Song 3", "Artist 3"));
+        randomTracks.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Song 1", "Artist 1"));
+        randomTracks.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 2", "Artist 2"));
+        randomTracks.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "Song 3", "Artist 3"));
 
         sections.add(new Section("History", history));
         sections.add(new Section("Big Hits", listURL ));

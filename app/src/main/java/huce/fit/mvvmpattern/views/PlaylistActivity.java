@@ -1,16 +1,23 @@
 package huce.fit.mvvmpattern.views;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Transition;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -42,7 +49,21 @@ public class PlaylistActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.tvPlaylist);
         textView.setText(playlist.getTitle());
         constraintLayout = findViewById(R.id.clPlaylistInfo);
-        constraintLayout.setBackgroundResource(playlist.getResourceId());
+//        constraintLayout
+        Glide.with(this).load(playlist.getImageUrl()).into(new CustomTarget<Drawable>() {
+
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    constraintLayout.setBackground(resource);
+                }
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
+        });
         btnGoBack = findViewById(R.id.btnBack);
 
         recyclerView = findViewById(R.id.rcvPlaylistSongs);
@@ -80,7 +101,7 @@ public class PlaylistActivity extends AppCompatActivity {
     }
     private List<Song> getPlaylistSong(){
         List<Song> list = new ArrayList<>();
-        list.add(new Song(R.drawable.img_4,"Song 1","Artist 1"));
+        list.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg","Song 1","Artist 1"));
         return list;
     }
 }

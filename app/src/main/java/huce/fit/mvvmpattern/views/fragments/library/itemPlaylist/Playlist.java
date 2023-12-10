@@ -5,20 +5,20 @@ import java.io.Serializable;
 public class Playlist implements Serializable {
 
 //    set ảnh từ drawable nên cần resourceId
-    private int resourceId;
+    private String imageUrl;
 private String title;
 
-    public Playlist(int resourceId, String title) {
-        this.resourceId = resourceId;
+    public Playlist(String imageUrl, String title) {
+        this.imageUrl = imageUrl;
         this.title = title;
     }
 
-    public int getResourceId() {
-        return resourceId;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setResourceId(int resourceId) {
-        this.resourceId = resourceId;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getTitle() {

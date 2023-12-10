@@ -15,8 +15,8 @@ private String title;
             return resourceId;
         }
 
-        public void setResourceId(int resouceId) {
-            this.resourceId = resouceId;
+        public void setResourceId(int resourceId) {
+            this.resourceId = resourceId;
         }
 
         public String getTitle() {

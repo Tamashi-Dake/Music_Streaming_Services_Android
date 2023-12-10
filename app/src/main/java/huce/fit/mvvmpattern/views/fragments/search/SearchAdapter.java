@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
@@ -40,7 +42,7 @@ public void setItems(List<Song> list, IClickSongOption listener){
         if (item == null) {
             return;
         }
-        holder.imageView.setImageResource(item.getResourceId());
+        Glide.with(holder.imageView.getContext()).load(item.getImage()).into(holder.imageView);
         holder.tvTitle.setText(item.getTrackName());
         holder.tvArtist.setText(item.getArtistName());
         holder.btnMore.setOnClickListener(new View.OnClickListener() {

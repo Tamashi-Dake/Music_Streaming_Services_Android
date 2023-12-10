@@ -4,24 +4,24 @@ import java.io.Serializable;
 
 public class Song implements Serializable {
     //    set ảnh từ drawable nên cần resourceId
-    private int resourceId;
+    private String image;
     private String trackName;
     private String artistName;
     
 
-    public Song(int resourceId, String trackName, String artistName) {
-        this.resourceId = resourceId;
+    public Song(String image, String trackName, String artistName) {
+        this.image = image;
         this.trackName = trackName;
         this.artistName = artistName;
 
     }
 
-    public int getResourceId() {
-        return resourceId;
+    public String getImage() {
+        return image;
     }
 
-    public void setResourceId(int resourceId) {
-        this.resourceId = resourceId;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getTrackName() {

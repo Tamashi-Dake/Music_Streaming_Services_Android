@@ -7,11 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Popu
         if (item == null) {
             return;
         }
-        holder.imageView.setImageResource(item.getResourceId());
+        Glide.with(holder.imageView.getContext()).load(item.getImage()).into(holder.imageView);
         holder.tvTitle.setText(item.getTrackName());
         holder.tvArtist.setText(item.getArtistName());
         holder.btnMore.setOnClickListener(new View.OnClickListener() {
