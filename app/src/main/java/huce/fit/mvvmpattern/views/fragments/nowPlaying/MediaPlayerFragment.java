@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,20 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.IOException;
 import java.util.Locale;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.api.SongService;
+import huce.fit.mvvmpattern.model.DataJson;
+import huce.fit.mvvmpattern.model.SongApi;
+import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.MusicPlayerActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MediaPlayerFragment extends Fragment {
@@ -68,6 +78,8 @@ public class MediaPlayerFragment extends Fragment {
                             int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
                             seekbar.setProgress(mCurrentPosition);
                             tvCurrentTime.setText(getFormattedTime(mediaPlayer.getCurrentPosition()));
+                            tvSongName.setText(MainActivity.song.getTrackName());
+                            Glide.with(ivSongImage.getContext()).load(MainActivity.song.getImage()).into(ivSongImage);
                         }
                         handler.postDelayed(this, 100);
                     }
@@ -76,12 +88,13 @@ public class MediaPlayerFragment extends Fragment {
 
         // Set up MediaPlayer
 //        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
-        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/anytimeanywhere_milet");
+        String music_url = MainActivity.song.getLinkSong();
+//        Uri uri = Uri.parse("android.resource://" + getActivity().getPackageName() + "/raw/anytimeanywhere_milet");
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
-//            mediaPlayer.setDataSource(music_url);
-            mediaPlayer.setDataSource(getActivity().getApplicationContext(), uri);
+            mediaPlayer.setDataSource(music_url);
+//            mediaPlayer.setDataSource(getActivity().getApplicationContext(), uri);
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -194,5 +207,4 @@ public class MediaPlayerFragment extends Fragment {
     private void stopAnimation() {
         ivSongImage.animate().cancel();
     }
-
 }
