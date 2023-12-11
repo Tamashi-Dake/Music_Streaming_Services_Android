@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Artist;
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder>{
 
@@ -37,8 +38,8 @@ public void setItems(List<Artist> list){
         if (item == null) {
             return;
         }
-        Glide.with(holder.itemView.getContext()).load(item.getImageUrl()).centerCrop().into(holder.imageView);
-        holder.tvArtist.setText(item.getTitle());
+        Glide.with(holder.itemView.getContext()).load(item.getLinkPicture()).centerCrop().into(holder.imageView);
+        holder.tvArtist.setText(item.getName());
     }
     @Override
     public int getItemCount() {

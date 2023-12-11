@@ -67,4 +67,7 @@
     <!--  ERROR PHP API  -->
     <string name="sub_str_error_php_api">PHP:</string>
     <string name="error_php_api">Error Server</string>
+
+    <!--  BASE URL  -->
+    <string name="base_url_not_slash_finnish">https://tongdangtu.000webhostapp.com</string>
 </resources>

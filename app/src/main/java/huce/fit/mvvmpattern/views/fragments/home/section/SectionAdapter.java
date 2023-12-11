@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Artist;
 import huce.fit.mvvmpattern.model.Song;
-import huce.fit.mvvmpattern.views.fragments.home.itemArtist.Artist;
 import huce.fit.mvvmpattern.views.fragments.home.itemArtist.ArtistAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHit;
 import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHitAdapter;
