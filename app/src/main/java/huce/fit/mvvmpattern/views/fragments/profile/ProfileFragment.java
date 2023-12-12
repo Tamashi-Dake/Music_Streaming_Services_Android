@@ -31,13 +31,17 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 View viewDialog = LayoutInflater.from(mainActivity).inflate(R.layout.dialog_change_password,null);
-                TextInputEditText edtChangeUsername = viewDialog.findViewById(R.id.edtChangePassword);
+                TextInputEditText edtCurrentPassword = viewDialog.findViewById(R.id.edtCurrentPassword);
+                TextInputEditText edtNewPassword = viewDialog.findViewById(R.id.edtNewPassword);
+                TextInputEditText edtPasswordIncorrect = viewDialog.findViewById(R.id.edtPasswordIncorrect);
                 AlertDialog alertDialog = new MaterialAlertDialogBuilder(mainActivity)
                         .setTitle("Change Password")
                         .setView(viewDialog)
                         .setPositiveButton("Change", (dialog, which) -> {
-                            String username = edtChangeUsername.getText().toString();
-                            Toast.makeText(mainActivity, username, Toast.LENGTH_SHORT).show();
+                            String strCurrentPassword = edtCurrentPassword.getText().toString();
+                            String strNewPassword = edtNewPassword.getText().toString();
+                            String strPasswordIncorrect = edtPasswordIncorrect.getText().toString();
+                            Toast.makeText(mainActivity, strCurrentPassword+", "+strNewPassword+", "+strPasswordIncorrect, Toast.LENGTH_SHORT).show();
                         })
                         .setNegativeButton("Cancel", (dialog, which) -> {
                             dialog.dismiss();
