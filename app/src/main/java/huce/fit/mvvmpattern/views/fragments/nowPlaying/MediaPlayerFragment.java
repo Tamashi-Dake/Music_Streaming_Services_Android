@@ -46,6 +46,7 @@ public class MediaPlayerFragment extends Fragment {
     private SeekBar seekbar;
     private TextView tvDuration;
     private TextView tvCurrentTime;
+    private TextView tvArtistName;
     private MediaPlayer mediaPlayer;
     private Handler handler = new Handler();
     private Runnable runnable;
@@ -62,6 +63,7 @@ public class MediaPlayerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_media_player, container, false);
 
         tvSongName = view.findViewById(R.id.tvSongName);
+        tvArtistName = view.findViewById(R.id.tvArtistName);
         btnGoBack = view.findViewById(R.id.btnBack);
         ivSongImage = view.findViewById(R.id.ivSongImage);
         playPause = view.findViewById(R.id.btnPlay);
@@ -79,6 +81,7 @@ public class MediaPlayerFragment extends Fragment {
                             seekbar.setProgress(mCurrentPosition);
                             tvCurrentTime.setText(getFormattedTime(mediaPlayer.getCurrentPosition()));
                             tvSongName.setText(MainActivity.song.getTrackName());
+                            tvArtistName.setText(MainActivity.song.getArtistName());
                             Glide.with(ivSongImage.getContext()).load(MainActivity.song.getImage()).into(ivSongImage);
                         }
                         handler.postDelayed(this, 100);
