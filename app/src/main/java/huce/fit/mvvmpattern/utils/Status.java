@@ -9,5 +9,12 @@ public class Status {
     public static final int signUpSuccess = 4;
     public static final int signUpFail = 5;
     public static final int emptyConfirmPassword = 6;
+    ///
     public static final int incorrectConfirmPassword = 7;
+    public static final int incorrectPassword = 8;
+    public static final int updateSuccess = 9;
+    public static final int updateFail = 10;
+    public static final int correctPassword = 11;
+    public static final int emptyNewPassword = 12;
+    public static String current_username = null;
 }

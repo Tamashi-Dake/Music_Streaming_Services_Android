@@ -38,6 +38,9 @@ public class LoginViewModel extends AndroidViewModel {
     public LiveData<Integer> getLoginStatus () {
         return accountRepository.getLoginStatus(account);
     }
+    public LiveData<Integer> checkLogin(Account acc2){
+        return accountRepository.getLoginStatus2(acc2);
+    }
 
     public LiveData<String> getMessage () {
         return accountRepository.getMessage();

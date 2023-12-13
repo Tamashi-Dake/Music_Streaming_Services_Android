@@ -18,6 +18,21 @@ public interface AccountService {
             .build()
             .create(AccountService.class);
 
+    // other server
+    AccountService accountService2 = new Retrofit.Builder()
+            .baseUrl("https://chuduchung24062002.000webhostapp.com/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(AccountService.class);
+
+    // test in other server
+    @POST("viewmodels/updateAccount.php")
+    Call<DataJson<Account>> updateAccount2(@Body Account account);
+
+    // test in other server
+    @POST("viewmodels/login.php")
+    Call<DataJson<Account>> checkAccount2(@Body Account account);
+
     @POST("account/account.php")
     Call<DataJson<Account>> checkAccount (@Body Account account);
 
