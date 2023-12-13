@@ -23,7 +23,6 @@ import com.google.android.material.navigation.NavigationBarView;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.databinding.ActivityMainBinding;
 import huce.fit.mvvmpattern.model.Song;
-import huce.fit.mvvmpattern.model.SongApi;
 import huce.fit.mvvmpattern.viewmodels.HomeViewModel;
 import huce.fit.mvvmpattern.views.adapter.ViewPageAdapter;
 
