@@ -10,9 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Artist;
+import huce.fit.mvvmpattern.model.Category;
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>{
 
@@ -35,8 +39,8 @@ public void setItems(List<Category> list){
         if (item == null) {
             return;
         }
-        holder.imageView.setImageResource(item.getResourceId());
-        holder.tvTitle.setText(item.getTitle());
+        Glide.with(holder.itemView.getContext()).load(item.getLinkPicture()).centerCrop().into(holder.imageView);
+        holder.tvTitle.setText(item.getName());
     }
     @Override
     public int getItemCount() {
