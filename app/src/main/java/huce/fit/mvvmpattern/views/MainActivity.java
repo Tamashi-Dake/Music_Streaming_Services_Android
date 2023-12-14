@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout;
     private BottomSheetDialog bottomSheetSongOption;
-    public static Song song = new Song();
+    public static Song song = new Song("", "", "", "", "", "");
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
