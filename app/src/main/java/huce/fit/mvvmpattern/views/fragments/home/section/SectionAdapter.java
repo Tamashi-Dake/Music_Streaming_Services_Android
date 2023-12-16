@@ -15,12 +15,11 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Artist;
+import huce.fit.mvvmpattern.model.Category;
 import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.fragments.home.itemArtist.ArtistAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHit;
 import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHitAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemCategories.CategoriesAdapter;
-import huce.fit.mvvmpattern.views.fragments.home.itemCategories.Category;
 import huce.fit.mvvmpattern.views.fragments.home.itemHistory.ItemAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemPopular.PopularAdapter;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
@@ -110,7 +109,7 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 bigHitViewHolder.sectionName.setText(section.getSectionName());
                 bigHitViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 BigHitAdapter bigHitAdapter = new BigHitAdapter(context,section.getItems());
-                bigHitAdapter.setItems((List<BigHit>) section.getItems());
+                bigHitAdapter.setItems((List<Song>) section.getItems());
                 bigHitViewHolder.rcvItem.setAdapter(bigHitAdapter);
                 break;
             case TYPE_POPULAR:

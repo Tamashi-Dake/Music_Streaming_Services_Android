@@ -2,18 +2,15 @@ package huce.fit.mvvmpattern.views.fragments.nowPlaying;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -25,14 +22,8 @@ import java.io.IOException;
 import java.util.Locale;
 
 import huce.fit.mvvmpattern.R;
-import huce.fit.mvvmpattern.api.SongService;
-import huce.fit.mvvmpattern.model.DataJson;
-import huce.fit.mvvmpattern.model.SongApi;
 import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.MusicPlayerActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class MediaPlayerFragment extends Fragment {

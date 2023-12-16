@@ -10,15 +10,18 @@ public class Song implements Serializable {
     private String artistName;
     private String linkSong;
 
+    private String categoryName;
+
     public Song() {
     }
 
-    public Song(String id, String image, String trackName, String artistName, String linkSong) {
+    public Song(String id, String image, String trackName, String artistName, String linkSong, String categoryName) {
         this.id = id;
         this.image = image;
         this.trackName = trackName;
         this.artistName = artistName;
         this.linkSong = linkSong;
+        this.categoryName = categoryName;
     }
 
     public String getId() {
@@ -59,5 +62,13 @@ public class Song implements Serializable {
 
     public void setLinkSong(String linkSong) {
         this.linkSong = linkSong;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

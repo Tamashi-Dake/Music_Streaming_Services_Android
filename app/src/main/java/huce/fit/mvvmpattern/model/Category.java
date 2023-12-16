@@ -1,22 +1,16 @@
 package huce.fit.mvvmpattern.model;
 
-import java.io.Serializable;
-
-public class SongApi implements Serializable {
+public class Category {
     private String id;
     private String name;
-    private int playedTime;
-    private String linkSong;
     private String linkPicture;
 
-    public SongApi() {
+    public Category() {
     }
 
-    public SongApi(String id, String name, int playedTime, String linkSong, String linkPicture) {
+    public Category(String id, String name, String linkPicture) {
         this.id = id;
         this.name = name;
-        this.playedTime = playedTime;
-        this.linkSong = linkSong;
         this.linkPicture = linkPicture;
     }
 
@@ -34,22 +28,6 @@ public class SongApi implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getPlayedTime() {
-        return playedTime;
-    }
-
-    public void setPlayedTime(int playedTime) {
-        this.playedTime = playedTime;
-    }
-
-    public String getLinkSong() {
-        return linkSong;
-    }
-
-    public void setLinkSong(String linkSong) {
-        this.linkSong = linkSong;
     }
 
     public String getLinkPicture() {

@@ -14,23 +14,24 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
 
 public class BigHitAdapter extends RecyclerView.Adapter<BigHitAdapter.BigHitViewHolder> {
     private Context context;
 
-    private List<BigHit> items;
+    private List<Song> items;
 
     public BigHitAdapter(Context context) {
         this.context = context;
     }
 
-    public void setItems(List<BigHit> list) {
+    public void setItems(List<Song> list) {
         this.items = list;
 //    load và bind dữ liệu vào adapter
         notifyDataSetChanged();
     }
 
-    public BigHitAdapter(Context context, List<BigHit> list) {
+    public BigHitAdapter(Context context, List<Song> list) {
         this.context = context;
         this.items = list;
     }
@@ -45,15 +46,22 @@ public class BigHitAdapter extends RecyclerView.Adapter<BigHitAdapter.BigHitView
     @Override
     public void onBindViewHolder(@NonNull BigHitViewHolder holder, int position) {
 //    khai báo url để load ảnh dựa vào vị trí của item
-        String url = String.valueOf(items.get(position % items.size()));
+//        String url = String.valueOf(items.get(position % items.size()));
 //        load ảnh vào imageView qua Glide
-        Glide.with(context).load(url).centerCrop().placeholder(R.drawable.ic_launcher_background).into(holder.imageView);
+//        Glide.with(context).load(url).centerCrop().placeholder(R.drawable.ic_launcher_background).into(holder.imageView);
+
+        Song item = items.get(position % items.size());
+        if (item == null) {
+            return;
+        }
+        Glide.with(holder.imageView.getContext()).load(item.getImage()).centerCrop().into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
         if (items != null) {
-            return Integer.MAX_VALUE;
+//            return items.size();
+            return items.size() * 100;
         }
         return 0;
     }
