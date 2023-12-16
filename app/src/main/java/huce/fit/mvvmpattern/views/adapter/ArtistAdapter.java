@@ -1,5 +1,4 @@
-
-package huce.fit.mvvmpattern.views.fragments.search;
+package huce.fit.mvvmpattern.views.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,20 +19,25 @@ import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.PopularViewHolder>{
+public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.PopularViewHolder> {
+    private List<Song> items;
+    private IClickSongOption iClickSongOption;
 
-private List<Song> items;
-private IClickSongOption iClickSongOption;
-public void setItems(List<Song> list, IClickSongOption listener){
-    this.items = list;
-    this.iClickSongOption = listener;
+
+    public void setItems(List<Song> list, IClickSongOption listener) {
+        this.items = list;
+        this.iClickSongOption = listener;
+
 //    load và bind dữ liệu vào adapter
-    notifyDataSetChanged();
-}
+        notifyDataSetChanged();
+    }
+
+
     @NonNull
     @Override
     public PopularViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_song, parent, false);
+
         return new PopularViewHolder(view);
     }
 
@@ -55,7 +59,7 @@ public void setItems(List<Song> list, IClickSongOption listener){
                 }
             }
         });
-        holder.layout.setOnClickListener(new View.OnClickListener() {
+        holder.layoutItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (iClickSongOption != null) {
@@ -64,43 +68,48 @@ public void setItems(List<Song> list, IClickSongOption listener){
             }
         });
     }
+
     @Override
     public int getItemCount() {
-    if (items != null){
-        return items.size();
-    }
+        if (items != null) {
+            return items.size();
+        }
         return 0;
     }
 
     public class PopularViewHolder extends RecyclerView.ViewHolder {
-    private ImageView imageView;
-    private TextView tvTitle;
-    private TextView tvArtist;
+        private ImageView imageView;
+        private TextView tvTitle;
+        private TextView tvArtist;
         private ImageButton btnMore;
-    private ConstraintLayout layout;
-    public PopularViewHolder(@NonNull View itemView) {
-        super(itemView);
-        imageView = itemView.findViewById(R.id.imgSong);
-        tvTitle = itemView.findViewById(R.id.tvSongTitle);
-        tvArtist = itemView.findViewById(R.id.tvSongArtist);
-        btnMore = itemView.findViewById(R.id.btnMore);
-        layout = itemView.findViewById(R.id.layoutItem);
-        btnMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (iClickSongOption != null) {
-                    iClickSongOption.onClickSongOption(items.get(getAdapterPosition()));
+        private ConstraintLayout layoutItem;
+
+
+        public PopularViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imgSong);
+            tvTitle = itemView.findViewById(R.id.tvSongTitle);
+            tvArtist = itemView.findViewById(R.id.tvSongArtist);
+            btnMore = itemView.findViewById(R.id.btnMore);
+            btnMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (iClickSongOption != null) {
+                        iClickSongOption.onClickSongOption(items.get(getAdapterPosition()));
+                    }
                 }
-            }
-        });
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (iClickSongOption != null) {
-                    iClickSongOption.onClickSong(items.get(getAdapterPosition()));
+            });
+
+            layoutItem = itemView.findViewById(R.id.layoutItem);
+            layoutItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (iClickSongOption != null) {
+                        iClickSongOption.onClickSong(items.get(getAdapterPosition()));
+                    }
                 }
-            }
-        });
+            });
+        }
     }
-}
+
 }

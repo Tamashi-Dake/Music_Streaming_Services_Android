@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,12 +18,15 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Artist;
+import huce.fit.mvvmpattern.views.appInterface.IClickArtist;
 
 public class ArtistAdapter extends RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder>{
 
 private List<Artist> items;
-public void setItems(List<Artist> list){
+private IClickArtist iClickArtist;
+public void setItems(List<Artist> list, IClickArtist iClickArtist){
     this.items = list;
+    this.iClickArtist = iClickArtist;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();
 }
@@ -40,6 +45,12 @@ public void setItems(List<Artist> list){
         }
         Glide.with(holder.itemView.getContext()).load(item.getLinkPicture()).centerCrop().into(holder.imageView);
         holder.tvArtist.setText(item.getName());
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickArtist.onClickArtist(item);
+            }
+        });
     }
     @Override
     public int getItemCount() {
@@ -52,10 +63,21 @@ public void setItems(List<Artist> list){
     public class ArtistViewHolder extends RecyclerView.ViewHolder {
     private ImageView imageView;
     private TextView tvArtist;
-    public ArtistViewHolder(@NonNull View itemView) {
-        super(itemView);
-        imageView = itemView.findViewById(R.id.imgArtist);
-        tvArtist = itemView.findViewById(R.id.tvArtistTitle);
+        private LinearLayout layout;
+        public ArtistViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.imgArtist);
+            tvArtist = itemView.findViewById(R.id.tvArtistTitle);
+
+            layout = itemView.findViewById(R.id.Artist);
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (iClickArtist != null) {
+                        iClickArtist.onClickArtist(items.get(getAdapterPosition()));
+                    }
+                }
+            });
     }
 }
 }

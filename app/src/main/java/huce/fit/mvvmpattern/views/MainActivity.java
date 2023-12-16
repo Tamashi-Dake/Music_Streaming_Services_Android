@@ -126,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MusicPlayerActivity.class);
         startActivity(intent);
     }
+    public void openArtistFragment() {
+        Intent intent = new Intent(this, ArtistActivity.class);
+        startActivity(intent);
+    }
     public void openSongBottomSheet() {
         View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song, null);
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
@@ -174,4 +178,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void openCategoryFragment() {
+        Intent intent = new Intent(this, CategoryActivity.class);
+        startActivity(intent);
+    }
 }

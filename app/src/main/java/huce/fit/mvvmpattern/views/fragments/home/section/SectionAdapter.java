@@ -17,6 +17,8 @@ import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Artist;
 import huce.fit.mvvmpattern.model.Category;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.views.appInterface.IClickArtist;
+import huce.fit.mvvmpattern.views.appInterface.IClickCategory;
 import huce.fit.mvvmpattern.views.fragments.home.itemArtist.ArtistAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemBigHit.BigHitAdapter;
 import huce.fit.mvvmpattern.views.fragments.home.itemCategories.CategoriesAdapter;
@@ -38,6 +40,8 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context context;
     private List<Section> sections;
     private IClickSongOption iClickSongOption;
+    private IClickArtist iClickArtist;
+    private IClickCategory iClickCategory;
     public SectionAdapter(Context context) {
         this.context = context;
     }
@@ -51,7 +55,24 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.iClickSongOption = iClickSongOption;
         notifyDataSetChanged();
     }
-
+    public void setSections(List<Section> sections, IClickArtist iClickArtist) {
+        if (sections == null) {
+            this.sections = new ArrayList<>();
+        } else {
+            this.sections = sections;
+        }
+        this.iClickArtist = iClickArtist;
+        notifyDataSetChanged();
+    }
+    public void setSections(List<Section> sections, IClickCategory iClickCategory) {
+        if (sections == null) {
+            this.sections = new ArrayList<>();
+        } else {
+            this.sections = sections;
+        }
+        this.iClickCategory = iClickCategory;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -138,7 +159,14 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 artistViewHolder.sectionName.setText(section.getSectionName());
                 artistViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 ArtistAdapter artistAdapter = new ArtistAdapter();
-                artistAdapter.setItems((List<Artist>) section.getItems());
+                artistAdapter.setItems((List<Artist>) section.getItems(), new IClickArtist() {
+                    @Override
+                    public void onClickArtist(Artist artist) {
+                        if (iClickArtist != null) {
+                            iClickArtist.onClickArtist(artist);
+                        }
+                    }
+                });
                 artistViewHolder.rcvItem.setAdapter(artistAdapter);
                 break;
             case TYPE_CATEGORIES:
@@ -146,7 +174,14 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 categoriesViewHolder.sectionName.setText(section.getSectionName());
                 categoriesViewHolder.rcvItem.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
                 CategoriesAdapter categoriesAdapter = new CategoriesAdapter();
-                categoriesAdapter.setItems((List<Category>) section.getItems());
+                categoriesAdapter.setItems((List<Category>) section.getItems(), new IClickCategory() {
+                    @Override
+                    public void onClickCategory(Category category) {
+                        if (iClickCategory != null) {
+                            iClickCategory.onClickCategory(category);
+                        }
+                    }
+                }   );
                 categoriesViewHolder.rcvItem.setAdapter(categoriesAdapter);
                 break;
             case TYPE_RANDOM:

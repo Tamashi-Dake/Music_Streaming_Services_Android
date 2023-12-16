@@ -25,6 +25,8 @@ import huce.fit.mvvmpattern.model.DataJson;
 import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.model.SongInfo;
 import huce.fit.mvvmpattern.views.MainActivity;
+import huce.fit.mvvmpattern.views.appInterface.IClickArtist;
+import huce.fit.mvvmpattern.views.appInterface.IClickCategory;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
 import huce.fit.mvvmpattern.views.fragments.home.section.SectionAdapter;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
@@ -68,39 +70,11 @@ public class HomeFragment extends Fragment {
 
     private List<Section> getListSection() {
         List<Song> history = new ArrayList<>();
-//        history.add(new Song("1","https://tongdangtu.000webhostapp.com/img/img_1.png", "Song 1", "Artist 1", ""));
-//        history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Song 2", "Artist 2", ""));
-//        history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 3", "Artist 3", ""));
-//        history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Song 4", "Artist 4", ""));
-//        history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "Song 5", "Artist 5", ""));
-
         List<Song> bighits = new ArrayList<>();
-//        List listURL = new ArrayList<>();
-//        listURL.add("https://i.pinimg.com/170x/47/df/7f/47df7f619a9b9ceba2f3d948e41fb450.jpg");
-//        listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg");
-//        listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg");
-//        listURL.add("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg");
-
         List<Song> popular = new ArrayList<>();
-//        popular.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Song 1", "Artist 1"));
-//        popular.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Song 2", "Artist 2"));
-//        popular.add(new Song("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 3", "Artist 3"));
-
         List<Artist> artists = new ArrayList<>();
-//        artists.add(new Artist("https://tongdangtu.000webhostapp.com/img/img_1.png", "Artist 1"));
-//        artists.add(new Artist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Artist 2"));
-//        artists.add(new Artist("https://tongdangtu.000webhostapp.com/img/img_1.png", "Artist 3"));
-
         List<Category> categories = new ArrayList<>();
-//        categories.add(new Category(R.drawable.img_4, "Category 1"));
-//        categories.add(new Category(R.drawable.img_2, "Category 2"));
-//        categories.add(new Category(R.drawable.img_1, "Category 3"));
-
         List<Song> randomTracks = new ArrayList<>();
-//        randomTracks.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Song 1", "Artist 1", ""));
-//        randomTracks.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 2", "Artist 2", ""));
-//        randomTracks.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "Song 3", "Artist 3", ""));
-
         sections.add(new Section("History", history));
         getBigHitList();
         sections.add(new Section("Big Hits", bighits ));
@@ -113,11 +87,10 @@ public class HomeFragment extends Fragment {
         getRandomTracks();
         sections.add(new Section("Have you try this?", randomTracks));
 
-
         return sections;
     }
 
-    public void updateSectionAdapter () {
+    public void updateSongAdapter() {
         section_adapter.setSections(sections,new IClickSongOption() {
             @Override
             public void onClickSongOption(Song song) {
@@ -127,6 +100,23 @@ public class HomeFragment extends Fragment {
             public void onClickSong(Song song) {
                 mainActivity.openMusicPlayer();
                 MainActivity.song = song;
+            }
+        });
+    }
+
+    public void updateArtistAdapter() {
+        section_adapter.setSections(sections,new IClickArtist() {
+            @Override
+            public void onClickArtist(Artist artist) {
+                mainActivity.openArtistFragment();
+            }
+        });
+    }
+    public void updateCategoryAdapter() {
+        section_adapter.setSections(sections,new IClickCategory() {
+            @Override
+            public void onClickCategory(Category category) {
+                mainActivity.openCategoryFragment();
             }
         });
     }
@@ -145,7 +135,7 @@ public class HomeFragment extends Fragment {
                                     songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
                                 }
                                 sections.get(1).setItems(songList);
-                                updateSectionAdapter();
+                                updateSongAdapter();
                             }
                         }
                     }
@@ -171,7 +161,7 @@ public class HomeFragment extends Fragment {
                                     songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
                                 }
                                 sections.get(2).setItems(songList);
-                                updateSectionAdapter();
+                                updateSongAdapter();
                             }
                         }
                     }
@@ -192,8 +182,9 @@ public class HomeFragment extends Fragment {
                         if (dataJson != null) {
                             if (dataJson.isStatus() == true) {
                                 List<Artist> artistList = dataJson.getData();
+
                                 sections.get(3).setItems(artistList);
-                                updateSectionAdapter();
+                                updateArtistAdapter();
                             }
                         }
                     }
@@ -215,7 +206,7 @@ public class HomeFragment extends Fragment {
                             if (dataJson.isStatus() == true) {
                                 List<Category> categoryList = dataJson.getData();
                                 sections.get(4).setItems(categoryList);
-                                updateSectionAdapter();
+                                updateCategoryAdapter();
                             }
                         }
                     }
@@ -241,7 +232,7 @@ public class HomeFragment extends Fragment {
                                     songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
                                 }
                                 sections.get(5).setItems(songList);
-                                updateSectionAdapter();
+                                updateSongAdapter();
                             }
                         }
                     }
