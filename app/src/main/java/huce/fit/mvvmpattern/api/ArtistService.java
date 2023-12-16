@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface ArtistService {
     ArtistService artistService = new Retrofit.Builder()
-            .baseUrl("https://tongdangtu.000webhostapp.com/api/")
+            .baseUrl("https://nhomhungtu.000webhostapp.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ArtistService.class);

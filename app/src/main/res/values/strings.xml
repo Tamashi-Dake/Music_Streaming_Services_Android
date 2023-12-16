@@ -69,10 +69,14 @@
     <string name="toast_update_success">Successful Update</string>
     <string name="toast_failed_update">Failed Update</string>
 
+    <!-- NETWORK -->
+    <string name="not_internet">Not internet</string>
+    <string name="not_connection">Not connection</string>
+
     <!--  ERROR PHP API  -->
     <string name="sub_str_error_php_api">PHP:</string>
     <string name="error_php_api">Error Server</string>
 
     <!--  BASE URL  -->
-    <string name="base_url_not_slash_finnish">https://tongdangtu.000webhostapp.com</string>
+    <string name="base_url_not_slash_finnish">https://nhomhungtu.000webhostapp.com</string>
 </resources>
