@@ -99,6 +99,7 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
                                                 one = true;
                                                 acc.setPassword(strNewPassword);
                                                 UpdateAccount.onChangePassword(acc).observe(mainActivity, accountDataJson -> {
+
                                                 });
                                                 Toast.makeText(mainActivity, R.string.toast_update_success, Toast.LENGTH_SHORT).show();
                                             }
@@ -134,6 +135,7 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
                                             break;
                                     }
                                 });
+                            one = false;
 //                            Toast.makeText(mainActivity, strCurrentPassword+", "+strNewPassword+", "+strPasswordIncorrect, Toast.LENGTH_SHORT).show();
                         })
                         .setNegativeButton("Cancel", (dialog, which) -> {
@@ -141,7 +143,6 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
                         })
                         .create();
                 alertDialog.show();
-                one = false;
             }
         });
         return view;

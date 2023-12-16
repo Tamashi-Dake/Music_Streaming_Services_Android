@@ -139,6 +139,7 @@ public class AccountRepository {
 
     public MutableLiveData<DataJson<Account>> changePassword(Account account){
         if(account.getPassword()!=null && account.getUsername() != null){
+//            Log.e("account",account.getPassword()+" "+account.getUsername());
             AccountService.accountService.updateAccount(account)
                     .enqueue(new Callback<DataJson<Account>>() {
                         @Override
