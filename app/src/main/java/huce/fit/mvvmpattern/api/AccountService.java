@@ -13,10 +13,11 @@ import retrofit2.http.POST;
 
 public interface AccountService {
     AccountService accountService = new Retrofit.Builder()
-            .baseUrl("https://tongdangtu.000webhostapp.com/api/")
+            .baseUrl("https://nhomhungtu.000webhostapp.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AccountService.class);
+
 
     @POST("account/account.php")
     Call<DataJson<Account>> checkAccount (@Body Account account);

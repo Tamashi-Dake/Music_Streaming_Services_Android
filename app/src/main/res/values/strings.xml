@@ -59,10 +59,15 @@
     <!-- Notification -->
     <string name="toast_login_success">Login success</string>
     <string name="toast_login_failed">Login failed</string>
+    <string name="error_check_failed_password">Password is wrong!</string>
+    <string name="error_input_password">Password must input</string>
     <string name="toast_signup_success">Sign up success</string>
     <string name="toast_signup_failed">Sign up failed</string>
     <string name="error_input_confirm_password">Confirm password must input</string>
+    <string name="error_input_new_password">New password cannot be empty!</string>
     <string name="error_confirm_password_incorrect">Password and confirm password does not match</string>
+    <string name="toast_update_success">Successful Update</string>
+    <string name="toast_failed_update">Failed Update</string>
 
     <!--  ERROR PHP API  -->
     <string name="sub_str_error_php_api">PHP:</string>
