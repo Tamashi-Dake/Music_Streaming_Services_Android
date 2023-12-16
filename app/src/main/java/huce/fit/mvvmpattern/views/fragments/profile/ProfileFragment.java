@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Account;
 import huce.fit.mvvmpattern.utils.Status;
+import huce.fit.mvvmpattern.utils.Tmp;
 import huce.fit.mvvmpattern.viewmodels.LoginViewModel;
 import huce.fit.mvvmpattern.viewmodels.UpdateAccountViewModel;
 import huce.fit.mvvmpattern.views.LoginActivity;
@@ -36,6 +38,7 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
     private TextInputEditText current_password;
     private TextInputEditText new_password;
     private TextInputEditText renew_password;
+    private TextView Username;
     private UpdateAccountViewModel UpdateAccount;
     private LoginViewModel login;
     private Boolean one = false;
@@ -55,6 +58,9 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
         current_password = view.findViewById(R.id.edtCurrentPassword);
         new_password = view.findViewById(R.id.edtNewPassword);
         renew_password = view.findViewById(R.id.edtPasswordIncorrect);
+
+        Username = view.findViewById(R.id.username);
+        Username.setText(Tmp.current_username);
         btnChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +76,7 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
                             String strCurrentPassword = edtCurrentPassword.getText().toString();
                             String strNewPassword = edtNewPassword.getText().toString();
                             String strPasswordIncorrect = edtPasswordIncorrect.getText().toString();
-                            acc.setUsername(Status.current_username);
+                            acc.setUsername(Tmp.current_username);
                             acc.setPassword(strCurrentPassword);
                             // do chưa xử lý luồng kĩ nên đôi khi thông báo trễ hay bị nhảy
                                 login.checkLogin(acc).observe(mainActivity, integer -> {

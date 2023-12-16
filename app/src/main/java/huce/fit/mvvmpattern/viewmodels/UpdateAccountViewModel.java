@@ -20,7 +20,4 @@ public class UpdateAccountViewModel extends AndroidViewModel {
     public LiveData<DataJson<Account>> onChangePassword(Account account){
         return acc.changePassword(account);
     }
-    public String getInputPassword(String p){
-        return p;
-    }
 }

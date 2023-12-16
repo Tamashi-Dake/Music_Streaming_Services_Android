@@ -16,5 +16,4 @@ public class Status {
     public static final int updateFail = 10;
     public static final int correctPassword = 11;
     public static final int emptyNewPassword = 12;
-    public static String current_username = null;
 }

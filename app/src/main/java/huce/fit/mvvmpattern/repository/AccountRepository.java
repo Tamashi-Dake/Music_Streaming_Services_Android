@@ -9,6 +9,7 @@ import huce.fit.mvvmpattern.api.AccountService;
 import huce.fit.mvvmpattern.model.Account;
 import huce.fit.mvvmpattern.model.DataJson;
 import huce.fit.mvvmpattern.utils.Status;
+import huce.fit.mvvmpattern.utils.Tmp;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,7 +38,7 @@ public class AccountRepository {
                                 if (dataJson.isStatus() == true) {
 
                                     loginStatus.setValue(Status.loginSuccess);
-                                    Status.current_username = account.getUsername();
+                                    Tmp.current_username = account.getUsername();
                                 }
                                 else {
                                     loginStatus.setValue(Status.loginFail);
@@ -51,6 +52,7 @@ public class AccountRepository {
                         @Override
                         public void onFailure(Call<DataJson<Account>> call, Throwable t) {
                             Log.e("ERROR", this.getClass().getName()+"onClickLogin()->onFailure: "+t.getMessage());
+                            message.setValue("No internet connection");
                             loginStatus.setValue(Status.loginFail);
                         }
                     });
@@ -61,7 +63,7 @@ public class AccountRepository {
     // dont use binding
     public MutableLiveData<Integer> getLoginStatus2(Account account) {
         if (account.getUsername()!=null && account.getPassword()!=null && account.getPassword()!="") {
-            AccountService.accountService2.checkAccount2(account)
+            AccountService.accountService.checkAccount(account)
                     .enqueue(new Callback<DataJson<Account>>() {
                         @Override
                         public void onResponse(Call<DataJson<Account>> call, Response<DataJson<Account>> response) {
@@ -87,6 +89,7 @@ public class AccountRepository {
                         @Override
                         public void onFailure(Call<DataJson<Account>> call, Throwable t) {
                             Log.e("ERROR", this.getClass().getName()+"onClickLogin()->onFailure: "+t.getMessage());
+                            message.setValue("No internet connection");
                             loginStatus.setValue(Status.updateFail);
                         }
                     });
@@ -126,6 +129,7 @@ public class AccountRepository {
                         @Override
                         public void onFailure(Call<DataJson<Account>> call, Throwable t) {
                             Log.e("ERROR", this.getClass().getName()+"onClickLogin()->onFailure: "+t.getMessage());
+                            message.setValue("No internet connection");
                             signUpStatus.setValue(Status.signUpFail);
                         }
                     });
@@ -135,7 +139,7 @@ public class AccountRepository {
 
     public MutableLiveData<DataJson<Account>> changePassword(Account account){
         if(account.getPassword()!=null && account.getUsername() != null){
-            AccountService.accountService2.updateAccount2(account)
+            AccountService.accountService.updateAccount(account)
                     .enqueue(new Callback<DataJson<Account>>() {
                         @Override
                         public void onResponse(Call<DataJson<Account>> call, Response<DataJson<Account>> response) {
@@ -158,6 +162,7 @@ public class AccountRepository {
                         @Override
                         public void onFailure(Call<DataJson<Account>> call, Throwable t) {
                             Log.e("ERROR", this.getClass().getName()+"->onFailure: "+t.getMessage());
+                            message.setValue("No internet connection");
                             signUpStatus.setValue(Status.updateFail);
                         }
                     });
