@@ -49,7 +49,7 @@ public class PlaylistActivity extends AppCompatActivity {
         Playlist playlist = (Playlist) bundle.get("playlist");
         TextView textView = findViewById(R.id.tvPlaylist);
         textView.setText(playlist.getTitle());
-//        constraintLayout = findViewById(R.id.clPlaylistInfo);
+        constraintLayout = findViewById(R.id.clPlaylistInfo);
 //        constraintLayout
         Glide.with(this).load(playlist.getImageUrl()).into(new CustomTarget<Drawable>() {
 

@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface PopularService {
     PopularService popularService = new Retrofit.Builder()
-            .baseUrl("https://tongdangtu.000webhostapp.com/api/")
+            .baseUrl("https://nhomhungtu.000webhostapp.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PopularService.class);
