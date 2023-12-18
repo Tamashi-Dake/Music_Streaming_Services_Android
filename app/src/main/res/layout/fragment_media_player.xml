@@ -8,7 +8,7 @@
     tools:context=".views.fragments.nowPlaying.MediaPlayerFragment">
 
     <ImageButton
-        android:id="@+id/btnBack"
+        android:id="@+id/ib_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ivSongImage"
+        android:id="@+id/iv_disc"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginVertical="20dp"
@@ -28,8 +28,22 @@
         android:src="@drawable/img_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack"
+        app:layout_constraintTop_toBottomOf="@+id/ib_back"
         app:shapeAppearanceOverlay="@style/circleImageView" />
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginVertical="20dp"
+        android:padding="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ib_back"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/theme_color"
+        android:background="#ddd"
+        android:visibility="invisible"
+        />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/SongInfoWrapper"
@@ -39,7 +53,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivSongImage">
+        app:layout_constraintTop_toBottomOf="@+id/iv_disc">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -51,7 +65,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvSongName"
+                android:id="@+id/tv_song_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
@@ -62,8 +76,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/tvArtistName"
-
+                android:id="@+id/tv_artist_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="5dp"
@@ -72,7 +85,7 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/btnFavorite"
+            android:id="@+id/ib_favorite"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -84,8 +97,20 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <TextView
+        android:id="@+id/tv_hint_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/SongInfoWrapper"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="00:00"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        />
+
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/sb_timeline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -98,10 +123,10 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="10dp"
         android:paddingTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar">
+        app:layout_constraintTop_toBottomOf="@+id/sb_timeline">
 
         <TextView
-            android:id="@+id/tvCurrentTime"
+            android:id="@+id/tv_current_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00:00"
@@ -111,10 +136,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvTotalTime"
+            android:id="@+id/tv_total_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="XX:XX"
+            android:text="00:00"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -131,56 +156,56 @@
         app:layout_constraintTop_toBottomOf="@+id/TimeWrapper">
 
         <ImageButton
-            android:id="@+id/btnRepeat"
+            android:id="@+id/ib_repeat"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:background="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_repeat_white"
+            android:src="@drawable/ic_repeat_red"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnPrevious"
+            android:id="@+id/ib_previous"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:background="@null"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_skip_previous_white"
-            app:layout_constraintEnd_toStartOf="@+id/btnPlay"
+            app:layout_constraintEnd_toStartOf="@+id/ib_play"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnRepeat"
+            app:layout_constraintStart_toEndOf="@+id/ib_repeat"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnPlay"
+            android:id="@+id/ib_play"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:background="@null"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_play_white"
-            app:layout_constraintEnd_toStartOf="@+id/btnNext"
+            app:layout_constraintEnd_toStartOf="@+id/ib_next"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnPrevious"
+            app:layout_constraintStart_toEndOf="@+id/ib_previous"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnNext"
+            android:id="@+id/ib_next"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:background="@null"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_skip_next_white"
-            app:layout_constraintEnd_toStartOf="@+id/btnShuffle"
+            app:layout_constraintEnd_toStartOf="@+id/ib_shuffle"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnPlay"
+            app:layout_constraintStart_toEndOf="@+id/ib_play"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnShuffle"
+            android:id="@+id/ib_shuffle"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:background="@null"

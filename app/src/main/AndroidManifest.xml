@@ -17,6 +17,11 @@
         android:theme="@style/Theme.MVVMPattern"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <service
+            android:name=".services.MediaService"
+            android:enabled="true"
+            android:exported="true"></service>
+
         <activity
             android:name=".views.CategoryActivity"
             android:exported="false" />
@@ -41,11 +46,13 @@
         <activity
             android:name=".views.LoginActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".views.MusicPlayerActivity"
@@ -63,11 +70,11 @@
             android:label="Home"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MVVMPattern">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
