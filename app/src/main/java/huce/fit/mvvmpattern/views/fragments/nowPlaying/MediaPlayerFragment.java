@@ -72,12 +72,17 @@ public class MediaPlayerFragment extends Fragment {
 //        MediaService.isComing = musicPlayerActivity.getIntent().ge;
         MediaService.isComing = true;
 
-        intent = new Intent(musicPlayerActivity, MediaService.class);
-        musicPlayerActivity.startService(intent);
+        if (musicPlayerActivity.getIntent().getBooleanExtra("isComingFromMiniPlayer", false) == true) {
+            init(view);
+        }
+        else {
+            intent = new Intent(musicPlayerActivity, MediaService.class);
+            musicPlayerActivity.startService(intent);
 
-        init(view);
+            init(view);
 //        addSong();
-        addSongAdapter();
+            addSongAdapter();
+        }
         initMediaPlayer();
         processEvent();
 
