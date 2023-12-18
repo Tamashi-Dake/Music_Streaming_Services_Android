@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.services.MediaService;
 import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.MusicPlayerActivity;
@@ -53,6 +54,7 @@ public class MediaPlayerFragment extends Fragment {
     private SeekBar sbTimeLine;
     private ProgressBar pbLoading;
     private List<String> linkSongList;
+    private List<Song> linkSongAdapterList;
 
     private MusicPlayerActivity musicPlayerActivity;
     private Intent intent;
@@ -74,7 +76,8 @@ public class MediaPlayerFragment extends Fragment {
         musicPlayerActivity.startService(intent);
 
         init(view);
-        addSong();
+//        addSong();
+        addSongAdapter();
         initMediaPlayer();
         processEvent();
 
@@ -86,7 +89,7 @@ public class MediaPlayerFragment extends Fragment {
         super.onDestroy();
     }
 
-    private void loadingImage () {
+//    private void loadingImage () {
 //        musicPlayerActivity.runOnUiThread(
 //                new Runnable() {
 //                    @Override
@@ -98,7 +101,7 @@ public class MediaPlayerFragment extends Fragment {
 //                    }
 //                }
 //        );
-    }
+//    }
 
     private void startAnimation() {
         Runnable runnable = new Runnable() {
@@ -263,15 +266,26 @@ public class MediaPlayerFragment extends Fragment {
         ibBack = view.findViewById(R.id.ib_back);
     }
 
-    private void addSong () {
-        linkSongList = new ArrayList<>();
-        linkSongList.add(MainActivity.song.getLinkSong());
-        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Red.mp3");
-        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Smooth Criminal.mp3");
-        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Em của ngày hôm qua.mp3");
-        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Nơi này có anh.mp3");
-        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Chạy ngay đi.mp3");
-        MediaService.addSong(linkSongList);
+//    private void addSong () {
+//        linkSongList = new ArrayList<>();
+//        linkSongList.add(MainActivity.song.getLinkSong());
+////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Red.mp3");
+////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Smooth Criminal.mp3");
+////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Em của ngày hôm qua.mp3");
+////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Nơi này có anh.mp3");
+////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Chạy ngay đi.mp3");
+//        MediaService.addSong(linkSongList);
+//    }
+
+    private void addSongAdapter () {
+        linkSongAdapterList = new ArrayList<>();
+        linkSongAdapterList.add(MainActivity.song);
+        linkSongAdapterList.add(new Song("10005", "https://nhomhungtu.000webhostapp.com/img/Em của ngày hôm qua.jpg", "Em của ngày hôm qua", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Em của ngày hôm qua.mp3", "pop"));
+        linkSongAdapterList.add(new Song("10001", "https://nhomhungtu.000webhostapp.com/img/Nơi này có anh.jpg", "Nơi này có anh", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Nơi này có anh.mp3", "pop"));
+        linkSongAdapterList.add(new Song("10004", "https://nhomhungtu.000webhostapp.com/img/Chạy ngay đi.jpg", "Chạy ngay đi", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Chạy ngay đi.mp3", "pop"));
+        linkSongAdapterList.add(new Song("10002", "https://nhomhungtu.000webhostapp.com/img/Red.jpg", "Red", "Taylor Swift", "https://nhomhungtu.000webhostapp.com/song/Red.mp3", "pop"));
+        linkSongAdapterList.add(new Song("10003", "https://nhomhungtu.000webhostapp.com/img/Smooth Criminal.jpg", "Smooth Criminal", "Michael Jackson", "https://nhomhungtu.000webhostapp.com/song/Smooth Criminal.mp3", "pop"));
+        MediaService.addSongAdapter(linkSongAdapterList);
     }
 
     private void initMediaPlayer () {
@@ -289,9 +303,11 @@ public class MediaPlayerFragment extends Fragment {
             MediaService.getStatusPlayingMutableLiveData().observe(musicPlayerActivity, statusPlaying -> {
                 if (statusPlaying) {
                     ibPlay.setImageResource(R.drawable.ic_pause_white);
+                    startAnimation();
                 }
                 else {
                     ibPlay.setImageResource(R.drawable.ic_play_white);
+                    stopAnimation();
                 }
             });
             MediaService.getStatusRepeatMutableLiveData().observe(musicPlayerActivity, statusRepeat -> {
@@ -317,11 +333,18 @@ public class MediaPlayerFragment extends Fragment {
                         break;
                 }
             });
-            MediaService.getTitleMutableLiveDate().observe(musicPlayerActivity, title -> {
-                tvSongName.setText(title);
+            MediaService.getTitleMutableLiveData().observe(musicPlayerActivity, songName -> {
+                tvSongName.setText(songName);
             });
-//            tvSongName.setText(MainActivity.song.getTrackName());
-//            tvArtistName.setText(MainActivity.song.getArtistName());
+            MediaService.getArtistMutableLiveData().observe(musicPlayerActivity, artistName -> {
+                tvArtistName.setText(artistName);
+            });
+//            MediaService.getCategoryMutableLiveData().observe(musicPlayerActivity, categoryName -> {
+//                tvCategoryName.setText(categoryName);
+//            });
+            MediaService.getLinkPictureMutableLiveData().observe(musicPlayerActivity, linkPicture -> {
+                Glide.with(ivDisc.getContext()).load(linkPicture).into(ivDisc);
+            });
             MediaService.getStartTimeMutableLiveData().observe(musicPlayerActivity, startTime -> {
                 tvCurrentTime.setText(startTime);
             });

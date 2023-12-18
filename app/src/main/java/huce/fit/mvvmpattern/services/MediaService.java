@@ -4,11 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import android.app.Service;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Handler;
-import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -20,11 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.model.Song;
 
 public class MediaService extends Service {
     private static MediaPlayer mediaPlayer;
     private static List<String> linkSongList = new ArrayList<>();
+    private static List<Song> linkSongAdapterList = new ArrayList<>();
     private static int position = 0;
     public static boolean isUpdatingSeekBar = true;
     private static boolean autoStart = false;
@@ -47,7 +45,7 @@ public class MediaService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        addSong(linkSongList);
+//        addSong(linkSongAdapterList);
         if (mediaPlayer == null) {
             initMediaPlayer(position);
         }
@@ -66,10 +64,6 @@ public class MediaService extends Service {
     public void onDestroy() {
         super.onDestroy();
         releaseResourceMediaPlayer();
-    }
-
-    private static String getTitle () {
-        return linkSongList.get(position).substring(42);
     }
 
     private static String getStartTime () {
@@ -151,7 +145,7 @@ public class MediaService extends Service {
         isComing = false;
         position--;
         if (position < 0) {
-            position = linkSongList.size()-1;
+            position = linkSongAdapterList.size()-1;
         }
         releaseResourceMediaPlayer();
         initMediaPlayer(position);
@@ -162,13 +156,13 @@ public class MediaService extends Service {
         isComing = false;
 
         if (statusShuffle.equals("1")) {
-            position = new Random().nextInt(linkSongList.size());
+            position = new Random().nextInt(linkSongAdapterList.size());
         }
         else {
             position++;
         }
 
-        if (position > linkSongList.size() - 1) {
+        if (position > linkSongAdapterList.size() - 1) {
             position = 0;
         }
         releaseResourceMediaPlayer();
@@ -231,10 +225,10 @@ public class MediaService extends Service {
                     position++;
                 }
                 else if (statusShuffle.equals("1")) {
-                    position = new Random().nextInt(linkSongList.size());
+                    position = new Random().nextInt(linkSongAdapterList.size());
                 }
 
-                if (position > linkSongList.size() - 1) {
+                if (position > linkSongAdapterList.size() - 1) {
                     position = 0;
                 }
                 releaseResourceMediaPlayer();
@@ -243,16 +237,60 @@ public class MediaService extends Service {
         });
     }
 
-    public static void addSong (List<String> list) {
-        if (linkSongList.equals(list)) {
+//    public static void addSong (List<String> list) {
+//        if (linkSongAdapterList.equals(list)) {
+//            isNewList = false;
+//        }
+//        else {
+//            linkSongAdapterList = list;
+//            position = 0;
+//            isNewList = true;
+//            statusPlayingMutableLiveData.setValue(false);
+//        }
+//    }
+
+    // Sau khi hoàn thành Chức năng playlist có thể thêm tham số thứ 2 lưu id playlist, hoặc là không cần tham số thứ 2
+    public static void addSongAdapter (List<Song> list) {
+        int listSongAdapterSize = linkSongAdapterList.size();
+        int listSize = list.size();
+        boolean isMatch = true; // kiểm tra xem 2 danh sách bài hát chuẩn bị mở với đang phát có giống không?
+        // Kiểm tra bài hát đầu tiên của 2 danh sách. (Sau khi hoàn thành Chức năng playlist, có thể không cần tới lần IF này)
+        if (listSongAdapterSize > 0) {
+            if (linkSongAdapterList.get(position).getId().equals(list.get(0).getId()) == false) {
+                isMatch = false;
+            }
+        }
+
+        if (listSongAdapterSize == listSize) {
+            for (int i = 0; i < listSize; i++) {
+                if (linkSongAdapterList.get(i).getId().equals(list.get(i).getId()) == false) {
+                    isMatch = false;
+                }
+            }
+        }
+        else {
+            isMatch = false;
+        }
+
+        if (isMatch == true) {
             isNewList = false;
         }
         else {
-            linkSongList = list;
+            linkSongAdapterList = list;
             position = 0;
             isNewList = true;
             statusPlayingMutableLiveData.setValue(false);
         }
+
+//        if (linkSongAdapterList.equals(list)) {
+//            isNewList = false;
+//        }
+//        else {
+//            linkSongAdapterList = list;
+//            position = 0;
+//            isNewList = true;
+//            statusPlayingMutableLiveData.setValue(false);
+//        }
     }
 
 //    private static void initMediaPlayer (int position) {
@@ -262,7 +300,7 @@ public class MediaService extends Service {
 //            endTimeMutableLiveData.setValue("00:00");
 //            titleMutableLiveDate.setValue(getTitle());
 //            mediaPlayer = new MediaPlayer ();
-//            mediaPlayer.setDataSource(linkSongList.get(position));
+//            mediaPlayer.setDataSource(linkSongAdapterList.get(position));
 //            mediaPlayer.prepareAsync();
 //
 //            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -288,12 +326,15 @@ public class MediaService extends Service {
         statusPrepareMutableLiveData.setValue(false);
         startTimeMutableLiveData.setValue("00:00");
         endTimeMutableLiveData.setValue("00:00");
-        titleMutableLiveDate.setValue(getTitle());
+        titleMutableLiveData.setValue(linkSongAdapterList.get(position).getTrackName());
+        artistMutableLiveData.setValue(linkSongAdapterList.get(position).getArtistName());
+        categoryMutableLiveData.setValue(linkSongAdapterList.get(position).getCategoryName());
+        linkPictureMutableLiveData.setValue(linkSongAdapterList.get(position).getImage());
         statusRepeatMutableLiveData.setValue(statusRepeat);
         statusShuffleMutableLiveData.setValue(statusShuffle);
         try {
             mediaPlayer = new MediaPlayer ();
-            mediaPlayer.setDataSource(linkSongList.get(position));
+            mediaPlayer.setDataSource(linkSongAdapterList.get(position).getLinkSong());
             mediaPlayer.prepareAsync();
 
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -301,7 +342,7 @@ public class MediaService extends Service {
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     statusPrepareMutableLiveData.setValue(true);
                     endTimeMutableLiveData.setValue(getEndTime());
-                    endMillisecondsMutableLiveDate.setValue(mediaPlayer.getDuration());
+                    endMillisecondsMutableLiveData.setValue(mediaPlayer.getDuration());
                     if(autoStart == true && isComing == false) {
                         mediaPlayer.start();
                     }
@@ -336,9 +377,24 @@ public class MediaService extends Service {
         return statusShuffleMutableLiveData;
     }
 
-    static private MutableLiveData<String> titleMutableLiveDate = new MutableLiveData<>();
-    static public MutableLiveData<String> getTitleMutableLiveDate () {
-        return titleMutableLiveDate;
+    static private MutableLiveData<String> titleMutableLiveData = new MutableLiveData<>();
+    static public MutableLiveData<String> getTitleMutableLiveData () {
+        return titleMutableLiveData;
+    }
+
+    static private MutableLiveData<String> artistMutableLiveData = new MutableLiveData<>();
+    static public MutableLiveData<String> getArtistMutableLiveData () {
+        return artistMutableLiveData;
+    }
+
+    static private MutableLiveData<String> categoryMutableLiveData = new MutableLiveData<>();
+    static public MutableLiveData<String> getCategoryMutableLiveData () {
+        return categoryMutableLiveData;
+    }
+
+    static private MutableLiveData<String> linkPictureMutableLiveData = new MutableLiveData<>();
+    static public MutableLiveData<String> getLinkPictureMutableLiveData () {
+        return linkPictureMutableLiveData;
     }
 
     static private MutableLiveData<Integer> startMillisecondsMutableLiveData = new MutableLiveData<>();
@@ -346,9 +402,9 @@ public class MediaService extends Service {
         return startMillisecondsMutableLiveData;
     }
 
-    static private MutableLiveData<Integer> endMillisecondsMutableLiveDate = new MutableLiveData<>();
+    static private MutableLiveData<Integer> endMillisecondsMutableLiveData = new MutableLiveData<>();
     static public MutableLiveData<Integer> getEndMillisecondsMutableLiveData() {
-        return endMillisecondsMutableLiveDate;
+        return endMillisecondsMutableLiveData;
     }
 
     static private MutableLiveData<String> startTimeMutableLiveData = new MutableLiveData<>();

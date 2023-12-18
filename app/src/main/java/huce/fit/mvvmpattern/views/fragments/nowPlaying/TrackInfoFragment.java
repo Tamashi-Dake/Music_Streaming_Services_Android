@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.services.MediaService;
 import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.MusicPlayerActivity;
 
@@ -45,18 +46,32 @@ public class TrackInfoFragment extends Fragment {
         tvArtistName = view.findViewById(R.id.tvArtistName);
 
         musicPlayerActivity = (MusicPlayerActivity) getActivity();
-        musicPlayerActivity.runOnUiThread(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        Glide.with(ivSong.getContext()).load(MainActivity.song.getImage()).into(ivSong);
-                        tvArtist.setText(MainActivity.song.getArtistName());
-                        tvCategory.setText(MainActivity.song.getCategoryName());
-                        tvSongName.setText(MainActivity.song.getTrackName());
-                        tvArtistName.setText(MainActivity.song.getArtistName());
-                    }
-                }
-        );
+//        musicPlayerActivity.runOnUiThread(
+//                new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Glide.with(ivSong.getContext()).load(MainActivity.song.getImage()).into(ivSong);
+//                        tvArtist.setText(MainActivity.song.getArtistName());
+//                        tvCategory.setText(MainActivity.song.getCategoryName());
+//                        tvSongName.setText(MainActivity.song.getTrackName());
+//                        tvArtistName.setText(MainActivity.song.getArtistName());
+//                    }
+//                }
+//        );
+
+        MediaService.getTitleMutableLiveData().observe(musicPlayerActivity, songName -> {
+            tvSongName.setText(songName);
+        });
+        MediaService.getArtistMutableLiveData().observe(musicPlayerActivity, artistName -> {
+            tvArtist.setText(artistName);
+            tvArtistName.setText(artistName);
+        });
+        MediaService.getCategoryMutableLiveData().observe(musicPlayerActivity, categoryName -> {
+            tvCategory.setText(categoryName);
+        });
+        MediaService.getLinkPictureMutableLiveData().observe(musicPlayerActivity, linkPicture -> {
+            Glide.with(ivSong.getContext()).load(linkPicture).into(ivSong);
+        });
 
         btnGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
