@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             >
             <TextView
-                android:id="@+id/tvSongTitle"
+                android:id="@+id/tvMiniSongTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Popular Track"
@@ -47,7 +47,7 @@
                 tools:layout_editor_absoluteY="10dp" />
 
             <TextView
-                android:id="@+id/tvSongArtist"
+                android:id="@+id/tvMiniSongArtist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Artist"

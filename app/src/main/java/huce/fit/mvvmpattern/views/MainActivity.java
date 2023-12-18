@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationBarView;
@@ -23,6 +25,7 @@ import com.google.android.material.navigation.NavigationBarView;
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.databinding.ActivityMainBinding;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.services.MediaService;
 import huce.fit.mvvmpattern.viewmodels.HomeViewModel;
 import huce.fit.mvvmpattern.views.adapter.ViewPageAdapter;
 
@@ -31,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
     private HomeViewModel homeViewModel;
     private ActivityMainBinding binding;
     private ViewPager2 viewPager;
+    private TextView tvSongName;
+    private TextView tvArtistName;
     public ImageView playPause;
+    public ImageView next;
     public MediaPlayer mediaPlayer;
     private ImageView ivSongImage;
     private BottomNavigationView bottomNav;
@@ -53,52 +59,93 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottomNavigation);
 
         setViewPager();
+        tvSongName = findViewById(R.id.tvMiniSongTitle);
+        tvArtistName = findViewById(R.id.tvMiniSongArtist);
         ivSongImage = findViewById(R.id.imgMiniImage);
         playPause = findViewById(R.id.iconPlayPause);
+        next = findViewById(R.id.iconNextTrack);
 
 
 
-        playPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mediaPlayer.isPlaying()) {
-                    mediaPlayer.pause();
-                    playPause.setImageResource(R.drawable.ic_play);
-                    stopAnimation();
-                }else {
-                    mediaPlayer.start();
-                    playPause.setImageResource(R.drawable.ic_pause);
-                    startAnimation();
-                }
-            }
-        });
-//        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/anytimeanywhere_milet");
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-//            mediaPlayer.setDataSource(music_url);
-            mediaPlayer.setDataSource(getApplicationContext(), uri);
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                }
-            });
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+//        playPause.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(mediaPlayer.isPlaying()) {
+//                    mediaPlayer.pause();
+//                    playPause.setImageResource(R.drawable.ic_play);
+//                    stopAnimation();
+//                }else {
+//                    mediaPlayer.start();
+//                    playPause.setImageResource(R.drawable.ic_pause);
+//                    startAnimation();
+//                }
+//            }
+//        });
+////        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
+//        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/anytimeanywhere_milet");
+//        mediaPlayer = new MediaPlayer();
+//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//        try {
+////            mediaPlayer.setDataSource(music_url);
+//            mediaPlayer.setDataSource(getApplicationContext(), uri);
+//            mediaPlayer.prepareAsync();
+//            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//                @Override
+//                public void onPrepared(MediaPlayer mp) {
+//                }
+//            });
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
         View view = findViewById(R.id.mini_player);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-               openMusicPlayer();
+                openMusicPlayerFromMiniPlayer();
 //                vì lý do nào đó mà animation ko nhận đc
 //                overridePendingTransition(R.anim.slide_up, R.anim.slide_up_out);
             }
         });
+
+        playPause.setOnClickListener(view_ -> {
+            MediaService.eventPlayPause();
+        });
+
+        next.setOnClickListener(view_ -> {
+            MediaService.eventNext();
+        });
+
+        MediaService.getStatusPrepareMutableLiveData().observe(this, statusPrepare -> {
+            if (statusPrepare) {
+                view.setVisibility(View.VISIBLE);
+                thawingButtonControl();
+            }
+            else {
+                freezingButtonControl();
+            }
+        });
+        MediaService.getStatusPlayingMutableLiveData().observe(this, statusPlaying -> {
+            if (statusPlaying) {
+                playPause.setImageResource(R.drawable.ic_pause);
+                startAnimation();
+            }
+            else {
+                playPause.setImageResource(R.drawable.ic_play);
+                stopAnimation();
+            }
+        });
+        MediaService.getTitleMutableLiveData().observe(this, songName -> {
+            tvSongName.setText(songName);
+        });
+        MediaService.getArtistMutableLiveData().observe(this, artistName -> {
+            tvArtistName.setText(artistName);
+        });
+        MediaService.getLinkPictureMutableLiveData().observe(this, linkPicture -> {
+            Glide.with(ivSongImage.getContext()).load(linkPicture).into(ivSongImage);
+        });
+
 //        handle event when user select item on bottom navigation
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -124,6 +171,11 @@ public class MainActivity extends AppCompatActivity {
 //    }
     public void openMusicPlayer() {
         Intent intent = new Intent(this, MusicPlayerActivity.class);
+        startActivity(intent);
+    }
+    public void openMusicPlayerFromMiniPlayer() {
+        Intent intent = new Intent(this, MusicPlayerActivity.class);
+        intent.putExtra("isComingFromMiniPlayer", true);
         startActivity(intent);
     }
     public void openArtistFragment() {
@@ -181,5 +233,14 @@ public class MainActivity extends AppCompatActivity {
     public void openCategoryFragment() {
         Intent intent = new Intent(this, CategoryActivity.class);
         startActivity(intent);
+    }
+
+//  NEW CODE:
+    private void freezingButtonControl () {
+        playPause.setEnabled(false);
+    }
+
+    private void thawingButtonControl () {
+        playPause.setEnabled(true);
     }
 }

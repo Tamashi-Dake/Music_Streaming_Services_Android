@@ -38,7 +38,7 @@
             android:id="@+id/mini_player"
             layout="@layout/item_mini_player"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-            android:visibility="visible"
+            android:visibility="gone"
             />
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
