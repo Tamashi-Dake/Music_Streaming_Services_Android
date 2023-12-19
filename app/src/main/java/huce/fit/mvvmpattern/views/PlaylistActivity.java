@@ -110,8 +110,7 @@ public class PlaylistActivity extends AppCompatActivity {
         btnGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-
+                getOnBackPressedDispatcher().onBackPressed();
             }
         });
     }public void openMusicPlayer() {
