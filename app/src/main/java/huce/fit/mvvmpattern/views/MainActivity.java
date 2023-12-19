@@ -22,6 +22,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.databinding.ActivityMainBinding;
 import huce.fit.mvvmpattern.model.Song;
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
     private BottomSheetDialog bottomSheetSongOption;
     public static Song song = new Song("", "", "", "", "", "");
+    public static List<Song> songList = new ArrayList<>();
+
     //    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

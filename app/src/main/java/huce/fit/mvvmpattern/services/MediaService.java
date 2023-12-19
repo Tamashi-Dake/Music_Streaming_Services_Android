@@ -149,6 +149,7 @@ public class MediaService extends Service {
         }
         releaseResourceMediaPlayer();
         initMediaPlayer(position);
+        statusPlayingMutableLiveData.setValue(true);
     }
 
     public static void eventNext () {
@@ -167,6 +168,7 @@ public class MediaService extends Service {
         }
         releaseResourceMediaPlayer();
         initMediaPlayer(position);
+        statusPlayingMutableLiveData.setValue(true);
     }
 
     public static void eventRepeat () {

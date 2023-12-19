@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -284,12 +285,26 @@ public class MediaPlayerFragment extends Fragment {
 
     private void addSongAdapter () {
         linkSongAdapterList = new ArrayList<>();
-        linkSongAdapterList.add(MainActivity.song);
-        linkSongAdapterList.add(new Song("10005", "https://nhomhungtu.000webhostapp.com/img/Em của ngày hôm qua.jpg", "Em của ngày hôm qua", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Em của ngày hôm qua.mp3", "pop"));
-        linkSongAdapterList.add(new Song("10001", "https://nhomhungtu.000webhostapp.com/img/Nơi này có anh.jpg", "Nơi này có anh", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Nơi này có anh.mp3", "pop"));
-        linkSongAdapterList.add(new Song("10004", "https://nhomhungtu.000webhostapp.com/img/Chạy ngay đi.jpg", "Chạy ngay đi", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Chạy ngay đi.mp3", "pop"));
-        linkSongAdapterList.add(new Song("10002", "https://nhomhungtu.000webhostapp.com/img/Red.jpg", "Red", "Taylor Swift", "https://nhomhungtu.000webhostapp.com/song/Red.mp3", "pop"));
-        linkSongAdapterList.add(new Song("10003", "https://nhomhungtu.000webhostapp.com/img/Smooth Criminal.jpg", "Smooth Criminal", "Michael Jackson", "https://nhomhungtu.000webhostapp.com/song/Smooth Criminal.mp3", "pop"));
+        if (MainActivity.song != null && MainActivity.songList != null) {
+            for (int i = 0; i < MainActivity.songList.size(); i++) {
+                if (MainActivity.song.getId().equals(MainActivity.songList.get(i).getId())) {
+                    Collections.rotate(MainActivity.songList, -i);
+                    linkSongAdapterList.addAll(MainActivity.songList);
+                }
+            }
+        }
+        else if (MainActivity.song != null) {
+            linkSongAdapterList.add(MainActivity.song);
+        }
+        else if (MainActivity.songList != null) {
+            linkSongAdapterList.addAll(MainActivity.songList);
+        }
+//        linkSongAdapterList.add(new Song("10005", "https://nhomhungtu.000webhostapp.com/img/Em của ngày hôm qua.jpg", "Em của ngày hôm qua", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Em của ngày hôm qua.mp3", "pop"));
+//        linkSongAdapterList.add(new Song("10001", "https://nhomhungtu.000webhostapp.com/img/Nơi này có anh.jpg", "Nơi này có anh", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Nơi này có anh.mp3", "pop"));
+//        linkSongAdapterList.add(new Song("10004", "https://nhomhungtu.000webhostapp.com/img/Chạy ngay đi.jpg", "Chạy ngay đi", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Chạy ngay đi.mp3", "pop"));
+//        linkSongAdapterList.add(new Song("10002", "https://nhomhungtu.000webhostapp.com/img/Red.jpg", "Red", "Taylor Swift", "https://nhomhungtu.000webhostapp.com/song/Red.mp3", "pop"));
+//        linkSongAdapterList.add(new Song("10003", "https://nhomhungtu.000webhostapp.com/img/Smooth Criminal.jpg", "Smooth Criminal", "Michael Jackson", "https://nhomhungtu.000webhostapp.com/song/Smooth Criminal.mp3", "pop"));
+//        linkSongAdapterList.add()
         MediaService.addSongAdapter(linkSongAdapterList);
     }
 

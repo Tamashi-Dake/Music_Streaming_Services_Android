@@ -94,6 +94,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Popula
             tvTitle = itemView.findViewById(R.id.tvSongTitle);
             tvArtist = itemView.findViewById(R.id.tvSongArtist);
             btnMore = itemView.findViewById(R.id.btnMore);
+
+            layoutItem = itemView.findViewById(R.id.layoutItem);
             btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -102,8 +104,6 @@ public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.Popula
                     }
                 }
             });
-
-            layoutItem = itemView.findViewById(R.id.layoutItem);
             layoutItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

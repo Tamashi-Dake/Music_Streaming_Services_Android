@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment {
             public void onClickSong(Song song) {
                 mainActivity.openMusicPlayer();
                 MainActivity.song = song;
+                MainActivity.songList = null;
             }
         });
         recyclerViewHome.setAdapter(section_adapter);
@@ -100,6 +101,7 @@ public class HomeFragment extends Fragment {
             public void onClickSong(Song song) {
                 mainActivity.openMusicPlayer();
                 MainActivity.song = song;
+                MainActivity.songList = null;
             }
         });
     }

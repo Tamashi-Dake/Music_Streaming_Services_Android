@@ -23,4 +23,7 @@ public interface SongInfoService {
 
     @GET("songInfo/search.php")
     Call<DataJson<SongInfo>> search (@Query("search") String search);
+
+    @GET("songInfo/getListSongByPlayListID.php")
+    Call<DataJson<SongInfo>> getListSongByPlayListID (@Query("id") String id);
 }

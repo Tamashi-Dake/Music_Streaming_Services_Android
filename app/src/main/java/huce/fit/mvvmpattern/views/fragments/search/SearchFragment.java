@@ -73,6 +73,8 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClickSong(Song song) {
                 mainActivity.openMusicPlayer();
+                MainActivity.song = song;
+                MainActivity.songList = null;
             }
         });
         recyclerView.setAdapter(songAdapter);
@@ -121,6 +123,7 @@ public class SearchFragment extends Fragment {
             public void onClickSong(Song song) {
                 mainActivity.openMusicPlayer();
                 MainActivity.song = song;
+                MainActivity.songList = null;
             }
         });
     }
