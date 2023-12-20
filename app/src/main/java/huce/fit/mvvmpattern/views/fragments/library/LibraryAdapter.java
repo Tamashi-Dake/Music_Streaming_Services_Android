@@ -1,12 +1,15 @@
 package huce.fit.mvvmpattern.views.fragments.library;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -126,6 +129,10 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     public void onclickItemPlaylist(Playlist playlist) {
                         playlistViewHolder.onclickItemPlaylist(playlist);
                     }
+                    @Override
+                    public void onLongClickItemPlaylist(Playlist playlist) {
+                        playlistViewHolder.onLongClickItemPlaylist(playlist);
+                    }
                 });
                 playlistViewHolder.rcvItem.setAdapter(playlistAdapter);
                 break;
@@ -205,6 +212,21 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             bundle.putSerializable("playlist", playlist);
             intent.putExtras(bundle);
             context.startActivity(intent);
+        }
+
+        public void onLongClickItemPlaylist(Playlist playlist) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Xóa / Sửa playlist");
+            builder.setMessage("chọn chức năng");
+            builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(context, "Xóa playlist", Toast.LENGTH_SHORT).show();
+                }
+            });
+            builder.setNegativeButton("Không", null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 }

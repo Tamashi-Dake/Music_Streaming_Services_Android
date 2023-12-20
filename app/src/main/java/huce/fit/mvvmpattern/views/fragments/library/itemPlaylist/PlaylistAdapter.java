@@ -51,6 +51,13 @@ public void setItems(List<Playlist> list ){
                 iClickItemPlaylist.onclickItemPlaylist(item);
             }
         });
+        holder.layoutItemPlaylist.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                iClickItemPlaylist.onLongClickItemPlaylist(item);
+                return true;
+            }
+        });
     }
     @Override
     public int getItemCount() {

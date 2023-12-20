@@ -86,6 +86,9 @@ public class CategoryActivity extends AppCompatActivity {
                 openMusicPlayer();
             }
         });
+        if (adapter == null) {
+            Toast.makeText(this, "No song", Toast.LENGTH_SHORT).show();
+        }
         recyclerView.setAdapter(adapter);
 
 
