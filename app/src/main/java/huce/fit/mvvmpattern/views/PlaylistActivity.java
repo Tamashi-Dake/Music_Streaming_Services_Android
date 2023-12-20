@@ -119,9 +119,33 @@ public class PlaylistActivity extends AppCompatActivity {
     }
     public void openSongBottomSheet() {
         View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song_playlist, null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(viewBottom);
-        bottomSheetDialog.show();
+
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(viewBottom);
+        dialog.setCanceledOnTouchOutside(false);
+
+        ConstraintLayout btnFavorite = dialog.findViewById(R.id.bottom_sheet_options_Favorite);
+        ConstraintLayout btnAddToPlaylist = dialog.findViewById(R.id.bottom_sheet_options_Playlist);
+        ConstraintLayout btnDelete = dialog.findViewById(R.id.bottom_sheet_options_Remove);
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PlaylistActivity.this, "Favorite", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnAddToPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PlaylistActivity.this, "Add to playlist", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PlaylistActivity.this, "Delete", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
     }
     private List<Song> getPlaylistSong(){
         list = new ArrayList<>();

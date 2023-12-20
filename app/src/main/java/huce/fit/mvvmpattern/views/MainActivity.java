@@ -11,9 +11,11 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -189,9 +191,26 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openSongBottomSheet() {
         View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song, null);
-        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
-        bottomSheetDialog.setContentView(viewBottom);
-        bottomSheetDialog.show();
+
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(viewBottom);
+        dialog.setCanceledOnTouchOutside(false);
+
+        ConstraintLayout btnFavorite = dialog.findViewById(R.id.bottom_sheet_options_Favorite);
+        ConstraintLayout btnAddToPlaylist = dialog.findViewById(R.id.bottom_sheet_options_Playlist);
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Favorite", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnAddToPlaylist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Add to playlist", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
     }
 
     private void startAnimation() {

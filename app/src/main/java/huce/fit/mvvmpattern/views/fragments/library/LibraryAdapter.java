@@ -1,6 +1,5 @@
 package huce.fit.mvvmpattern.views.fragments.library;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -215,18 +218,25 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void onLongClickItemPlaylist(Playlist playlist) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Xóa / Sửa playlist");
-            builder.setMessage("chọn chức năng");
-            builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Toast.makeText(context, "Xóa playlist", Toast.LENGTH_SHORT).show();
-                }
-            });
-            builder.setNegativeButton("Không", null);
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            View viewDialog = LayoutInflater.from(context).inflate(R.layout.dialog_add_playlist, null);
+            TextInputEditText edtPlaylistName = viewDialog.findViewById(R.id.edtPlaylistName);
+            AlertDialog alertDialog = new MaterialAlertDialogBuilder(context)
+                    .setTitle("Xóa/Sửa Playlist")
+                    .setView(viewDialog)
+                    .setPositiveButton("Add", (dialog, which) -> {
+                        String playlistName = edtPlaylistName.getText().toString().trim();
+                        if (playlistName.isEmpty()) {
+                            Toast.makeText(context, "Tên playlist không được để trống", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(context, playlistName, Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton("Cancel", (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .create();
+            alertDialog.show();
+
         }
     }
 }
