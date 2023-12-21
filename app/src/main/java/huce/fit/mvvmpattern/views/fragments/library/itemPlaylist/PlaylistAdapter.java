@@ -1,5 +1,8 @@
 package huce.fit.mvvmpattern.views.fragments.library.itemPlaylist;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +18,23 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.views.PlaylistActivity;
 import huce.fit.mvvmpattern.views.appInterface.IClickItemPlaylist;
+import huce.fit.mvvmpattern.views.fragments.library.LibraryFragment;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PlaylistViewHolder>{
 private IClickItemPlaylist iClickItemPlaylist;
+private LibraryFragment lbr;
 private List<Playlist> items;
 public PlaylistAdapter(List<Playlist> list,IClickItemPlaylist iClickItemPlaylist){
     this.iClickItemPlaylist = iClickItemPlaylist;
     this.items = list;
 }
+//    public PlaylistAdapter(List<Playlist> list,IClickItemPlaylist iClickItemPlaylist,LibraryFragment lbr){
+//        this.iClickItemPlaylist = iClickItemPlaylist;
+//        this.items = list;
+//        this.lbr = lbr;
+//    }
 public void setItems(List<Playlist> list ){
 //    this.iClickItemPlaylist = iClickItemPlaylist;
     this.items = list;

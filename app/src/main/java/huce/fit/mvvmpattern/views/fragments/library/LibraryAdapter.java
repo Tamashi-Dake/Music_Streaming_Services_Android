@@ -41,7 +41,9 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context context;
     private List<Section> sections;
     private IClickSongOption iClickSongOption;
+    private IClickItemPlaylist iClickItemPlaylist;
 
+    private List<Playlist> items;
     public LibraryAdapter(Context context) {
         this.context = context;
     }
@@ -53,6 +55,12 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             this.sections = sections;
         }
         this.iClickSongOption = listener;
+        notifyDataSetChanged();
+    }
+    public void setItems(List<Playlist> list, IClickItemPlaylist listener){
+        this.items = list;
+        this.iClickItemPlaylist = listener;
+//    load và bind dữ liệu vào adapter
         notifyDataSetChanged();
     }
 

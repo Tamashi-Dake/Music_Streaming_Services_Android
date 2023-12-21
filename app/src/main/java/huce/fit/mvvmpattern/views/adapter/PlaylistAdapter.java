@@ -18,16 +18,18 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.model.SongInfo;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<PlaylistAdapter.PopularViewHolder> {
 
     private List<Song> items;
+    private List<SongInfo> itemsongs;
     private IClickSongOption iClickSongOption;
 
 
-    public void setItems(List<Song> list, IClickSongOption listener) {
-        this.items = list;
+    public void setItems(List<SongInfo> list, IClickSongOption listener) {
+        this.itemsongs = list;
         this.iClickSongOption = listener;
 
 //    load và bind dữ liệu vào adapter

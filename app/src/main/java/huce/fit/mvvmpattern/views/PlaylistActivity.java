@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Transition;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -27,6 +30,8 @@ import java.util.List;
 
 import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.model.SongInfo;
+import huce.fit.mvvmpattern.viewmodels.PlayListViewModel;
 import huce.fit.mvvmpattern.views.adapter.PlaylistAdapter;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.Playlist;
@@ -38,16 +43,20 @@ public class PlaylistActivity extends AppCompatActivity {
     private FloatingActionButton fabPlay;
     private PlaylistAdapter adapter;
     private ConstraintLayout constraintLayout;
+    private PlayListViewModel playlistVM;
+    Playlist playlist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist);
+        playlistVM = new ViewModelProvider(this).get(PlayListViewModel.class);
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) {
             return;
         }
-        Playlist playlist = (Playlist) bundle.get("playlist");
+        playlist = (Playlist) bundle.get("playlist");
         TextView textView = findViewById(R.id.tvPlaylist);
+        fabPlay = findViewById(R.id.fabAddSongs);
         textView.setText(playlist.getTitle());
         constraintLayout = findViewById(R.id.clPlaylistInfo);
 //        constraintLayout
@@ -96,6 +105,12 @@ public class PlaylistActivity extends AppCompatActivity {
 
             }
         });
+        fabPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent();
+            }
+        });
     }public void openMusicPlayer() {
         Intent intent = new Intent(this, MusicPlayerActivity.class);
         startActivity(intent);
@@ -106,9 +121,31 @@ public class PlaylistActivity extends AppCompatActivity {
         bottomSheetDialog.setContentView(viewBottom);
         bottomSheetDialog.show();
     }
-    private List<Song> getPlaylistSong(){
-        List<Song> list = new ArrayList<>();
-        list.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg","Song 1","Artist 1", "", ""));
+    private List<SongInfo> getPlaylistSong(){
+        List<SongInfo> list = new ArrayList<>();
+//        list.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg","Song 1","Artist 1", "", ""));
+//        list.clear();
+//        Intent intent = getIntent();
+//        if (intent != null && intent.getExtras() != null) {
+//            // Nhận Bundle từ Intent
+//            Bundle bundle = intent.getExtras();
+//
+//            // Kiểm tra xem Bundle có chuỗi với key "key" không
+//            if (bundle != null && bundle.containsKey("playlist")) {
+//                // Nhận chuỗi từ Bundle
+//                Playlist pList = (Playlist) bundle.getSerializable("playlist");
+//                String data = playlist.getId();
+//                playlistVM.getSongPlaylist(data).observe(this, new Observer<List<SongInfo>>() {
+//                    @Override
+//                    public void onChanged(List<SongInfo> songInfos) {
+//                        for (int i = 0; i < songInfos.size(); i++) {
+//                            list.add(new SongInfo(songInfos.get(i).getId_song(),songInfos.get(i).getName_song(),songInfos.get(i).getPlayedTime(),songInfos.get(i).getLinkSong(),songInfos.get(i).getLinkPicture(),songInfos.get(i).getName_artist(),songInfos.get(i).getName_category()));
+//                        }
+//                    }
+//                });
+//                Log.e("data",data);
+//            }
+//        }
         return list;
     }
 }
