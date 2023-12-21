@@ -1,5 +1,6 @@
 package huce.fit.mvvmpattern.views.fragments.library;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,8 @@ import java.util.List;
 
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.api.PlaylistService;
+import huce.fit.mvvmpattern.model.DataJson;
 import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.views.FavoritesActivity;
 import huce.fit.mvvmpattern.views.HistoryActivity;
@@ -38,6 +41,9 @@ import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.FavoriteAdapter
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.Playlist;
 import huce.fit.mvvmpattern.views.fragments.library.itemPlaylist.PlaylistAdapter;
 import huce.fit.mvvmpattern.views.appInterface.IClickItemPlaylist;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -48,6 +54,8 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context context;
     private List<Section> sections;
     private IClickSongOption iClickSongOption;
+    private IClickItemPlaylist iClickItemPlaylist;
+    private List<Playlist> items;
 
     public LibraryAdapter(Context context) {
         this.context = context;
@@ -62,6 +70,13 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.iClickSongOption = listener;
         notifyDataSetChanged();
     }
+    public void setItems(List<Playlist> list, IClickItemPlaylist listener){
+        this.items = list;
+        this.iClickItemPlaylist = listener;
+//    load và bind dữ liệu vào adapter
+        notifyDataSetChanged();
+    }
+
 
     @NonNull
     @Override
@@ -227,19 +242,72 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     .setView(viewDialog)
                     .setPositiveButton("Edit", (dialog, which) -> {
                         String playlistName = edtPlaylistName.getText().toString().trim();
-                        if (playlistName.isEmpty()) {
-                            Toast.makeText(context, "New playlist's name is empty", Toast.LENGTH_SHORT).show();
+                        playlist.setTitle(playlistName);
+                        if (!playlistName.isEmpty()) {
+                            PlaylistService.playlistservice.PlaylistUpdate(playlist).enqueue(new Callback<DataJson<Playlist>>() {
+                                @SuppressLint("NotifyDataSetChanged")
+                                @Override
+                                public void onResponse(Call<DataJson<Playlist>> call, Response<DataJson<Playlist>> response) {
+                                    DataJson<Playlist> djson = response.body();
+                                    if(djson!=null){
+                                        if(djson.isStatus()){
+                                            Toast.makeText(context, "Playlist's name updated successfully!", Toast.LENGTH_SHORT).show();
+                                            notifyDataSetChanged();
+                                        }
+                                        notifyDataSetChanged();
+                                    }
+                                    notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onFailure(Call<DataJson<Playlist>> call, Throwable t) {
+                                    Log.e("ERROR", this.getClass().getName()+"getListSection()->onFailure: "+t.getMessage());
+                                    Toast.makeText(context, R.string.not_connection, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             return;
                         }
                         else {
-                            Toast.makeText(context, playlistName, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Empty playlist's name!", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> {
                         dialog.dismiss();
                     })
                     .setNeutralButton("Delete", (dialog, which) -> {
-                        Toast.makeText(context, "Đã bấm nút xóa. Id:"+playlist.getId(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Đã bấm nút xóa. Id:"+playlist.getId(), Toast.LENGTH_SHORT).show();
+                        String playlistName = edtPlaylistName.getText().toString().trim();
+                        playlist.setTitle(playlistName);
+                        Log.e("ID",playlist.getId().toString());
+                        if (!playlistName.isEmpty()) {
+                            PlaylistService.playlistservice.PlaylistDel(playlist).enqueue(new Callback<DataJson<Playlist>>() {
+                                @SuppressLint("NotifyDataSetChanged")
+                                @Override
+                                public void onResponse(Call<DataJson<Playlist>> call, Response<DataJson<Playlist>> response) {
+                                    Log.e("status","Success");
+                                    DataJson<Playlist> djson = response.body();
+                                    if(djson!=null){
+                                        if(djson.isStatus()){
+                                            Toast.makeText(context, "This playlist completely deleted!", Toast.LENGTH_SHORT).show();
+                                            items.remove(playlist);
+                                            notifyDataSetChanged();
+                                        }
+                                        notifyDataSetChanged();
+                                    }
+                                    notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onFailure(Call<DataJson<Playlist>> call, Throwable t) {
+                                    Log.e("ERROR", this.getClass().getName()+"getListSection()->onFailure: "+t.getMessage());
+                                    Toast.makeText(context, R.string.not_connection, Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            return;
+                        }
+                        else {
+                            Toast.makeText(context, "Empty playlist's name!", Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .create();
             alertDialog.show();

@@ -14,6 +14,16 @@ public class Playlist implements Serializable {
     private String imageUrl;
     @SerializedName("name")
     private String title;
+    @SerializedName("username")
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     //    public Playlist(String imageUrl, String title) {
 //        this.imageUrl = imageUrl;
@@ -23,6 +33,9 @@ public class Playlist implements Serializable {
         this.imageUrl = imageUrl;
         this.title = title;
         this.id = id;
+    }
+    public Playlist(String title){
+        this.title = title;
     }
 
     public String getId() {

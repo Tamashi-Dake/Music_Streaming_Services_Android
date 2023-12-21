@@ -30,6 +30,7 @@ import huce.fit.mvvmpattern.model.Song;
 import huce.fit.mvvmpattern.services.MyService;
 import huce.fit.mvvmpattern.utils.Tmp;
 import huce.fit.mvvmpattern.views.MainActivity;
+import huce.fit.mvvmpattern.views.appInterface.IClickItemPlaylist;
 import huce.fit.mvvmpattern.views.appInterface.IClickSongOption;
 import huce.fit.mvvmpattern.views.fragments.home.section.Section;
 import huce.fit.mvvmpattern.views.fragments.library.itemFavorite.Favorite;
@@ -46,6 +47,7 @@ public class LibraryFragment extends Fragment {
     private MainActivity mainActivity;
     List<Playlist> playList;
     List<Section> sections;
+    private boolean flag = true;
     private FloatingActionButton btnAddPlaylist;
     @Nullable
     @Override
@@ -81,8 +83,45 @@ public class LibraryFragment extends Fragment {
                         .setTitle("Add Playlist")
                         .setView(viewDialog)
                         .setPositiveButton("Add", (dialog, which) -> {
+//                            String playlistName = edtPlaylistName.getText().toString();
+//                            Toast.makeText(mainActivity, playlistName, Toast.LENGTH_SHORT).show();
                             String playlistName = edtPlaylistName.getText().toString();
+                            Playlist plz = new Playlist(playlistName);
+                            plz.setUsername(Tmp.current_username);
+                            plz.setImageUrl("https://nhomhungtu.000webhostapp.com/img/img_cd.png");
+                            PlaylistService.playlistservice.PlaylistAdd(plz).enqueue(new Callback<DataJson<Playlist>>() {
+                                @Override
+                                public void onResponse(Call<DataJson<Playlist>> call, Response<DataJson<Playlist>> response) {
+                                    DataJson<Playlist> djson = response.body();
+                                    if(djson!=null){
+                                        if(djson.isStatus()){
+                                            if(flag) {
+                                                Toast.makeText(mainActivity, "Thêm playlist thành công", Toast.LENGTH_SHORT).show();
+                                                flag = false;
+                                            }
+                                            Log.e("updateplaylist","success");
+                                            playList.add(new Playlist(plz.getImageUrl(),plz.getTitle(),plz.getId()));
+                                            updatePlayListAdapter();
+                                        }
+                                        if(flag) {
+                                            Toast.makeText(mainActivity, "Thêm playlist không thành công", Toast.LENGTH_SHORT).show();
+                                            flag = false;
+                                        }
+                                    }
+                                    if(flag) {
+                                        Toast.makeText(mainActivity, "Null", Toast.LENGTH_SHORT).show();
+                                        flag = false;
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<DataJson<Playlist>> call, Throwable t) {
+                                    Log.e("ERROR", this.getClass().getName()+"onClickLogin()->onFailure: "+t.getMessage());
+                                    Toast.makeText(mainActivity, "Network Error!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                             Toast.makeText(mainActivity, playlistName, Toast.LENGTH_SHORT).show();
+                            flag = true;
                         })
                         .setNegativeButton("Cancel", (dialog, which) -> {
                             dialog.dismiss();
@@ -137,9 +176,14 @@ public class LibraryFragment extends Fragment {
                         if (dataJson.isStatus() == true) {
 //                            playList = (List<Playlist>) dataJson.getData();
                             for (int i = 0; i < dataJson.getData().size(); i++) {
-                                playList.add(new Playlist(dataJson.getData().get(i).getImageUrl(), dataJson.getData().get(i).getTitle(), dataJson.getData().get(i).getId()));
+                                if (dataJson.getData().get(i).getImageUrl() == null) {
+                                    dataJson.getData().get(i).setImageUrl("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg");
+                                } else {
+                                    playList.add(new Playlist(dataJson.getData().get(i).getImageUrl(), dataJson.getData().get(i).getTitle(), dataJson.getData().get(i).getId()));
+                                }
                             }
                             updateSectionAdapter();
+                            updatePlayListAdapter();
                         }
                     }
                 }
@@ -169,6 +213,19 @@ public class LibraryFragment extends Fragment {
             public void onClickSong(Song song) {
 
                 mainActivity.openMusicPlayer();
+            }
+        });
+    }
+    private void updatePlayListAdapter() {
+        section_adapter.setItems(playList, new IClickItemPlaylist() {
+            @Override
+            public void onclickItemPlaylist(Playlist playlist) {
+
+            }
+
+            @Override
+            public void onLongClickItemPlaylist(Playlist playlist) {
+
             }
         });
     }
