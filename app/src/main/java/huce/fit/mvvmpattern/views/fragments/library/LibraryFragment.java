@@ -46,6 +46,7 @@ public class LibraryFragment extends Fragment {
     private LibraryAdapter section_adapter;
 
     private MainActivity mainActivity;
+    List<Song> favorite;
     List<Playlist> playList;
     List<Section> sections;
     private FloatingActionButton btnAddPlaylist;
@@ -69,6 +70,8 @@ public class LibraryFragment extends Fragment {
             public void onClickSong(Song song) {
 
                 mainActivity.openMusicPlayer();
+                MainActivity.song = song;
+                MainActivity.songList = favorite;
             }
         });
         recyclerViewLibrary.setAdapter(section_adapter);
@@ -120,7 +123,7 @@ public class LibraryFragment extends Fragment {
         history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Song 4", "Artist 4", "", ""));
         history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Song 5", "Artist 5", "", ""));
 
-        List<Song> favorite = new ArrayList<>();
+        favorite = new ArrayList<>();
         HashMap<String, String> hashMap = new HashMap();
         hashMap.put("username", Tmp.current_username);
         SongInfoService.songInfoService.getFavorite(hashMap)
@@ -193,6 +196,8 @@ public class LibraryFragment extends Fragment {
             public void onClickSong(Song song) {
 
                 mainActivity.openMusicPlayer();
+                MainActivity.song = song;
+                MainActivity.songList = favorite;
             }
         });
     }
