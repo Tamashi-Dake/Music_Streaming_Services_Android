@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -220,19 +221,25 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public void onLongClickItemPlaylist(Playlist playlist) {
             View viewDialog = LayoutInflater.from(context).inflate(R.layout.dialog_add_playlist, null);
             TextInputEditText edtPlaylistName = viewDialog.findViewById(R.id.edtPlaylistName);
+            edtPlaylistName.setText(playlist.getTitle());
             AlertDialog alertDialog = new MaterialAlertDialogBuilder(context)
-                    .setTitle("Xóa/Sửa Playlist")
+                    .setTitle("Change name/Delete Playlist")
                     .setView(viewDialog)
-                    .setPositiveButton("Add", (dialog, which) -> {
+                    .setPositiveButton("Edit", (dialog, which) -> {
                         String playlistName = edtPlaylistName.getText().toString().trim();
                         if (playlistName.isEmpty()) {
-                            Toast.makeText(context, "Tên playlist không được để trống", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "New playlist's name is empty", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        Toast.makeText(context, playlistName, Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(context, playlistName, Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .setNegativeButton("Cancel", (dialog, which) -> {
                         dialog.dismiss();
+                    })
+                    .setNeutralButton("Delete", (dialog, which) -> {
+                        Toast.makeText(context, "Đã bấm nút xóa. Id:"+playlist.getId(), Toast.LENGTH_SHORT).show();
                     })
                     .create();
             alertDialog.show();

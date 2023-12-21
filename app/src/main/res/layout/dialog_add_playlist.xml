@@ -7,7 +7,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Add playlist name here"
+        android:hint="New playlist's name"
         android:layout_margin="20dp"
         >
         <com.google.android.material.textfield.TextInputEditText
