@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ import retrofit2.Response;
 
 public class ProfileFragment extends Fragment implements LifecycleOwner{
     private MainActivity mainActivity;
+    private Button btnLogout;
     private FloatingActionButton btnChangeUsername;
     private TextInputEditText current_password;
     private TextInputEditText new_password;
@@ -58,8 +60,12 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
         UpdateAccount = new ViewModelProvider(this).get(UpdateAccountViewModel.class);
         login = new ViewModelProvider(this).get(LoginViewModel.class);
         mainActivity = (MainActivity) getActivity();
+        btnLogout = view.findViewById(R.id.btn_logout);
         btnChangeUsername = view.findViewById(R.id.btnChangeUsername);
-
+        btnLogout.setOnClickListener(view_ -> {
+            Tmp.current_username = "";
+            mainActivity.getOnBackPressedDispatcher().onBackPressed();
+        });
 
         //
         current_password = view.findViewById(R.id.edtCurrentPassword);
