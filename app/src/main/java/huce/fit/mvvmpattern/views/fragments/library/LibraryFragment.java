@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
@@ -27,6 +28,7 @@ import huce.fit.mvvmpattern.api.PlaylistService;
 import huce.fit.mvvmpattern.api.SongInfoService;
 import huce.fit.mvvmpattern.model.DataJson;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.model.SongInfo;
 import huce.fit.mvvmpattern.services.MyService;
 import huce.fit.mvvmpattern.utils.Tmp;
 import huce.fit.mvvmpattern.views.MainActivity;
@@ -45,6 +47,7 @@ public class LibraryFragment extends Fragment {
     private LibraryAdapter section_adapter;
 
     private MainActivity mainActivity;
+    List<Song> favorite;
     List<Playlist> playList;
     List<Section> sections;
     private boolean flag = true;
@@ -69,6 +72,8 @@ public class LibraryFragment extends Fragment {
             public void onClickSong(Song song) {
 
                 mainActivity.openMusicPlayer();
+                MainActivity.song = song;
+                MainActivity.songList = favorite;
             }
         });
         recyclerViewLibrary.setAdapter(section_adapter);
@@ -157,11 +162,33 @@ public class LibraryFragment extends Fragment {
         history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Song 4", "Artist 4", "", ""));
         history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Song 5", "Artist 5", "", ""));
 
-        List<Song> favorite = new ArrayList<>();
-        favorite.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Song 5", "Artist 5", "", ""));
-        favorite.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Song 4", "Artist 4", "", ""));
-        favorite.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "Song 3", "Artist 3", "", ""));
-        favorite.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 2", "Artist 2", "", ""));
+        favorite = new ArrayList<>();
+        HashMap<String, String> hashMap = new HashMap();
+        hashMap.put("username", Tmp.current_username);
+        SongInfoService.songInfoService.getFavorite(hashMap)
+                .enqueue(new Callback<DataJson<SongInfo>>() {
+                    @Override
+                    public void onResponse(Call<DataJson<SongInfo>> call, Response<DataJson<SongInfo>> response) {
+                        DataJson<SongInfo> dataJson = response.body();
+                        if (dataJson != null) {
+                            if (dataJson.isStatus() == true) {
+                                List<SongInfo> songInfoList = dataJson.getData();
+                                for (int i = 0; i < songInfoList.size(); i++) {
+                                    favorite.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
+                                    updateSectionAdapter();
+                                }
+                            }
+                            else {
+                                Toast.makeText(mainActivity, dataJson.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataJson<SongInfo>> call, Throwable t) {
+                        Log.e("ERROR", this.getClass().getName()+"getListSection()->onFailure: "+t.getMessage());
+                    }
+                });
 
         playList = new ArrayList<>();
 //        playList.add(new Playlist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "ten 1", "1"));
@@ -213,6 +240,8 @@ public class LibraryFragment extends Fragment {
             public void onClickSong(Song song) {
 
                 mainActivity.openMusicPlayer();
+                MainActivity.song = song;
+                MainActivity.songList = favorite;
             }
         });
     }

@@ -1,10 +1,9 @@
 package huce.fit.mvvmpattern.views;
 
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
@@ -25,14 +24,22 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.api.SongPlaylistService;
 import huce.fit.mvvmpattern.databinding.ActivityMainBinding;
+import huce.fit.mvvmpattern.model.DataJson;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.model.SongPlaylist;
 import huce.fit.mvvmpattern.services.MediaService;
+import huce.fit.mvvmpattern.utils.Tmp;
 import huce.fit.mvvmpattern.viewmodels.HomeViewModel;
 import huce.fit.mvvmpattern.views.adapter.ViewPageAdapter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -189,25 +196,54 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ArtistActivity.class);
         startActivity(intent);
     }
-    public void openSongBottomSheet() {
+    public void openSongBottomSheet(Song song) {
         View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song, null);
 
         final BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(viewBottom);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCanceledOnTouchOutside(true);
 
         ConstraintLayout btnFavorite = dialog.findViewById(R.id.bottom_sheet_options_Favorite);
         ConstraintLayout btnAddToPlaylist = dialog.findViewById(R.id.bottom_sheet_options_Playlist);
         btnFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Favorite", Toast.LENGTH_SHORT).show();
+                HashMap<String, String> hashMap = new HashMap<>();
+                hashMap.put("username", Tmp.current_username);
+                hashMap.put("id_song", song.getId());
+                SongPlaylistService.songPlaylistService.addToFavorite(hashMap)
+                        .enqueue(new Callback<DataJson<SongPlaylist>>() {
+                            @Override
+                            public void onResponse(Call<DataJson<SongPlaylist>> call, Response<DataJson<SongPlaylist>> response) {
+                                DataJson<SongPlaylist> dataJson = response.body();
+                                if (dataJson != null) {
+                                    if (dataJson.isStatus() == true) {
+                                        Toast.makeText(MainActivity.this, dataJson.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        Toast.makeText(MainActivity.this, dataJson.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<DataJson<SongPlaylist>> call, Throwable t) {
+                                Log.e("ERROR", this.getClass().getName()+": openSongBottomSheet() -> onFailure(): "+ t.getMessage());
+                            }
+                        });
             }
         });
         btnAddToPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Add to playlist", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
+
+                Intent intent = new Intent(MainActivity.this, ChoosePlaylist.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("id_song", song.getId());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
         dialog.show();

@@ -68,7 +68,7 @@ public class SearchFragment extends Fragment {
         songAdapter.setItems(list, new IClickSongOption() {
             @Override
             public void onClickSongOption(Song song) {
-                mainActivity.openSongBottomSheet();
+                mainActivity.openSongBottomSheet(song);
             }
             @Override
             public void onClickSong(Song song) {
@@ -117,7 +117,7 @@ public class SearchFragment extends Fragment {
         songAdapter.setItems(list, new IClickSongOption() {
             @Override
             public void onClickSongOption(Song song) {
-                mainActivity.openSongBottomSheet();
+                mainActivity.openSongBottomSheet(song);
             }
             @Override
             public void onClickSong(Song song) {

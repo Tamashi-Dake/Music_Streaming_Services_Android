@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
         section_adapter.setSections(getListSection(),new IClickSongOption() {
             @Override
             public void onClickSongOption(Song song) {
-                mainActivity.openSongBottomSheet();
+                mainActivity.openSongBottomSheet(song);
             }
             @Override
             public void onClickSong(Song song) {
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
         section_adapter.setSections(sections,new IClickSongOption() {
             @Override
             public void onClickSongOption(Song song) {
-                mainActivity.openSongBottomSheet();
+                mainActivity.openSongBottomSheet(song);
             }
             @Override
             public void onClickSong(Song song) {
