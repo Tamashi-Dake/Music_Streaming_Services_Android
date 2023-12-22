@@ -33,4 +33,7 @@ public interface SongInfoService {
 
     @POST("songInfo/getFavorite.php")
     Call<DataJson<SongInfo>> getFavorite (@Body HashMap hashMap);
+
+    @POST("song/increasePlayedTime.php")
+    Call<DataJson<String>> increasePlayedTime (@Body HashMap hashMap);
 }

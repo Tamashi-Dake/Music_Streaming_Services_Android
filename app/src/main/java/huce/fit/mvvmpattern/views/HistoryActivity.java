@@ -70,7 +70,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
     private List<Song> getPlaylistSong(){
         List<Song> list = new ArrayList<>();
-        list.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg","Song 1","Artist 1","", ""));
+//        list.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg","Song 1","Artist 1","", ""));
         return list;
     }
 }

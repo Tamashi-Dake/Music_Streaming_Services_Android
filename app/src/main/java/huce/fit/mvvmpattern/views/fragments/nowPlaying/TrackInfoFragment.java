@@ -28,6 +28,7 @@ public class TrackInfoFragment extends Fragment {
     private TextView tvCategory;
     private TextView tvSongName;
     private TextView tvArtistName;
+    private TextView tvPlayedTime;
 
     private MusicPlayerActivity musicPlayerActivity;
     public TrackInfoFragment() {
@@ -44,6 +45,7 @@ public class TrackInfoFragment extends Fragment {
         tvCategory = view.findViewById(R.id.tvCategoryInfo);
         tvSongName = view.findViewById(R.id.tvSongName);
         tvArtistName = view.findViewById(R.id.tvArtistName);
+        tvPlayedTime = view.findViewById(R.id.tv_played_time);
 
         musicPlayerActivity = (MusicPlayerActivity) getActivity();
 //        musicPlayerActivity.runOnUiThread(
@@ -68,6 +70,9 @@ public class TrackInfoFragment extends Fragment {
         });
         MediaService.getCategoryMutableLiveData().observe(musicPlayerActivity, categoryName -> {
             tvCategory.setText(categoryName);
+        });
+        MediaService.getPlayedTimeMutableLiveData().observe(musicPlayerActivity, playedTime -> {
+            tvPlayedTime.setText(playedTime+"");
         });
         MediaService.getLinkPictureMutableLiveData().observe(musicPlayerActivity, linkPicture -> {
             Glide.with(ivSong.getContext()).load(linkPicture).into(ivSong);

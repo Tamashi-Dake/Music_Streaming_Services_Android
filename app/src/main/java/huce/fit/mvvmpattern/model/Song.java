@@ -8,19 +8,21 @@ public class Song implements Serializable {
     private String trackName;
     private String artistName;
     private String linkSong;
-
     private String categoryName;
+    private int playedTime;
+
 
     public Song() {
     }
 
-    public Song(String id, String image, String trackName, String artistName, String linkSong, String categoryName) {
+    public Song(String id, String image, String trackName, String artistName, String linkSong, String categoryName, int playedTime) {
         this.id = id;
         this.image = image;
         this.trackName = trackName;
         this.artistName = artistName;
         this.linkSong = linkSong;
         this.categoryName = categoryName;
+        this.playedTime = playedTime;
     }
 
     public String getId() {
@@ -69,5 +71,13 @@ public class Song implements Serializable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public int getPlayedTime() {
+        return playedTime;
+    }
+
+    public void setPlayedTime(int playedTime) {
+        this.playedTime = playedTime;
     }
 }

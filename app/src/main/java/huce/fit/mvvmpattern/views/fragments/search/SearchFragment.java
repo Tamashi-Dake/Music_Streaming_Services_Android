@@ -93,7 +93,7 @@ public class SearchFragment extends Fragment {
                             if (dataJson.isStatus() == true) {
                                 List<SongInfo> songInfoList = dataJson.getData();
                                 for (int i = 0; i < songInfoList.size(); i++) {
-                                    list.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
+                                    list.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category(), songInfoList.get(i).getPlayedTime()));
                                 }
                                 updateListSongAdapter();
                             }

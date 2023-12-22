@@ -29,6 +29,7 @@ import huce.fit.mvvmpattern.R;
 import huce.fit.mvvmpattern.api.AccountService;
 import huce.fit.mvvmpattern.model.Account;
 import huce.fit.mvvmpattern.model.DataJson;
+import huce.fit.mvvmpattern.services.MediaService;
 import huce.fit.mvvmpattern.utils.Status;
 import huce.fit.mvvmpattern.utils.Tmp;
 import huce.fit.mvvmpattern.viewmodels.LoginViewModel;

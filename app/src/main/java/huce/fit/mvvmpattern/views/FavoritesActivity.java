@@ -152,7 +152,7 @@ public class FavoritesActivity extends AppCompatActivity {
                             if (dataJson.isStatus() == true) {
                                 List<SongInfo> songInfoList = dataJson.getData();
                                 for (int i = 0; i < songInfoList.size(); i++) {
-                                    favoriteList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
+                                    favoriteList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category(), songInfoList.get(i).getPlayedTime()));
                                     updateFavoriteAdapter();
                                 }
                             }

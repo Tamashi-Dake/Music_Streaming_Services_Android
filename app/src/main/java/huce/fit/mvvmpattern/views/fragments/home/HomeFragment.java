@@ -134,7 +134,7 @@ public class HomeFragment extends Fragment {
                                 List<SongInfo> songInfoList = dataJson.getData();
                                 List<Song> songList = new ArrayList<>();
                                 for (int i = 0; i < songInfoList.size(); i++) {
-                                    songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
+                                    songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category(), songInfoList.get(i).getPlayedTime()));
                                 }
                                 sections.get(1).setItems(songList);
                                 updateSongAdapter();
@@ -160,7 +160,7 @@ public class HomeFragment extends Fragment {
                                 List<SongInfo> songInfoList = dataJson.getData();
                                 List<Song> songList = new ArrayList<>();
                                 for (int i = 0; i < songInfoList.size(); i++) {
-                                    songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
+                                    songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category(), songInfoList.get(i).getPlayedTime()));
                                 }
                                 sections.get(2).setItems(songList);
                                 updateSongAdapter();
@@ -231,7 +231,7 @@ public class HomeFragment extends Fragment {
                                 List<SongInfo> songInfoList = dataJson.getData();
                                 List<Song> songList = new ArrayList<>();
                                 for (int i = 0; i < songInfoList.size(); i++) {
-                                    songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
+                                    songList.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category(), songInfoList.get(i).getPlayedTime()));
                                 }
                                 sections.get(5).setItems(songList);
                                 updateSongAdapter();

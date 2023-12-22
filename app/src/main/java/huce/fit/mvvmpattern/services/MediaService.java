@@ -14,16 +14,23 @@ import androidx.lifecycle.MutableLiveData;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import huce.fit.mvvmpattern.api.SongInfoService;
+import huce.fit.mvvmpattern.model.DataJson;
 import huce.fit.mvvmpattern.model.Song;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MediaService extends Service {
     private static MediaPlayer mediaPlayer;
     private static List<String> linkSongList = new ArrayList<>();
     private static List<Song> songList = new ArrayList<>();
     private static int position = 0;
+    private static int playedTime = 0;
     public static boolean isUpdatingSeekBar = true;
     private static boolean autoStart = false;
     private static String statusRepeat = "2";
@@ -34,7 +41,6 @@ public class MediaService extends Service {
     private static Runnable runnable;
 
     public MediaService() {
-        Log.e("ERROR_Notification", this.getClass().getName()+": MediaService()");
     }
 
     @Nullable
@@ -121,11 +127,10 @@ public class MediaService extends Service {
         mediaPlayer.seekTo(milliseconds);
     }
 
-    static void releaseResourceMediaPlayer () {
+    public static void releaseResourceMediaPlayer () {
         if (mediaPlayer != null) {
-            mediaPlayer.stop();
+//            mediaPlayer.stop();
             mediaPlayer.release();
-            mediaPlayer = null;
         }
     }
 
@@ -332,6 +337,7 @@ public class MediaService extends Service {
         titleMutableLiveData.setValue(songList.get(position).getTrackName());
         artistMutableLiveData.setValue(songList.get(position).getArtistName());
         categoryMutableLiveData.setValue(songList.get(position).getCategoryName());
+        playedTimeMutableLiveData.setValue(songList.get(position).getPlayedTime());
         linkPictureMutableLiveData.setValue(songList.get(position).getImage());
         statusRepeatMutableLiveData.setValue(statusRepeat);
         statusShuffleMutableLiveData.setValue(statusShuffle);
@@ -343,6 +349,7 @@ public class MediaService extends Service {
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
+                    increasePlayedTime();
                     statusPrepareMutableLiveData.setValue(true);
                     endTimeMutableLiveData.setValue(getEndTime());
                     endMillisecondsMutableLiveData.setValue(mediaPlayer.getDuration());
@@ -357,6 +364,30 @@ public class MediaService extends Service {
             Log.e("ERROR", MediaService.class.getName()+": initMediaPlayer()");
             throw new RuntimeException(e);
         }
+    }
+
+    public static void increasePlayedTime () {
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("id", songList.get(position).getId());
+        SongInfoService.songInfoService.increasePlayedTime(hashMap)
+                .enqueue(new Callback<DataJson<String>>() {
+                    @Override
+                    public void onResponse(Call<DataJson<String>> call, Response<DataJson<String>> response) {
+                        DataJson<String> dataJson = response.body();
+                        if (dataJson != null) {
+                            if (dataJson.isStatus()) {
+//                                playedTime = songList.get(position).getPlayedTime();
+//                                playedTime++;
+//                                playedTimeMutableLiveData.setValue(playedTime);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataJson<String>> call, Throwable t) {
+                        Log.e("ERROR", this.getClass().getName()+"increasePlayedTime()->onFailure: "+t.getMessage());
+                    }
+                });
     }
 
 
@@ -393,6 +424,11 @@ public class MediaService extends Service {
     static private MutableLiveData<String> artistMutableLiveData = new MutableLiveData<>();
     static public MutableLiveData<String> getArtistMutableLiveData () {
         return artistMutableLiveData;
+    }
+
+    static private MutableLiveData<Integer> playedTimeMutableLiveData = new MutableLiveData<>();
+    static public MutableLiveData<Integer> getPlayedTimeMutableLiveData () {
+        return playedTimeMutableLiveData;
     }
 
     static private MutableLiveData<String> categoryMutableLiveData = new MutableLiveData<>();
