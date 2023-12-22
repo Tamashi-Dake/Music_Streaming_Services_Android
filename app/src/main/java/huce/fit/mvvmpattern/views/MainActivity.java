@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
@@ -38,6 +39,7 @@ import huce.fit.mvvmpattern.services.MediaService;
 import huce.fit.mvvmpattern.utils.Tmp;
 import huce.fit.mvvmpattern.viewmodels.HomeViewModel;
 import huce.fit.mvvmpattern.views.adapter.ViewPageAdapter;
+import huce.fit.mvvmpattern.views.fragments.library.LibraryFragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private String id_song;
     private LinearLayout linearLayout;
     private BottomSheetDialog bottomSheetSongOption;
-    public static Song song = new Song("", "", "", "", "", "");
+    public static Song song = new Song("", "", "", "", "", "", 0);
     public static List<Song> songList = new ArrayList<>();
 
     //    @Override
@@ -203,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.action_search) {
                     viewPager.setCurrentItem(1);
                 } else if (id == R.id.action_library) {
+                    isComingLibrary.setValue(true);
                     viewPager.setCurrentItem(2);
                 } else if (id == R.id.action_profile) {
                     viewPager.setCurrentItem(3);
@@ -340,5 +343,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void thawingButtonControl () {
         playPause.setEnabled(true);
+    }
+
+    private static MutableLiveData<Boolean> isComingLibrary = new MutableLiveData<>();
+    public static MutableLiveData<Boolean> getIsComingLibrary () {
+        return isComingLibrary;
     }
 }

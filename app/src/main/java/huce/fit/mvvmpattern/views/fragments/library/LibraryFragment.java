@@ -47,9 +47,9 @@ public class LibraryFragment extends Fragment {
     private LibraryAdapter section_adapter;
 
     private MainActivity mainActivity;
-    List<Song> favorite;
-    List<Playlist> playList;
-    List<Section> sections;
+    private List<Song> favorite;
+    private List<Playlist> playList;
+    private List<Section> sections;
     private boolean flag = true;
     private FloatingActionButton btnAddPlaylist;
     @Nullable
@@ -142,6 +142,10 @@ public class LibraryFragment extends Fragment {
                 return true;
             }
         });
+
+//        MainActivity.getIsComingLibrary().observe(mainActivity, isComingLibrary -> {
+//            getListSection();
+//        });
         return view;
     }
     public void holdStartService() {
@@ -174,7 +178,7 @@ public class LibraryFragment extends Fragment {
                             if (dataJson.isStatus() == true) {
                                 List<SongInfo> songInfoList = dataJson.getData();
                                 for (int i = 0; i < songInfoList.size(); i++) {
-                                    favorite.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category()));
+                                    favorite.add(new Song(songInfoList.get(i).getId_song(), songInfoList.get(i).getLinkPicture(), songInfoList.get(i).getName_song(), songInfoList.get(i).getName_artist(), songInfoList.get(i).getLinkSong(), songInfoList.get(i).getName_category(), songInfoList.get(i).getPlayedTime()));
                                     updateSectionAdapter();
                                 }
                             }
