@@ -22,7 +22,7 @@ import huce.fit.mvvmpattern.model.Song;
 public class MediaService extends Service {
     private static MediaPlayer mediaPlayer;
     private static List<String> linkSongList = new ArrayList<>();
-    private static List<Song> linkSongAdapterList = new ArrayList<>();
+    private static List<Song> songList = new ArrayList<>();
     private static int position = 0;
     public static boolean isUpdatingSeekBar = true;
     private static boolean autoStart = false;
@@ -145,7 +145,7 @@ public class MediaService extends Service {
         isComing = false;
         position--;
         if (position < 0) {
-            position = linkSongAdapterList.size()-1;
+            position = songList.size()-1;
         }
         releaseResourceMediaPlayer();
         initMediaPlayer(position);
@@ -157,13 +157,13 @@ public class MediaService extends Service {
         isComing = false;
 
         if (statusShuffle.equals("1")) {
-            position = new Random().nextInt(linkSongAdapterList.size());
+            position = new Random().nextInt(songList.size());
         }
         else {
             position++;
         }
 
-        if (position > linkSongAdapterList.size() - 1) {
+        if (position > songList.size() - 1) {
             position = 0;
         }
         releaseResourceMediaPlayer();
@@ -227,10 +227,10 @@ public class MediaService extends Service {
                     position++;
                 }
                 else if (statusShuffle.equals("1")) {
-                    position = new Random().nextInt(linkSongAdapterList.size());
+                    position = new Random().nextInt(songList.size());
                 }
 
-                if (position > linkSongAdapterList.size() - 1) {
+                if (position > songList.size() - 1) {
                     position = 0;
                 }
                 releaseResourceMediaPlayer();
@@ -253,19 +253,19 @@ public class MediaService extends Service {
 
     // Sau khi hoàn thành Chức năng playlist có thể thêm tham số thứ 2 lưu id playlist, hoặc là không cần tham số thứ 2
     public static void addSongAdapter (List<Song> list) {
-        int listSongAdapterSize = linkSongAdapterList.size();
+        int listSongAdapterSize = songList.size();
         int listSize = list.size();
         boolean isMatch = true; // kiểm tra xem 2 danh sách bài hát chuẩn bị mở với đang phát có giống không?
         // Kiểm tra bài hát đầu tiên của 2 danh sách. (Sau khi hoàn thành Chức năng playlist, có thể không cần tới lần IF này)
         if (listSongAdapterSize > 0) {
-            if (linkSongAdapterList.get(position).getId().equals(list.get(0).getId()) == false) {
+            if (songList.get(position).getId().equals(list.get(0).getId()) == false) {
                 isMatch = false;
             }
         }
 
         if (listSongAdapterSize == listSize) {
             for (int i = 0; i < listSize; i++) {
-                if (linkSongAdapterList.get(i).getId().equals(list.get(i).getId()) == false) {
+                if (songList.get(i).getId().equals(list.get(i).getId()) == false) {
                     isMatch = false;
                 }
             }
@@ -278,7 +278,7 @@ public class MediaService extends Service {
             isNewList = false;
         }
         else {
-            linkSongAdapterList = list;
+            songList = list;
             position = 0;
             isNewList = true;
             statusPlayingMutableLiveData.setValue(false);
@@ -328,15 +328,16 @@ public class MediaService extends Service {
         statusPrepareMutableLiveData.setValue(false);
         startTimeMutableLiveData.setValue("00:00");
         endTimeMutableLiveData.setValue("00:00");
-        titleMutableLiveData.setValue(linkSongAdapterList.get(position).getTrackName());
-        artistMutableLiveData.setValue(linkSongAdapterList.get(position).getArtistName());
-        categoryMutableLiveData.setValue(linkSongAdapterList.get(position).getCategoryName());
-        linkPictureMutableLiveData.setValue(linkSongAdapterList.get(position).getImage());
+        idSongMutableLiveData.setValue(songList.get(position).getId());
+        titleMutableLiveData.setValue(songList.get(position).getTrackName());
+        artistMutableLiveData.setValue(songList.get(position).getArtistName());
+        categoryMutableLiveData.setValue(songList.get(position).getCategoryName());
+        linkPictureMutableLiveData.setValue(songList.get(position).getImage());
         statusRepeatMutableLiveData.setValue(statusRepeat);
         statusShuffleMutableLiveData.setValue(statusShuffle);
         try {
             mediaPlayer = new MediaPlayer ();
-            mediaPlayer.setDataSource(linkSongAdapterList.get(position).getLinkSong());
+            mediaPlayer.setDataSource(songList.get(position).getLinkSong());
             mediaPlayer.prepareAsync();
 
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -379,6 +380,11 @@ public class MediaService extends Service {
         return statusShuffleMutableLiveData;
     }
 
+    static private MutableLiveData<String> idSongMutableLiveData = new MutableLiveData<>();
+    static public MutableLiveData<String> getIdSongMutableLiveData () {
+        return idSongMutableLiveData;
+    }
+
     static private MutableLiveData<String> titleMutableLiveData = new MutableLiveData<>();
     static public MutableLiveData<String> getTitleMutableLiveData () {
         return titleMutableLiveData;
@@ -418,5 +424,4 @@ public class MediaService extends Service {
     static public MutableLiveData<String> getEndTimeMutableLiveData () {
         return endTimeMutableLiveData;
     }
-
 }

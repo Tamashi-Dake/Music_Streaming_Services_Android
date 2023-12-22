@@ -1,14 +1,10 @@
 package huce.fit.mvvmpattern.views.fragments.nowPlaying;
 
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.Image;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,21 +15,28 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import huce.fit.mvvmpattern.R;
+import huce.fit.mvvmpattern.api.SongPlaylistService;
+import huce.fit.mvvmpattern.model.DataJson;
 import huce.fit.mvvmpattern.model.Song;
+import huce.fit.mvvmpattern.model.SongPlaylist;
 import huce.fit.mvvmpattern.services.MediaService;
+import huce.fit.mvvmpattern.utils.Tmp;
 import huce.fit.mvvmpattern.views.MainActivity;
 import huce.fit.mvvmpattern.views.MusicPlayerActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MediaPlayerFragment extends Fragment {
@@ -52,10 +55,12 @@ public class MediaPlayerFragment extends Fragment {
     private ImageButton ibNext;
     private ImageButton ibRepeat;
     private ImageButton ibShuffle;
+    private ImageButton ibFavorite;
     private SeekBar sbTimeLine;
     private ProgressBar pbLoading;
     private List<String> linkSongList;
-    private List<Song> linkSongAdapterList;
+    private List<Song> songList;
+    private String id_song;
 
     private MusicPlayerActivity musicPlayerActivity;
     private Intent intent;
@@ -228,6 +233,34 @@ public class MediaPlayerFragment extends Fragment {
         });
     }
 
+    private  void eventIbFavorite () {
+        ibFavorite.setOnClickListener(view -> {
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put("username", Tmp.current_username);
+            hashMap.put("id_song", id_song);
+            SongPlaylistService.songPlaylistService.addToFavorite(hashMap)
+                    .enqueue(new Callback<DataJson<SongPlaylist>>() {
+                        @Override
+                        public void onResponse(Call<DataJson<SongPlaylist>> call, Response<DataJson<SongPlaylist>> response) {
+                            DataJson<SongPlaylist> dataJson = response.body();
+                            if (dataJson != null) {
+                                if (dataJson.isStatus() == true) {
+                                    Toast.makeText(getContext(), dataJson.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(getContext(), dataJson.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataJson<SongPlaylist>> call, Throwable t) {
+                            Log.e("ERROR", this.getClass().getName()+"openSongBottomSheet()->onFailure: "+t.getMessage());
+                        }
+                    });
+        });
+    }
+
     private void eventSbTimeLine () {
         sbTimeLine.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -267,6 +300,7 @@ public class MediaPlayerFragment extends Fragment {
         ibNext = view.findViewById(R.id.ib_next);
         ibRepeat = view.findViewById(R.id.ib_repeat);
         ibShuffle = view.findViewById(R.id.ib_shuffle);
+        ibFavorite = view.findViewById(R.id.ib_favorite);
         ivDisc = view.findViewById(R.id.iv_disc);
         pbLoading = view.findViewById(R.id.pb_loading);
         ibBack = view.findViewById(R.id.ib_back);
@@ -284,20 +318,20 @@ public class MediaPlayerFragment extends Fragment {
 //    }
 
     private void addSongAdapter () {
-        linkSongAdapterList = new ArrayList<>();
+        songList = new ArrayList<>();
         if (MainActivity.song != null && MainActivity.songList != null) {
             for (int i = 0; i < MainActivity.songList.size(); i++) {
                 if (MainActivity.song.getId().equals(MainActivity.songList.get(i).getId())) {
                     Collections.rotate(MainActivity.songList, -i);
-                    linkSongAdapterList.addAll(MainActivity.songList);
+                    songList.addAll(MainActivity.songList);
                 }
             }
         }
         else if (MainActivity.song != null) {
-            linkSongAdapterList.add(MainActivity.song);
+            songList.add(MainActivity.song);
         }
         else if (MainActivity.songList != null) {
-            linkSongAdapterList.addAll(MainActivity.songList);
+            songList.addAll(MainActivity.songList);
         }
 //        linkSongAdapterList.add(new Song("10005", "https://nhomhungtu.000webhostapp.com/img/Em của ngày hôm qua.jpg", "Em của ngày hôm qua", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Em của ngày hôm qua.mp3", "pop"));
 //        linkSongAdapterList.add(new Song("10001", "https://nhomhungtu.000webhostapp.com/img/Nơi này có anh.jpg", "Nơi này có anh", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Nơi này có anh.mp3", "pop"));
@@ -305,7 +339,7 @@ public class MediaPlayerFragment extends Fragment {
 //        linkSongAdapterList.add(new Song("10002", "https://nhomhungtu.000webhostapp.com/img/Red.jpg", "Red", "Taylor Swift", "https://nhomhungtu.000webhostapp.com/song/Red.mp3", "pop"));
 //        linkSongAdapterList.add(new Song("10003", "https://nhomhungtu.000webhostapp.com/img/Smooth Criminal.jpg", "Smooth Criminal", "Michael Jackson", "https://nhomhungtu.000webhostapp.com/song/Smooth Criminal.mp3", "pop"));
 //        linkSongAdapterList.add()
-        MediaService.addSongAdapter(linkSongAdapterList);
+        MediaService.addSongAdapter(songList);
     }
 
     private void initMediaPlayer () {
@@ -353,6 +387,9 @@ public class MediaPlayerFragment extends Fragment {
                         break;
                 }
             });
+            MediaService.getIdSongMutableLiveData().observe(musicPlayerActivity, idSong -> {
+                id_song = idSong;
+            });
             MediaService.getTitleMutableLiveData().observe(musicPlayerActivity, songName -> {
                 tvSongName.setText(songName);
             });
@@ -386,6 +423,7 @@ public class MediaPlayerFragment extends Fragment {
         eventIbNext();
         eventIbRepeat();
         eventIbShuffle();
+        eventIbFavorite();
         updateSbTimeLine();
         eventSbTimeLine();
     }

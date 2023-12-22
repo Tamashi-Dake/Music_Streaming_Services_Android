@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private TextView tvSongName;
     private TextView tvArtistName;
+    private ImageButton ibFavorite;
     public ImageView playPause;
     public ImageView next;
     public MediaPlayer mediaPlayer;
     private ImageView ivSongImage;
     private BottomNavigationView bottomNav;
-
+    private String id_song;
     private LinearLayout linearLayout;
     private BottomSheetDialog bottomSheetSongOption;
     public static Song song = new Song("", "", "", "", "", "");
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         tvSongName = findViewById(R.id.tvMiniSongTitle);
         tvArtistName = findViewById(R.id.tvMiniSongArtist);
         ivSongImage = findViewById(R.id.imgMiniImage);
+        ibFavorite = findViewById(R.id.iconFavorite);
         playPause = findViewById(R.id.iconPlayPause);
         next = findViewById(R.id.iconNextTrack);
 
@@ -123,6 +126,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ibFavorite.setOnClickListener(view_ -> {
+            HashMap<String, String> hashMap = new HashMap<>();
+            hashMap.put("username", Tmp.current_username);
+            hashMap.put("id_song", id_song);
+            SongPlaylistService.songPlaylistService.addToFavorite(hashMap)
+                    .enqueue(new Callback<DataJson<SongPlaylist>>() {
+                        @Override
+                        public void onResponse(Call<DataJson<SongPlaylist>> call, Response<DataJson<SongPlaylist>> response) {
+                            DataJson<SongPlaylist> dataJson = response.body();
+                            if (dataJson != null) {
+                                if (dataJson.isStatus() == true) {
+                                    Toast.makeText(MainActivity.this, dataJson.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(MainActivity.this, dataJson.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataJson<SongPlaylist>> call, Throwable t) {
+                            Log.e("ERROR", this.getClass().getName()+"openSongBottomSheet()->onFailure: "+t.getMessage());
+                        }
+                    });
+        });
+
         playPause.setOnClickListener(view_ -> {
             MediaService.eventPlayPause();
         });
@@ -149,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
                 playPause.setImageResource(R.drawable.ic_play);
                 stopAnimation();
             }
+        });
+        MediaService.getIdSongMutableLiveData().observe(this, idSong -> {
+            id_song = idSong;
         });
         MediaService.getTitleMutableLiveData().observe(this, songName -> {
             tvSongName.setText(songName);
