@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private String id_song;
     private LinearLayout linearLayout;
     private BottomSheetDialog bottomSheetSongOption;
-    public static Song song = new Song("", "", "", "", "", "");
+    public static Song song = new Song("", "", "", "", "", "", 0);
     public static List<Song> songList = new ArrayList<>();
 
     //    @Override
