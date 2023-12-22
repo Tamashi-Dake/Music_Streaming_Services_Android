@@ -23,6 +23,9 @@ public interface SongPlaylistService {
     @POST("song_playlist/song_playlist_Add.php")
     Call<DataJson<SongPlaylist>> addToPlaylist (@Body HashMap hashMap);
 
+    @POST("song_playlist/song_playlist_Delete_Favorite.php")
+    Call<DataJson<SongPlaylist>> deleteSongFromFavorite (@Body HashMap hashMap);
+
     @POST("song_playlist/song_playlist_Delete.php")
     Call<DataJson<SongPlaylist>> deleteSongFromPlaylist (@Body HashMap hashMap);
 }

@@ -198,6 +198,12 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openSongBottomSheet(Song song) {
         View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song, null);
+        ImageView ivSong = viewBottom.findViewById(R.id.iv_song);
+        TextView tvSongName = viewBottom.findViewById(R.id.textView6);
+        TextView tvArtist = viewBottom.findViewById(R.id.textView5);
+        Glide.with(MainActivity.this).load(song.getImage()).centerCrop().into(ivSong);
+        tvSongName.setText(song.getTrackName());
+        tvArtist.setText(song.getArtistName());
 
         final BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(viewBottom);

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,12 +114,19 @@ public class PlaylistActivity extends AppCompatActivity {
                 getOnBackPressedDispatcher().onBackPressed();
             }
         });
-    }public void openMusicPlayer() {
+    }
+    public void openMusicPlayer() {
         Intent intent = new Intent(this, MusicPlayerActivity.class);
         startActivity(intent);
     }
     public void openSongBottomSheet(Song song) {
         View viewBottom = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_song_playlist, null);
+        ImageView ivSong = viewBottom.findViewById(R.id.iv_song);
+        TextView tvSongName = viewBottom.findViewById(R.id.textView6);
+        TextView tvArtist = viewBottom.findViewById(R.id.textView5);
+        Glide.with(PlaylistActivity.this).load(song.getImage()).centerCrop().into(ivSong);
+        tvSongName.setText(song.getTrackName());
+        tvArtist.setText(song.getArtistName());
 
         final BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(viewBottom);
