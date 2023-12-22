@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
         List<Artist> artists = new ArrayList<>();
         List<Category> categories = new ArrayList<>();
         List<Song> randomTracks = new ArrayList<>();
-        sections.add(new Section("History", history));
+        sections.add(new Section("", history));
         getBigHitList();
         sections.add(new Section("Big Hits", bighits ));
         getPopularList();

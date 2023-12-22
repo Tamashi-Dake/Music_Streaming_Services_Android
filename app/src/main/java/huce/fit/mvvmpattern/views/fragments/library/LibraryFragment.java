@@ -88,8 +88,7 @@ public class LibraryFragment extends Fragment {
                         .setTitle("Add Playlist")
                         .setView(viewDialog)
                         .setPositiveButton("Add", (dialog, which) -> {
-//                            String playlistName = edtPlaylistName.getText().toString();
-//                            Toast.makeText(mainActivity, playlistName, Toast.LENGTH_SHORT).show();
+
                             String playlistName = edtPlaylistName.getText().toString();
                             Playlist plz = new Playlist(playlistName);
                             plz.setUsername(Tmp.current_username);
@@ -143,16 +142,14 @@ public class LibraryFragment extends Fragment {
             }
         });
 
-//        MainActivity.getIsComingLibrary().observe(mainActivity, isComingLibrary -> {
-//            getListSection();
-//        });
+        MainActivity.getIsComingLibrary().observe(mainActivity, isComingLibrary -> {
+            getListSection();
+        });
         return view;
     }
     public void holdStartService() {
         Intent serviceIntent = new Intent(mainActivity, MyService.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("song", new Song(R.drawable.img_1, "Song 1", "Artist 1"));
-//        serviceIntent.putExtras(bundle);
+
         mainActivity.startService(serviceIntent);
     }
 
@@ -160,11 +157,7 @@ public class LibraryFragment extends Fragment {
         sections = new ArrayList<>();
 
         List<Song> history = new ArrayList<>();
-//        history.add(new Song( "1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "Song 1", "Artist 1", "", ""));
-//        history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "Song 2", "Artist 2", "", ""));
-//        history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "Song 3", "Artist 3", "", ""));
-//        history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_4.jpg", "Song 4", "Artist 4", "", ""));
-//        history.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_5.jpg", "Song 5", "Artist 5", "", ""));
+
 
         favorite = new ArrayList<>();
         HashMap<String, String> hashMap = new HashMap();
@@ -195,9 +188,7 @@ public class LibraryFragment extends Fragment {
                 });
 
         playList = new ArrayList<>();
-//        playList.add(new Playlist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_1.jpg", "ten 1", "1"));
-//        playList.add(new Playlist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg", "ten 2", "2"));
-//        playList.add(new Playlist("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg", "ten 3", "3"));
+
         PlaylistService.playlistservice.getPlayListList(Tmp.current_username)
             .enqueue(new Callback<DataJson<Playlist>>() {
                 @Override
@@ -205,7 +196,6 @@ public class LibraryFragment extends Fragment {
                     DataJson<Playlist> dataJson = response.body();
                     if (dataJson != null) {
                         if (dataJson.isStatus() == true) {
-//                            playList = (List<Playlist>) dataJson.getData();
                             for (int i = 0; i < dataJson.getData().size(); i++) {
                                 if (dataJson.getData().get(i).getImageUrl() == null) {
                                     dataJson.getData().get(i).setImageUrl("https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_2.jpg");
@@ -226,7 +216,7 @@ public class LibraryFragment extends Fragment {
                 }
             });
 
-        sections.add(new Section("History", history));
+        sections.add(new Section("", history));
         sections.add(new Section("Favorites", favorite));
         sections.add(new Section("Playlist", playList));
 
