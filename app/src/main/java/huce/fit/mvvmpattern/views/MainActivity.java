@@ -84,39 +84,6 @@ public class MainActivity extends AppCompatActivity {
         playPause = findViewById(R.id.iconPlayPause);
         next = findViewById(R.id.iconNextTrack);
 
-
-
-//        playPause.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(mediaPlayer.isPlaying()) {
-//                    mediaPlayer.pause();
-//                    playPause.setImageResource(R.drawable.ic_play);
-//                    stopAnimation();
-//                }else {
-//                    mediaPlayer.start();
-//                    playPause.setImageResource(R.drawable.ic_pause);
-//                    startAnimation();
-//                }
-//            }
-//        });
-////        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
-//        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/anytimeanywhere_milet");
-//        mediaPlayer = new MediaPlayer();
-//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//        try {
-////            mediaPlayer.setDataSource(music_url);
-//            mediaPlayer.setDataSource(getApplicationContext(), uri);
-//            mediaPlayer.prepareAsync();
-//            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//                @Override
-//                public void onPrepared(MediaPlayer mp) {
-//                }
-//            });
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         View view = findViewById(R.id.mini_player);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,10 +181,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-//    public void openMusicPlayer() {
-//        Intent intent = new Intent(this, MusicPlayerActivity.class);
-//        startActivity(intent);
-//    }
+
     public void openMusicPlayer() {
         Intent intent = new Intent(this, MusicPlayerActivity.class);
         startActivity(intent);

@@ -17,7 +17,4 @@ public class UpdateAccountViewModel extends AndroidViewModel {
     public UpdateAccountViewModel(@NonNull Application application) {
         super(application);
     }
-//    public LiveData<Integer> onChangePassword(Account account){
-//        return acc.changePassword(account);
-//    }
 }

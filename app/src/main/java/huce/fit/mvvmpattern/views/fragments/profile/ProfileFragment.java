@@ -144,75 +144,6 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
                                     }
                                 });
                             }
-                            // do chưa xử lý luồng kĩ nên đôi khi thông báo trễ hay bị nhảy
-//                                login.checkLogin(acc).observe(getViewLifecycleOwner(), new Observer<Integer>() {
-//                                    @Override
-//                                    public void onChanged(Integer integer) {
-//                                        Log.e("str_login", acc.getPassword()+" "+strNewPassword+" "+strPasswordIncorrect+integer);
-//////                                            handleLoginStatus(integer, strNewPassword);
-//                                                Log.e("status_str","trạng thái:"+integer);
-//                                    }
-//
-//                                });
-////                                one =false;
-//                            login.checkLogin(acc).removeObservers(getViewLifecycleOwner());
-                                    //Log.e("str_login", acc.getPassword()+" "+strNewPassword+" "+strPasswordIncorrect);
-                                    // lỗi này kiểu kiểu luôn phải bắt đầu tiên
-//                                    if((!strNewPassword.equals(strPasswordIncorrect))){
-//                                        integer = Status.incorrectConfirmPassword;
-//                                    }
-//                                    if(strNewPassword.equals("")){
-//                                        integer = Status.emptyNewPassword;
-//                                    }
-//                                    switch (integer) {
-//                                        case Status.loginFail:
-//
-//                                                Log.e("str_i","cur_pas:"+acc.getPassword()+"newpass:"+strNewPassword);
-//                                                Toast.makeText(mainActivity, R.string.error_check_failed_password, Toast.LENGTH_SHORT).show();
-//
-//                                            break;
-//                                        case Status.loginSuccess:
-//
-//                                                Log.e("str_cor", acc.getPassword()+" "+strNewPassword+" "+strPasswordIncorrect);
-//                                                acc.setPassword(strNewPassword);
-//                                                UpdateAccount.onChangePassword(acc).observe(mainActivity, accountDataJson -> {
-//                                                });
-//                                                Toast.makeText(mainActivity, R.string.toast_update_success, Toast.LENGTH_SHORT).show();
-//
-//                                            break;
-//                                        case Status.emptyPassword:
-//
-//                                                Toast.makeText(mainActivity, R.string.error_input_password, Toast.LENGTH_SHORT).show();
-//
-//                                            break;
-//                                        case Status.incorrectConfirmPassword:
-//
-//                                                Toast.makeText(mainActivity, R.string.error_confirm_password_incorrect, Toast.LENGTH_SHORT).show();
-//                                                Log.e("Status",integer.toString());
-//
-//                                            break;
-//                                        case Status.emptyNewPassword:
-//
-//                                                // thông báo giống do mật khẩu mới khôn
-//                                                Toast.makeText(mainActivity, R.string.error_input_new_password, Toast.LENGTH_SHORT).show();
-//
-//                                            break;
-//                                        case Status.updateFail:
-//                                            String message = login.getMessage().getValue();
-//                                            if (message.contains(getString(R.string.sub_str_error_php_api)) == true) {
-//                                                Toast.makeText(mainActivity, getString(R.string.toast_failed_update)+". "+getString(R.string.error_php_api), Toast.LENGTH_SHORT).show();
-//                                            }
-//                                            else {
-//                                                Toast.makeText(mainActivity, message, Toast.LENGTH_SHORT).show();
-//                                            }
-//                                            break;
-//                                    }
-//                                    Log.e("check","cur:"+acc.getPassword());
-//                                    Log.e("check",acc.getPassword()+"|"+strNewPassword+"|"+strPasswordIncorrect+"|"+integer);
-//                                    login.checkLogin(acc).removeObservers(getViewLifecycleOwner());
-                             //   });
-
-//                            Toast.makeText(mainActivity, strCurrentPassword+", "+strNewPassword+", "+strPasswordIncorrect, Toast.LENGTH_SHORT).show();
                         })
                         .setNegativeButton("Cancel", (dialog, which) -> {
                             dialog.dismiss();
@@ -222,6 +153,5 @@ public class ProfileFragment extends Fragment implements LifecycleOwner{
             }
         });
         return view;
-//        return super.onCreateView(inflater, container, savedInstanceState);
     }
 }

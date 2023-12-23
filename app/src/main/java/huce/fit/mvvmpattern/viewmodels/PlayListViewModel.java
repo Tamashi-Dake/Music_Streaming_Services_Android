@@ -12,7 +12,4 @@ public class PlayListViewModel extends AndroidViewModel {
     public PlayListViewModel(@NonNull Application application) {
         super(application);
     }
-//    public LiveData<List<SongInfo>> getSongPlaylist(String str){
-//        return playlist.getPlayListMutableLiveData(str);
-//    }
 }

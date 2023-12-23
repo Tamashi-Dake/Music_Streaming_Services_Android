@@ -60,7 +60,6 @@ public class BigHitAdapter extends RecyclerView.Adapter<BigHitAdapter.BigHitView
     @Override
     public int getItemCount() {
         if (items != null) {
-//            return items.size();
             return items.size() * 100;
         }
         return 0;

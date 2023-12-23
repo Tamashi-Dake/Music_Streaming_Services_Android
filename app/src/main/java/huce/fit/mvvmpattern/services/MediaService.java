@@ -95,14 +95,6 @@ public class MediaService extends Service {
     }
 
     private static void updateSeekBar () {
-//        handler.postDelayed(runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                startMillisecondsMutableLiveData.setValue(mediaPlayer.getCurrentPosition());
-//                handler.postDelayed(this, 500);
-//            }
-//        }, 500);
-
         runnable = new Runnable() {
             @Override
             public void run() {
