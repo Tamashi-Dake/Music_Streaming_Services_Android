@@ -206,9 +206,6 @@ public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
-//    public void setOnMoreButtonClickListener(IClickSongOption listener) {
-//        this.iClickSongOption = listener;
-//    }
     @Override
     public int getItemViewType(int position) {
         switch (position) {

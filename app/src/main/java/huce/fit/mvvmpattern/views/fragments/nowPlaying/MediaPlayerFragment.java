@@ -75,7 +75,6 @@ public class MediaPlayerFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_media_player, container, false);
         musicPlayerActivity = (MusicPlayerActivity) getActivity();
 
-//        MediaService.isComing = musicPlayerActivity.getIntent().ge;
         MediaService.isComing = true;
 
         if (musicPlayerActivity.getIntent().getBooleanExtra("isComingFromMiniPlayer", false) == true) {
@@ -86,7 +85,6 @@ public class MediaPlayerFragment extends Fragment {
             musicPlayerActivity.startService(intent);
 
             init(view);
-//        addSong();
             addSongAdapter();
         }
         initMediaPlayer();
@@ -99,20 +97,6 @@ public class MediaPlayerFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
-
-//    private void loadingImage () {
-//        musicPlayerActivity.runOnUiThread(
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        if (mediaPlayer != null) {
-//                            Glide.with(ivDisc.getContext()).load(MainActivity.song.getImage()).into(ivDisc);
-//                        }
-//                        handler.postDelayed(this, 100);
-//                    }
-//                }
-//        );
-//    }
 
     private void startAnimation() {
         Runnable runnable = new Runnable() {
@@ -184,52 +168,12 @@ public class MediaPlayerFragment extends Fragment {
     private void eventIbRepeat () {
         ibRepeat.setOnClickListener(view -> {
             MediaService.eventRepeat();
-//            if (ibRepeat.getTag() == null) {
-//                ibRepeat.setTag("2");
-//            }
-//
-//            String status = ibRepeat.getTag().toString();
-//            // 0: off  |  1: one  |  2: all
-//            switch (status) {
-//                case "0":
-//                case "1":
-//                    ibRepeat.setTag("2");
-//                    ibShuffle.setTag("0");
-//                    ibRepeat.setImageResource(R.drawable.ic_repeat_red);
-//                    ibShuffle.setImageResource(R.drawable.ic_shuffle_white);
-//                    break;
-//                case "2":
-//                    ibRepeat.setTag("1");
-//                    ibShuffle.setTag("0");
-//                    ibRepeat.setImageResource(R.drawable.ic_repeat_one_red);
-//                    ibShuffle.setImageResource(R.drawable.ic_shuffle_white);
-//                    break;
-//            }
         });
     }
 
     private void eventIbShuffle () {
         ibShuffle.setOnClickListener(view -> {
             MediaService.eventShuffle();
-//            if (ibShuffle.getTag() == null) {
-//                ibShuffle.setTag("0");
-//            }
-//
-//            String status = ibShuffle.getTag().toString();
-//            // 0: off  |  1: on
-//            switch (status) {
-//                case "0":
-//                    ibShuffle.setTag("1");
-//                    ibRepeat.setTag("0");
-//                    ibShuffle.setImageResource(R.drawable.ic_shuffle_red);
-//                    ibRepeat.setImageResource(R.drawable.ic_repeat_white);
-//                    break;
-//                case "1":
-//                    ibShuffle.setTag("0");
-//                    ibRepeat.setTag("2");
-//                    ibShuffle.setImageResource(R.drawable.ic_shuffle_white);
-//                    break;
-//            }
         });
     }
 
@@ -306,17 +250,6 @@ public class MediaPlayerFragment extends Fragment {
         ibBack = view.findViewById(R.id.ib_back);
     }
 
-//    private void addSong () {
-//        linkSongList = new ArrayList<>();
-//        linkSongList.add(MainActivity.song.getLinkSong());
-////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Red.mp3");
-////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Smooth Criminal.mp3");
-////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Em của ngày hôm qua.mp3");
-////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Nơi này có anh.mp3");
-////        linkSongList.add("https://tongdangtu.000webhostapp.com/song/Chạy ngay đi.mp3");
-//        MediaService.addSong(linkSongList);
-//    }
-
     private void addSongAdapter () {
         songList = new ArrayList<>();
         if (MainActivity.song != null && MainActivity.songList != null) {
@@ -333,12 +266,6 @@ public class MediaPlayerFragment extends Fragment {
         else if (MainActivity.songList != null) {
             songList.addAll(MainActivity.songList);
         }
-//        linkSongAdapterList.add(new Song("10005", "https://nhomhungtu.000webhostapp.com/img/Em của ngày hôm qua.jpg", "Em của ngày hôm qua", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Em của ngày hôm qua.mp3", "pop"));
-//        linkSongAdapterList.add(new Song("10001", "https://nhomhungtu.000webhostapp.com/img/Nơi này có anh.jpg", "Nơi này có anh", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Nơi này có anh.mp3", "pop"));
-//        linkSongAdapterList.add(new Song("10004", "https://nhomhungtu.000webhostapp.com/img/Chạy ngay đi.jpg", "Chạy ngay đi", "Sơn Tùng MTP", "https://nhomhungtu.000webhostapp.com/song/Chạy ngay đi.mp3", "pop"));
-//        linkSongAdapterList.add(new Song("10002", "https://nhomhungtu.000webhostapp.com/img/Red.jpg", "Red", "Taylor Swift", "https://nhomhungtu.000webhostapp.com/song/Red.mp3", "pop"));
-//        linkSongAdapterList.add(new Song("10003", "https://nhomhungtu.000webhostapp.com/img/Smooth Criminal.jpg", "Smooth Criminal", "Michael Jackson", "https://nhomhungtu.000webhostapp.com/song/Smooth Criminal.mp3", "pop"));
-//        linkSongAdapterList.add()
         MediaService.addSongAdapter(songList);
     }
 
@@ -396,9 +323,6 @@ public class MediaPlayerFragment extends Fragment {
             MediaService.getArtistMutableLiveData().observe(musicPlayerActivity, artistName -> {
                 tvArtistName.setText(artistName);
             });
-//            MediaService.getCategoryMutableLiveData().observe(musicPlayerActivity, categoryName -> {
-//                tvCategoryName.setText(categoryName);
-//            });
             MediaService.getLinkPictureMutableLiveData().observe(musicPlayerActivity, linkPicture -> {
                 Glide.with(ivDisc.getContext()).load(linkPicture).into(ivDisc);
             });

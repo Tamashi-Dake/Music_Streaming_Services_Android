@@ -16,7 +16,6 @@ import retrofit2.Response;
 public class PlayListRepository {
     private MutableLiveData<List<SongInfo>> playListMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<List<SongInfo>> getPlayListMutableLiveData(String query) {
-//        Log.e("Query",query);
         PlaylistService.playlistservice.getPlayListByID(query).enqueue(new Callback<DataJson<SongInfo>>() {
             @Override
             public void onResponse(Call<DataJson<SongInfo>> call, Response<DataJson<SongInfo>> response) {

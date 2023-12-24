@@ -48,18 +48,6 @@ public class TrackInfoFragment extends Fragment {
         tvPlayedTime = view.findViewById(R.id.tv_played_time);
 
         musicPlayerActivity = (MusicPlayerActivity) getActivity();
-//        musicPlayerActivity.runOnUiThread(
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Glide.with(ivSong.getContext()).load(MainActivity.song.getImage()).into(ivSong);
-//                        tvArtist.setText(MainActivity.song.getArtistName());
-//                        tvCategory.setText(MainActivity.song.getCategoryName());
-//                        tvSongName.setText(MainActivity.song.getTrackName());
-//                        tvArtistName.setText(MainActivity.song.getArtistName());
-//                    }
-//                }
-//        );
 
         MediaService.getTitleMutableLiveData().observe(musicPlayerActivity, songName -> {
             tvSongName.setText(songName);
