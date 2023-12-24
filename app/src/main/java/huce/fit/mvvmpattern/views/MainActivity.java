@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         binding.setLifecycleOwner(this);
@@ -84,47 +83,12 @@ public class MainActivity extends AppCompatActivity {
         playPause = findViewById(R.id.iconPlayPause);
         next = findViewById(R.id.iconNextTrack);
 
-
-
-//        playPause.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(mediaPlayer.isPlaying()) {
-//                    mediaPlayer.pause();
-//                    playPause.setImageResource(R.drawable.ic_play);
-//                    stopAnimation();
-//                }else {
-//                    mediaPlayer.start();
-//                    playPause.setImageResource(R.drawable.ic_pause);
-//                    startAnimation();
-//                }
-//            }
-//        });
-////        String music_url = "https://samplelib.com/lib/preview/mp3/sample-3s.mp3";
-//        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/raw/anytimeanywhere_milet");
-//        mediaPlayer = new MediaPlayer();
-//        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//        try {
-////            mediaPlayer.setDataSource(music_url);
-//            mediaPlayer.setDataSource(getApplicationContext(), uri);
-//            mediaPlayer.prepareAsync();
-//            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//                @Override
-//                public void onPrepared(MediaPlayer mp) {
-//                }
-//            });
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         View view = findViewById(R.id.mini_player);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 openMusicPlayerFromMiniPlayer();
-//                vì lý do nào đó mà animation ko nhận đc
-//                overridePendingTransition(R.anim.slide_up, R.anim.slide_up_out);
             }
         });
 
@@ -198,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//               vì lý do gì đó mà switch không nhận được R.id... nên đành phải dùng if else
+//               switch không nhận được R.id
                 int id = item.getItemId();
                 if (id == R.id.action_home) {
                     viewPager.setCurrentItem(0);
@@ -214,10 +178,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-//    public void openMusicPlayer() {
-//        Intent intent = new Intent(this, MusicPlayerActivity.class);
-//        startActivity(intent);
-//    }
+
     public void openMusicPlayer() {
         Intent intent = new Intent(this, MusicPlayerActivity.class);
         startActivity(intent);

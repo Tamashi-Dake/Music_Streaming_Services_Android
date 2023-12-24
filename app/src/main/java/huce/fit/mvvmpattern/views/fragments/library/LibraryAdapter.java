@@ -275,7 +275,6 @@ public class LibraryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                         dialog.dismiss();
                     })
                     .setNeutralButton("Delete", (dialog, which) -> {
-//                        Toast.makeText(context, "Đã bấm nút xóa. Id:"+playlist.getId(), Toast.LENGTH_SHORT).show();
                         String playlistName = edtPlaylistName.getText().toString().trim();
                         playlist.setTitle(playlistName);
                         Log.e("ID",playlist.getId().toString());

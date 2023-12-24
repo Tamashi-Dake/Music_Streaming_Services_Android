@@ -47,32 +47,7 @@ public class ArtistActivity extends AppCompatActivity {
         if (bundle == null) {
             return;
         }
-//        Playlist playlist = (Playlist) bundle.get("playlist");
-//        TextView textView = findViewById(R.id.tvPlaylist);
-//        textView.setText(playlist.getTitle());
         constraintLayout = findViewById(R.id.clPlaylistInfo);
-//        constraintLayout
-//        Glide.with(this).load(playlist.getImageUrl()).into(new CustomTarget<Drawable>() {
-//
-//            @Override
-//            public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-//                    constraintLayout.setBackground(resource);
-//                }
-//            }
-//
-//            @Override
-//            public void onLoadCleared(@Nullable Drawable placeholder) {
-//
-//            }
-//        });
-//        btnGoBack = findViewById(R.id.btnBack);
-//        btnGoBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(ArtistActivity.this, "Back", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         recyclerView = findViewById(R.id.rcvArtistSongs);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
@@ -104,7 +79,6 @@ public class ArtistActivity extends AppCompatActivity {
     }
     private List<Song> getSong(){
         List<Song> list = new ArrayList<>();
-//        list.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg","Song 1","Artist 1", "", ""));
         return list;
     }
 }

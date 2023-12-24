@@ -25,7 +25,6 @@ public PlaylistAdapter(List<Playlist> list,IClickItemPlaylist iClickItemPlaylist
     this.items = list;
 }
 public void setItems(List<Playlist> list ){
-//    this.iClickItemPlaylist = iClickItemPlaylist;
     this.items = list;
 //    load và bind dữ liệu vào adapter
     notifyDataSetChanged();

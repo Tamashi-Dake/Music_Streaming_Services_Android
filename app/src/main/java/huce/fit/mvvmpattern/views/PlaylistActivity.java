@@ -212,7 +212,6 @@ public class PlaylistActivity extends AppCompatActivity {
 
     private List<Song> getPlaylistSong(){
         list = new ArrayList<>();
-//        list.add(new Song("1","https://raw.githubusercontent.com/Tamashi-Dake/Online_Music_Player_Android/main/app/src/main/res/drawable/img_3.jpg","Song 1","Artist 1", "", ""));
         Bundle bundle = getIntent().getExtras();
         Playlist playlist = (Playlist) bundle.getSerializable("playlist");
         SongInfoService.songInfoService.getListSongByPlayListID(playlist.getId())
